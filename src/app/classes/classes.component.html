@@ -1,0 +1,137 @@
+<div class="class">
+  <div class="class__wrapper">
+    <div class="class__controll">
+      <div class="tabs">
+        <button (click)="selectClass('barbarian')">Barbarian</button>
+        <button (click)="selectClass('bard')">Bard</button>
+        <button (click)="selectClass('cleric')">Cleric</button>
+      </div>
+    </div>
+    <div class="class__data" *ngIf="classData">
+      <div class="class__header-info">
+        <h2 class="class__header-info-title">{{ classData.name }}</h2>
+        <p class="class__header-info-hitReg">{{ classData.hit_die }}</p>
+      </div>
+      <ul class="class__proficiency">
+        <li
+          class="class__proficiency-item"
+          *ngFor="let proficiency of classData.proficiencies"
+        >
+          <a [href]="proficiency.url" class="class__proficiency-item-url">{{
+            proficiency.name
+          }}</a>
+        </li>
+      </ul>
+
+      <ul class="class__proficiency-choices">
+        <li
+          class="class__proficiency-item"
+          *ngFor="let proficiencies__choices of classData.proficiency_choices"
+        >
+          <h2 class="class__proficiency-item-title">
+            {{ proficiencies__choices.type }}
+          </h2>
+          <span class="class__proficiency-item-text">{{
+            proficiencies__choices.desc
+          }}</span>
+        </li>
+      </ul>
+
+      <div class="class__saving">
+        <h2 class="class__saving-title">Saving Throws</h2>
+        <ul class="class__saving-list">
+          <li
+            class="class__saving-item"
+            *ngFor="let saving of classData.saving_throws"
+          >
+            <a [href]="saving.url" class="class__saving-item-link">{{
+              saving.name
+            }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="class__starting-equipment">
+        <h2>Starting Equipment</h2>
+        <ul>
+          <li *ngFor="let equipment of classData.starting_equipment">
+            <a [href]="equipment.equipment.url">{{
+              equipment.equipment.name
+            }}</a>
+            <span>Quantity: {{ equipment.quantity }}</span>
+          </li>
+        </ul>
+        <div *ngFor="let option of classData.starting_equipment_options">
+          <p>{{ option.desc }}</p>
+          <ul>
+            <li *ngFor="let item of option.from.options">
+              <ng-container
+                *ngIf="
+                  item.option_type === 'counted_reference';
+                  else choiceBlock
+                "
+              >
+              </ng-container>
+
+              <ng-template #choiceBlock>
+                <ng-container *ngIf="item.option_type === 'choice'">
+                  {{ item.choice?.desc }}
+                </ng-container>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="class__multiclass">
+        <h2>Multiclassing</h2>
+        <div
+          class="class__multiclass-loop"
+          *ngFor="let multiclass of classData.multi_classing.prerequisites"
+        >
+          <div class="class__multiclass-prerequisites">
+            {{ multiclass.ability_score.name }}
+            {{ multiclass.minimum_score }}
+          </div>
+        </div>
+        <div
+          class="class__multiclass-loop"
+          *ngFor="let multiclass of classData.multi_classing.proficiencies"
+        >
+          <div class="class__multiclass-proficiencies">
+            {{ multiclass.name }}
+          </div>
+        </div>
+      </div>
+
+      <div class="class-subclasses">
+        <h2 class="class-subclasses__title">Subclasses</h2>
+        <ul class="class-subclasses__list">
+          <li
+            class="class-subclasses__item"
+            *ngFor="let subclass of classData.subclasses"
+          >
+            <a class="class-subclasses__link" [href]="subclass.url">{{
+              subclass.name
+            }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="spellcasting" *ngIf="hasSpellcasting()">
+        <h2 class="spellcasting__title">Spellcasting</h2>
+        <p class="spellcasting__level">{{ classData.spellcasting?.level }}</p>
+        <span class="spellcasting__ability-name">{{
+          classData.spellcasting?.spellcasting_ability?.name
+        }}</span>
+        <div
+          class="spellcasting__info"
+          *ngFor="let ability of classData.spellcasting?.info"
+        >
+          <span class="spellcasting__info-name">{{ ability.name }}</span>
+          <span class="spellcasting__info-desc">{{ ability.desc }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
