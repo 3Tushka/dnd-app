@@ -61,25 +61,42 @@
             <span>Quantity: {{ equipment.quantity }}</span>
           </li>
         </ul>
-        <div *ngFor="let option of classData.starting_equipment_options">
-          <p>{{ option.desc }}</p>
-          <ul>
-            <li *ngFor="let item of option.from.options">
-              <ng-container
-                *ngIf="
-                  item.option_type === 'counted_reference';
-                  else choiceBlock
-                "
-              >
-              </ng-container>
 
-              <ng-template #choiceBlock>
-                <ng-container *ngIf="item.option_type === 'choice'">
-                  {{ item.choice?.desc }}
-                </ng-container>
-              </ng-template>
-            </li>
-          </ul>
+        <div
+          class="equipment-options"
+          *ngFor="let option of classData.starting_equipment_options"
+        >
+          <div class="equipment-options__option">
+            {{ option.choose }} x {{ option.desc }}
+          </div>
+          <div
+            class="equipment-options__option-detail"
+            *ngFor="let optionFromItem of option.from.options"
+          >
+            <ng-container
+              *ngIf="
+                optionFromItem.option_type === 'counted_reference';
+                else choiceBlock
+              "
+            >
+              <span class="equipment-options__option-count">
+                {{ optionFromItem.counted_reference?.count }}
+              </span>
+              <span class="equipment-options__option-name">
+                {{ optionFromItem.counted_reference?.of?.name }}
+              </span>
+            </ng-container>
+            <ng-template #choiceBlock>
+              <ng-container *ngIf="optionFromItem.option_type === 'choice'">
+                <div class="equipment-options__choice-description">
+                  {{ optionFromItem.choice?.desc }}
+                </div>
+                <div class="equipment-options__choice-option">
+                  {{ optionFromItem.choice?.choose }}
+                </div>
+              </ng-container>
+            </ng-template>
+          </div>
         </div>
       </div>
 
@@ -124,14 +141,25 @@
         <span class="spellcasting__ability-name">{{
           classData.spellcasting?.spellcasting_ability?.name
         }}</span>
-        <div
-          class="spellcasting__info"
-          *ngFor="let ability of classData.spellcasting?.info"
-        >
-          <span class="spellcasting__info-name">{{ ability.name }}</span>
-          <span class="spellcasting__info-desc">{{ ability.desc }}</span>
+        <div class="accordion">
+          <div
+            class="accordion__item"
+            *ngFor="let ability of classData.spellcasting?.info; let i = index"
+            (click)="openedItemIndex = openedItemIndex === i ? null : i"
+          >
+            <div class="accordion__item-header">
+              <span class="spellcasting__info-name">{{ ability.name }}</span>
+              <span class="accordion__item-indicator">
+                {{ openedItemIndex === i ? "-" : "+" }}
+              </span>
+            </div>
+            <div *ngIf="openedItemIndex === i" class="accordion__item-body">
+              <span class="spellcasting__info-desc">{{ ability.desc }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <app-classes-lvl [currentClass]="currentClass" />
 </div>

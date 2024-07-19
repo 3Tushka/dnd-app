@@ -9,8 +9,10 @@ import { ClassInterface } from './classes.interface';
   styleUrls: ['./classes.component.scss'],
 })
 export class ClassesComponent implements OnInit {
-  currentClass = new BehaviorSubject<string>('barbarian');
+  currentClass = new BehaviorSubject<string>('bard');
   classData!: ClassInterface | null;
+
+  openedItemIndex: number | null = null;
 
   constructor(private classesService: ClassesService) {}
 

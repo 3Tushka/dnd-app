@@ -1,0 +1,21 @@
+.accordion {
+    .accordion__item {
+        cursor: pointer;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+
+    .accordion__item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .accordion__item-body {
+        padding: 10px 0;
+    }
+}

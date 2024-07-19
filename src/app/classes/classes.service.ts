@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   ClassFeaturesResponseInterface,
   ClassInterface,
+  ClassLevelInterface,
   SpellcastingInterface,
 } from './classes.interface';
 
@@ -27,5 +28,15 @@ export class ClassesService {
   getFeaturesForClasses(className: string) {
     const apiUrl = `${this.baseUrl}${className}/features`;
     return this.http.get<ClassFeaturesResponseInterface>(apiUrl);
+  }
+
+  getClassesLevels(className: string) {
+    const apiUrl = `${this.baseUrl}${className}/levels`;
+    return this.http.get<ClassLevelInterface>(apiUrl);
+  }
+
+  getClassLevelDetails(className: string, level: number) {
+    const apiUrl = `${this.baseUrl}${className}/levels/${level}`;
+    return this.http.get(apiUrl);
   }
 }
