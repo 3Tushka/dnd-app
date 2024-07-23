@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<!-- Toggle Buttons -->
+<button (click)="toggleSection('mechanics')">Toggle Mechanics</button>
+<button (click)="toggleSection('damage')">Toggle Damage</button>
+<button (click)="toggleSection('magic')">Toggle Magic School</button>
+
+<div *ngIf="showMechanics">
+  <p>mechanics works!</p>
+  <div *ngFor="let conditionType of buttonsConditionsTypes">
+    <button (click)="setMechanicCondition(conditionType.toLocaleLowerCase())">
+      {{ conditionType }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showDamage">
+  Damage
+  <div *ngFor="let damageType of buttonsDamageTypes">
+    <button (click)="setDamageTypeCondition(damageType.toLowerCase())">
+      {{ damageType }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showMagic">
+  Magic School
+  <div *ngFor="let magicType of buttonsMagicSchools">
+    <button (click)="setMagicSchoolCondition(magicType.toLowerCase())">
+      {{ magicType }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="mechanicsData">
+  {{ mechanicsData.name }}
+  <div *ngFor="let mechanics of mechanicsData.desc">
+    {{ mechanics }}
+  </div>
+</div>

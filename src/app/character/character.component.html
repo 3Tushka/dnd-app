@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+
+<div class="buttons" *ngFor="let buttonItem of abilityButtonArray">
+  <button class="button" (click)="getAbilityScore(buttonItem.id)">
+    {{ buttonItem.name }}
+  </button>
+</div>
+________________________________________________________________________________
+
+<div class="buttons-align" *ngFor="let buttonItemAlign of aligmentButtonArray">
+  <button class="button" (click)="getAlignments(buttonItemAlign.id)">
+    {{ buttonItemAlign.name }}
+  </button>
+</div>
+
+________________________________________________________________________________
+________________________________________________________________________________
+<div class="" *ngIf="characterData">
+  {{ characterData.name }}
+
+  <div class="skills" *ngFor="let skillItem of characterData.skills">
+    {{ skillItem.name }}
+  </div>
+
+  {{ characterData.abbreviation }}
+
+  {{ characterData.desc }}
+</div>

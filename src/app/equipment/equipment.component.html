@@ -1,0 +1,24 @@
+<div>
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Search by index..."
+  />
+  <button (click)="searchEquipment()">Search</button>
+</div>
+
+<!-- <div class="" *ngIf="equipmentData">
+  <div class="category" *ngIf="knownCategories.includes(searchTerm)">
+    {{ equipmentData.name }}
+  </div>
+</div> -->
+
+<div class="" *ngIf="equipmentCategoryData">
+  {{ equipmentCategoryData.name }}
+
+  <div class="" *ngFor="let item of equipmentCategoryData.equipment">
+    <div class="item">
+      <div class="name">{{ item.name }}</div>
+    </div>
+  </div>
+</div>
