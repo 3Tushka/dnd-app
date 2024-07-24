@@ -1,0 +1,10 @@
+<app-monster [monsterName]="selectMonsterName"></app-monster>
+
+<div class="monsters" *ngIf="showMonsterList">
+  <div class="monster-state" *ngIf="monsterDataList">
+    <div *ngFor="let item of monsterDataList.results">
+      {{ item.name }}
+      <span (click)="selectMonster(item.url)">{{ item.name }}</span>
+    </div>
+  </div>
+</div>

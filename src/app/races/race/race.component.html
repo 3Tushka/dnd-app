@@ -1,0 +1,72 @@
+<div class="race" *ngIf="raceData">
+  <div class="race__header">
+    <div class="race__profile">
+      <h2>{{ raceData.name }}</h2>
+      <div class="race__bonuses">
+        <div
+          class="race__bonuses-item"
+          *ngFor="let bonus of raceData.ability_bonuses"
+        >
+          <span class="race__bonuses-item--title">{{
+            bonus.ability_score.name
+          }}</span>
+          <span class="race__bonuses-item--number">{{ bonus.bonus }}</span>
+        </div>
+      </div>
+      <div class="race__about">
+        <span>Your walking speed is {{ raceData.speed }}</span>
+        <p>Age: {{ raceData.age }}</p>
+        <p>Size: {{ raceData.size }}</p>
+        <p>{{ raceData.alignment }}</p>
+        <p>{{ raceData.size_description }}</p>
+      </div>
+    </div>
+    <div class="race__image">
+      <img [src]="imagePath" alt="image-profile" />
+    </div>
+  </div>
+
+  <div class="race__language" *ngIf="raceData.languages">
+    <h3>Languages</h3>
+    <div *ngFor="let lang of raceData.languages">
+      <span>{{ lang.name }}</span>
+    </div>
+    <span>{{ raceData.language_desc }}</span>
+  </div>
+  <div
+    class="race__proficiency"
+    *ngIf="raceData.starting_proficiencies.length > 0"
+  >
+    <h3>Proficiencies</h3>
+    <div *ngFor="let prof of raceData.starting_proficiencies">
+      <span>{{ prof.name }}</span>
+    </div>
+  </div>
+  <div
+    class="race__starting--proficiency"
+    *ngIf="raceData.starting_proficiency_options"
+  >
+    <h3>Choose a proficiency</h3>
+    {{ raceData.starting_proficiency_options.desc }}
+
+    <div
+      *ngFor="let prof of raceData.starting_proficiency_options.from.options"
+    >
+      <span>{{ prof.item.name }}</span>
+    </div>
+  </div>
+
+  <div class="race__traits" *ngIf="raceData.traits.length > 0">
+    <h3>Traits</h3>
+    <div *ngFor="let trait of raceData.traits">
+      <a [href]="trait.url">{{ trait.name }}</a>
+    </div>
+  </div>
+
+  <div class="race__subraces" *ngIf="raceData.subraces.length > 0">
+    <h3>Subraces</h3>
+    <div *ngFor="let subrace of raceData.subraces">
+      <a [href]="subrace.url">{{ subrace.name }}</a>
+    </div>
+  </div>
+</div>

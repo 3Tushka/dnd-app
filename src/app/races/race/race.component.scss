@@ -1,0 +1,90 @@
+.race {
+    font-family: "Caudex", serif;
+    font-size: 1.2rem;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        padding: 2rem 5rem;
+        margin-bottom: 1rem;
+    }
+
+    &__profile {
+        width: 100%;
+        max-width: 50vw;
+    }
+
+    &__image {
+        width: 100%;
+        max-width: 50vw;
+        display: flex;
+        justify-content: center;
+        img {
+            width: 400px;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+
+    &__bonuses {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem;
+
+        &-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+
+            background-color: #d0ab6f;
+            padding: 0.5rem;
+            border-radius: 10px;
+
+            font-weight: 400;
+            font-style: normal;
+
+            &--title {
+                font-weight: 600;
+                font-style: bold;
+            }
+
+            &--number {
+                position: relative;
+                background-color: #a68857; // Example color, adjust as needed
+                color: #fff; // Text color, adjust as needed
+                padding: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                width: 30px; // Adjusted for visibility
+                height: 30px; // Adjusted for visibility
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.5rem;
+
+                // Create a border using ::before pseudo-element
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -2px; // Adjust based on desired border thickness
+                    left: -2px; // Adjust based on desired border thickness
+                    width: calc(100% + 4px); // Adjust based on desired border thickness
+                    height: calc(100% + 4px); // Adjust based on desired border thickness
+                    background-color: transparent;
+                    border: 2px solid #000; // Border color and thickness
+                    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                    z-index: -1;
+                }
+
+                &:hover {
+                    transform: scale(1.1); // Slightly increase size
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); // Add shadow for depth
+                    background-color: darken(#007bff, 10%); // Darken background color
+                }
+            }
+        }
+    }
+}

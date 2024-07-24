@@ -1,0 +1,11 @@
+<app-feature [featureName]="selectedFeatureName"></app-feature>
+
+_________________________________________________
+<div class="features" *ngIf="showFeatureList">
+  <div class="feature-state" *ngIf="featureDataList">
+    <div *ngFor="let item of featureDataList.results">
+      {{ item.name }}
+      <span (click)="selectFeature(item.url)">{{ item.name }}</span>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,9 @@ import { MechanicsComponent } from "./mechanics/mechanics.component";
 import { RulesComponent } from "./rules/rules.component";
 import { CharacterComponent } from "./character/character.component";
 import { EquipmentComponent } from "./equipment/equipment.component";
+import { FeaturesComponent } from "./features/features.component";
+import { MonstersComponent } from "./monsters/monsters.component";
+import { RacesComponent } from "./races/races.component";
 
 const routes: Routes = [
   { path: "classes", component: ClassesComponent },
@@ -12,6 +15,9 @@ const routes: Routes = [
   { path: "rules", component: RulesComponent },
   { path: "character", component: CharacterComponent },
   { path: "equipment", component: EquipmentComponent },
+  { path: "features", component: FeaturesComponent },
+  { path: "monsters", component: MonstersComponent },
+  { path: "races", component: RacesComponent },
 ];
 
 @NgModule({

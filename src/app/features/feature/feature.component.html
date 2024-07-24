@@ -1,0 +1,12 @@
+<div class="feature" *ngIf="featureData">
+  {{ featureData.name }}
+  <p>{{ featureData.level }}</p>
+
+  <div class="feature__class">
+    <a [href]="featureData.class.url"> {{ featureData.class.name }}</a>
+  </div>
+
+  <div class="feature__desc" *ngFor="let item of featureData.desc">
+    {{ item }}
+  </div>
+</div>

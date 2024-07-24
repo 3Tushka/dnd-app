@@ -17,6 +17,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatTableModule } from "@angular/material/table";
 import { MatCardModule } from "@angular/material/card";
 import { EquipmentComponent } from './equipment/equipment.component';
+import { FeaturesComponent } from './features/features.component';
+import { FeatureComponent } from './features/feature/feature.component';
+import { MonstersComponent } from './monsters/monsters.component';
+import { MonsterComponent } from './monsters/monster/monster.component';
+import { RacesComponent } from './races/races.component';
+import { RaceComponent } from './races/race/race.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +35,12 @@ import { EquipmentComponent } from './equipment/equipment.component';
     NavbarComponent,
     NavbarItemComponent,
     EquipmentComponent,
+    FeaturesComponent,
+    FeatureComponent,
+    MonstersComponent,
+    MonsterComponent,
+    RacesComponent,
+    RaceComponent,
   ],
   imports: [
     BrowserModule,

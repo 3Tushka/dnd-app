@@ -1,0 +1,7 @@
+<app-race [raceName]="selectedRaceName"></app-race>
+
+<ul *ngIf="showRaceList">
+  <li *ngFor="let race of raceListData?.results" (click)="select(race.url)">
+    {{ race.name }}
+  </li>
+</ul>
