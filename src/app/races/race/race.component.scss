@@ -1,6 +1,29 @@
+$dark-brown: #3d2317;
+$rich-red: #8f1d21;
+$background: #f2efd7;
+$creamy-beige: #f4f1e7;
+$charcoal-gray: #423d3b;
+$mystical-blue: #626d72;
+
 .race {
     font-family: "Caudex", serif;
     font-size: 1.2rem;
+    background-color: $dark-brown;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $rich-red;
+    }
+
+    main {
+        margin: 0 10rem;
+        padding: 2rem;
+        background-color: $background;
+    }
     &__header {
         display: flex;
         justify-content: space-between;
@@ -12,6 +35,15 @@
     &__profile {
         width: 100%;
         max-width: 50vw;
+
+        h2 {
+            font-size: 2.5rem;
+            color: black;
+
+            font-family: "Caudex";
+            font-style: normal;
+            font-weight: 700;
+        }
     }
 
     &__image {
@@ -23,6 +55,20 @@
             width: 400px;
             height: auto;
             object-fit: cover;
+        }
+    }
+
+    &-about {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &__item {
+            img {
+                max-width: 32px;
+                max-height: 32px;
+                object-fit: cover;
+            }
         }
     }
 
@@ -64,8 +110,6 @@
                 text-align: center;
                 font-weight: bold;
                 font-size: 1.5rem;
-
-                // Create a border using ::before pseudo-element
                 &::before {
                     content: "";
                     position: absolute;
@@ -78,13 +122,164 @@
                     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
                     z-index: -1;
                 }
+            }
+        }
+    }
 
-                &:hover {
-                    transform: scale(1.1); // Slightly increase size
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); // Add shadow for depth
-                    background-color: darken(#007bff, 10%); // Darken background color
+    &__traits {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &-header {
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+            h3 {
+                font-size: 2rem;
+                color: $rich-red;
+            }
+
+            img {
+                max-width: 70px;
+                max-height: 70px;
+                object-fit: cover;
+            }
+        }
+
+        &-items {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            a {
+                text-decoration: none;
+                color: $rich-red;
+
+                background-color: white;
+                padding: 0.5rem;
+                border-radius: 10px;
+
+                font-weight: 700;
+                font-style: normal;
+            }
+        }
+    }
+
+    &-about {
+        margin: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &__title {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: $rich-red;
+        }
+
+        &__description {
+            margin: 0;
+        }
+    }
+
+    &__ethnic {
+        padding: 2rem 10rem;
+
+        mat-accordion {
+            background-color: $background; // Use a variable or a specific color
+            padding: 1rem;
+            mat-expansion-panel {
+                margin-bottom: 1rem;
+                border: 1px solid $charcoal-gray; // Example variable for color
+                &:not(mat-expanded) {
+                    border-color: $mystical-blue; // Change border color when not expanded
+                }
+                mat-expansion-panel-header {
+                    background-color: $creamy-beige;
+                    mat-panel-title {
+                        color: $dark-brown;
+                        font-weight: 600;
+                        font-size: 1.6rem;
+                    }
+                }
+                mat-expansion-panel-content {
+                    background-color: $creamy-beige;
                 }
             }
         }
+
+        &-description {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+
+            .male {
+                color: #592dc0;
+                margin-right: 10px;
+
+                font-size: 1.5rem;
+                font-weight: bold;
+
+                margin: 0.5rem 0;
+                padding: 0;
+            }
+
+            .female {
+                color: #c02d76;
+                margin-right: 10px;
+
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin: 0.5rem 0;
+                padding: 0;
+            }
+
+            .surname {
+                color: #912dc0;
+                margin-right: 10px;
+
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin: 0.5rem 0;
+                padding: 0;
+            }
+        }
+        &-item {
+            display: flex;
+            margin: 0 5px;
+        }
+    }
+}
+
+.border-style {
+    position: relative;
+    background: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    font-family: Georgia, serif;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        height: 10px;
+        width: 100%;
+        left: 0;
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/23618/rip.svg) bottom;
     }
 }

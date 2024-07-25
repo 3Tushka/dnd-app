@@ -16,13 +16,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { MatTableModule } from "@angular/material/table";
 import { MatCardModule } from "@angular/material/card";
-import { EquipmentComponent } from './equipment/equipment.component';
-import { FeaturesComponent } from './features/features.component';
-import { FeatureComponent } from './features/feature/feature.component';
-import { MonstersComponent } from './monsters/monsters.component';
-import { MonsterComponent } from './monsters/monster/monster.component';
-import { RacesComponent } from './races/races.component';
-import { RaceComponent } from './races/race/race.component';
+import { EquipmentComponent } from "./equipment/equipment.component";
+import { FeaturesComponent } from "./features/features.component";
+import { FeatureComponent } from "./features/feature/feature.component";
+import { MonstersComponent } from "./monsters/monsters.component";
+import { MonsterComponent } from "./monsters/monster/monster.component";
+import { RacesComponent } from "./races/races.component";
+import { RaceComponent } from "./races/race/race.component";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { RaceComponent } from './races/race/race.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-
+    MatExpansionModule,
     MatTableModule,
     MatCardModule,
   ],

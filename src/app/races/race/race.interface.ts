@@ -41,3 +41,29 @@ export interface RaceInterface {
   subraces: RaceItem[];
   url: string;
 }
+
+// Filler Book Data for race. Export to race.data.filler.ts
+interface NameSet {
+  male: string[];
+  female: string[];
+  surnames: string[];
+}
+
+interface EthnicGroup {
+  name: string;
+  description: string;
+  names: NameSet;
+}
+
+export interface RaceData {
+  id: string;
+  board_spectrum: string;
+  variety: {
+    text: string;
+    quote: string;
+  };
+  institutions: string;
+  ambitions: string;
+  ethnic: string;
+  ethnic_groups: EthnicGroup[];
+}

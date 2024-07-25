@@ -12,8 +12,8 @@ export class RacesComponent {
   constructor(private raceService: RacesService) {}
 
   raceListData!: ListOfElementsInterface | null;
-  selectedRaceName: string = "human";
-  showRaceList: boolean = false;
+  selectedRaceName: string = "";
+  showRaceList: boolean = true;
 
   getRaceList() {
     this.raceService.getAllRaces().subscribe({

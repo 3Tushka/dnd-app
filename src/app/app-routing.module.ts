@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: "features", component: FeaturesComponent },
   { path: "monsters", component: MonstersComponent },
   { path: "races", component: RacesComponent },
+  // { path: "api/traits/:name", },
 ];
 
 @NgModule({

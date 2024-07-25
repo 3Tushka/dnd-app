@@ -1,72 +1,194 @@
 <div class="race" *ngIf="raceData">
-  <div class="race__header">
-    <div class="race__profile">
-      <h2>{{ raceData.name }}</h2>
-      <div class="race__bonuses">
-        <div
-          class="race__bonuses-item"
-          *ngFor="let bonus of raceData.ability_bonuses"
-        >
-          <span class="race__bonuses-item--title">{{
-            bonus.ability_score.name
-          }}</span>
-          <span class="race__bonuses-item--number">{{ bonus.bonus }}</span>
+  <main>
+    <div class="race__wrapper">
+      <div class="race__header">
+        <div class="race__profile">
+          <h2>{{ raceData.name }}</h2>
+          <div class="race__bonuses">
+            <div
+              class="race__bonuses-item"
+              *ngFor="let bonus of raceData.ability_bonuses"
+            >
+              <span class="race__bonuses-item--title">{{
+                bonus.ability_score.name
+              }}</span>
+              <span class="race__bonuses-item--number">{{ bonus.bonus }}</span>
+            </div>
+          </div>
+          <section class="race-about">
+            <div class="race-about__item">
+              <h3 class="race-about__title">Speed</h3>
+              <p class="race-about__description">
+                Your walking speed is {{ raceData.speed }}
+              </p>
+              <!-- <img src="../../../assets/images/svg/speed.webp" alt="" /> -->
+            </div>
+            <div class="race-about__item">
+              <h3 class="race-about__title">Age</h3>
+              <p class="race-about__description">{{ raceData.age }}</p>
+              <!-- <img src="../../../assets/images/svg/age.svg" alt="" /> -->
+            </div>
+            <div class="race-about__item">
+              <h3 class="race-about__title">Size</h3>
+              <p class="race-about__description">{{ raceData.size }}</p>
+              <!-- <img src="../../../assets/images/svg/size.svg" alt="" /> -->
+            </div>
+            <div class="race-about__item">
+              <h3 class="race-about__title">Size Description</h3>
+              <p class="race-about__description">
+                {{ raceData.size_description }}
+              </p>
+            </div>
+            <div class="race-about__item">
+              <h3 class="race-about__title">Alignment</h3>
+              <p class="race-about__description">{{ raceData.alignment }}</p>
+              <!-- <img src="../../../assets/images/svg/aligment.webp" alt="" /> -->
+            </div>
+          </section>
+        </div>
+        <div class="race__image">
+          <img [src]="imagePath" alt="image-profile" />
         </div>
       </div>
-      <div class="race__about">
-        <span>Your walking speed is {{ raceData.speed }}</span>
-        <p>Age: {{ raceData.age }}</p>
-        <p>Size: {{ raceData.size }}</p>
-        <p>{{ raceData.alignment }}</p>
-        <p>{{ raceData.size_description }}</p>
+
+      <div class="race__language" *ngIf="raceData.languages">
+        <h3>Languages</h3>
+        <div class="language__loop" *ngFor="let lang of raceData.languages">
+          <span>{{ lang.name }}</span>
+        </div>
+        <div class="language__desc border-style">
+          <span>{{ raceData.language_desc }}</span>
+        </div>
+      </div>
+      <div
+        class="race__proficiency"
+        *ngIf="raceData.starting_proficiencies.length > 0"
+      >
+        <header class="race__proficiency-header">
+          <h3>Proficiencies</h3>
+          <img src="../../../assets/images/svg/proficiency.svg" alt="" />
+        </header>
+        <div class="race__proficiency--item">
+          <span
+            *ngFor="
+              let prof of raceData.starting_proficiency_options.from.options
+            "
+            >{{ prof.item.name }}</span
+          >
+        </div>
+      </div>
+      <div
+        class="race__starting--proficiency"
+        *ngIf="raceData.starting_proficiency_options"
+      >
+        <header class="race__traits-header">
+          <h3>Choose a proficiencies</h3>
+          {{ raceData.starting_proficiency_options.desc }}
+        </header>
+
+        <div class="race__proficiency">
+          <span
+            *ngFor="
+              let prof of raceData.starting_proficiency_options.from.options
+            "
+            >{{ prof.item.name }}</span
+          >
+        </div>
+      </div>
+
+      <div class="race__traits" *ngIf="raceData.traits.length > 0">
+        <header class="race__traits-header">
+          <h3>Traits</h3>
+          <img src="../../../assets/images/svg/spells.svg" alt="" />
+        </header>
+        <div class="race__traits-items">
+          <a *ngFor="let trait of raceData.traits" [href]="trait.url">{{
+            trait.name
+          }}</a>
+        </div>
+      </div>
+
+      <div class="race__subraces" *ngIf="raceData.subraces.length > 0">
+        <header class="race__traits-header">
+          <h3>Subraces</h3>
+          <img src="../../../assets/images/svg/subclasses.svg" alt="" />
+        </header>
+
+        <div class="race__subraces-items">
+          <a *ngFor="let subrace of raceData.subraces" [href]="subrace.url">{{
+            subrace.name
+          }}</a>
+        </div>
+      </div>
+
+      <div class="race__filler" *ngFor="let item of raceDataBookFiller">
+        <div class="race__spectrum" *ngIf="item.board_spectrum">
+          <h3>Board Spectrum</h3>
+          <p>{{ item.board_spectrum }}</p>
+        </div>
+
+        <div class="race__variety">
+          <h3>Variety</h3>
+          <p>{{ item.variety.text }}</p>
+
+          <div class="race__variety--quote border-style">
+            <p>{{ item.variety.quote }}</p>
+          </div>
+        </div>
+
+        <div class="race__institutions">
+          <h3>Institutions</h3>
+          <p>{{ item.institutions }}</p>
+        </div>
+
+        <div class="race__ambitions">
+          <h3>Ambitions</h3>
+          <p>{{ item.ambitions }}</p>
+        </div>
+        <div class="race__ethnic">
+          <mat-accordion multi="true">
+            <mat-expansion-panel
+              class="race__ethnic-panel"
+              *ngFor="let ethnic of item.ethnic_groups"
+            >
+              <mat-expansion-panel-header class="race__ethnic-header">
+                <mat-panel-title class="race__ethnic-title">
+                  {{ ethnic.name }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p class="race__ethnic-description">{{ ethnic.description }}</p>
+              <div class="box">
+                <h5 class="male">Male:</h5>
+                <div
+                  *ngFor="let name of ethnic.names.male"
+                  class="race__ethnic-item"
+                >
+                  <span>{{ name }}</span>
+                </div>
+              </div>
+              <div class="box">
+                <h5 class="female">Female:</h5>
+                <div
+                  *ngFor="let name of ethnic.names.female"
+                  class="race__ethnic-item"
+                >
+                  <span>{{ name }}</span>
+                </div>
+              </div>
+
+              <div class="box">
+                <h5 class="surname">Surnames:</h5>
+                <div
+                  *ngFor="let name of ethnic.names.surnames"
+                  class="race__ethnic-item"
+                >
+                  <span>{{ name }}</span>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
       </div>
     </div>
-    <div class="race__image">
-      <img [src]="imagePath" alt="image-profile" />
-    </div>
-  </div>
-
-  <div class="race__language" *ngIf="raceData.languages">
-    <h3>Languages</h3>
-    <div *ngFor="let lang of raceData.languages">
-      <span>{{ lang.name }}</span>
-    </div>
-    <span>{{ raceData.language_desc }}</span>
-  </div>
-  <div
-    class="race__proficiency"
-    *ngIf="raceData.starting_proficiencies.length > 0"
-  >
-    <h3>Proficiencies</h3>
-    <div *ngFor="let prof of raceData.starting_proficiencies">
-      <span>{{ prof.name }}</span>
-    </div>
-  </div>
-  <div
-    class="race__starting--proficiency"
-    *ngIf="raceData.starting_proficiency_options"
-  >
-    <h3>Choose a proficiency</h3>
-    {{ raceData.starting_proficiency_options.desc }}
-
-    <div
-      *ngFor="let prof of raceData.starting_proficiency_options.from.options"
-    >
-      <span>{{ prof.item.name }}</span>
-    </div>
-  </div>
-
-  <div class="race__traits" *ngIf="raceData.traits.length > 0">
-    <h3>Traits</h3>
-    <div *ngFor="let trait of raceData.traits">
-      <a [href]="trait.url">{{ trait.name }}</a>
-    </div>
-  </div>
-
-  <div class="race__subraces" *ngIf="raceData.subraces.length > 0">
-    <h3>Subraces</h3>
-    <div *ngFor="let subrace of raceData.subraces">
-      <a [href]="subrace.url">{{ subrace.name }}</a>
-    </div>
-  </div>
+  </main>
 </div>
