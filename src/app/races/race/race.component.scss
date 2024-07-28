@@ -4,11 +4,15 @@ $background: #f2efd7;
 $creamy-beige: #f4f1e7;
 $charcoal-gray: #423d3b;
 $mystical-blue: #626d72;
+$paper-background: #fdfcf8; // Light paper-like background color
 
 .race {
     font-family: "Caudex", serif;
     font-size: 1.2rem;
-    background-color: $dark-brown;
+    background-image: url("../../../assets/images/backgrounds/wood.jpg");
+    background-size: contain;
+    background-repeat: repeat-y;
+    background-position: center;
 
     h1,
     h2,
@@ -20,9 +24,13 @@ $mystical-blue: #626d72;
     }
 
     main {
-        margin: 0 10rem;
+        margin: 0 5rem;
         padding: 2rem;
-        background-color: $background;
+        background-color: $paper-background;
+        background-image: url("../../../assets/images/backgrounds/paper.jpg"); // Add a paper texture image
+        background-attachment: fixed; // This creates the parallax effect
+        background-size: cover;
+        background-position: center;
     }
     &__header {
         display: flex;

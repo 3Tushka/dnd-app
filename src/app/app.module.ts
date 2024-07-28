@@ -24,6 +24,9 @@ import { MonsterComponent } from "./monsters/monster/monster.component";
 import { RacesComponent } from "./races/races.component";
 import { RaceComponent } from "./races/race/race.component";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material/button";
+import { ClassDetailsComponent } from './classes/class-details/class-details.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
     MonsterComponent,
     RacesComponent,
     RaceComponent,
+    ClassDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     MatExpansionModule,
     MatTableModule,
     MatCardModule,
+    MatButtonModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -2,6 +2,7 @@ import { Component, Input, signal, SimpleChanges } from "@angular/core";
 import { RacesService } from "../races.service";
 import { RaceData, RaceInterface } from "./race.interface";
 import { raceDataFiller } from "./race.data.filler";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-race",
@@ -9,26 +10,32 @@ import { raceDataFiller } from "./race.data.filler";
   styleUrls: ["./race.component.scss"],
 })
 export class RaceComponent {
-  @Input() raceName!: string;
+  raceName!: string;
   raceData!: RaceInterface | null;
   raceDataBookFiller: RaceData[] = raceDataFiller;
   imagePath!: string;
+
   readonly panelOpenState = signal(false);
 
-  constructor(private raceService: RacesService) {}
+  constructor(
+    private raceService: RacesService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["raceName"]) {
-      this.getRaceDetails(this.raceName);
-      this.getPronfeciencyForRace(this.raceName);
-      this.getTraitsForRace(this.raceName);
-      this.setImagePath(this.raceName);
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.raceName = params["id"];
+    });
 
-      this.checkIfRaceSame((matchedRace) => {
-        console.log("Matched Race Data:", matchedRace);
-        this.raceDataBookFiller = [matchedRace]; //wtf did i wrote. But its works o/
-      });
-    }
+    this.checkIfRaceSame((matchedRace) => {
+      console.log("Matched Race Data:", matchedRace);
+      this.raceDataBookFiller = [matchedRace]; //wtf did i wrote. But its works o/
+    });
+
+    this.getRaceDetails(this.raceName);
+    this.getPronfeciencyForRace(this.raceName);
+    this.getTraitsForRace(this.raceName);
+    this.setImagePath(this.raceName);
   }
 
   getRaceDetails(raceIndex: string) {

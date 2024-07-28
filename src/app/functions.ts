@@ -11,9 +11,12 @@ export function fetchApi<T>(
   return http.get<T>(apiUrl);
 }
 
-export function selectNameByLink(url: string): void {
-  const lastSegment = url.split("/").pop() || "";
+export function selectNameByLink(url: string) {
+  const cleanedUrl = url.replace(/^api\//, "");
+  const lastSegment = cleanedUrl.split("/").pop() || "";
   const decoded = decodeURIComponent(lastSegment);
   const formatted = decoded.replace(/\s+/g, "-").toLowerCase();
-  console.log("Formatted Link: ", formatted);
+  console.log("Formatted:", formatted);
+
+  return formatted;
 }

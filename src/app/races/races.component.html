@@ -1,7 +1,25 @@
-<app-race [raceName]="selectedRaceName"></app-race>
+<app-navbar />
 
-<ul *ngIf="showRaceList">
-  <li *ngFor="let race of raceListData?.results" (click)="select(race.url)">
-    {{ race.name }}
-  </li>
-</ul>
+<section class="races">
+  <div class="races__wrapper">
+    <div class="list">
+      <mat-card
+        class="list__item"
+        *ngFor="let race of raceListData?.results"
+        (click)="select(race.url)"
+        appearance="outlined"
+      >
+        <div class="item__bg"></div>
+        <mat-card-content>
+          <h2>{{ race.name }}</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
+            totam aperiam expedita molestiae provident quod temporibus sapiente
+            commodi veniam exercitationem vel, qui iste nihil neque, ipsa
+            maiores rerum hic laudantium
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>

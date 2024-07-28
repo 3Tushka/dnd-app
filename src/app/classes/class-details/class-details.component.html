@@ -1,0 +1,155 @@
+<app-navbar></app-navbar>
+
+<div class="class__data" *ngIf="dataOfClass">
+  <div class="class__header-info">
+    <h2 class="class__header-info-title">{{ dataOfClass.name }}</h2>
+    <p class="class__header-info-hitReg">{{ dataOfClass.hit_die }}</p>
+  </div>
+  <ul class="class__proficiency">
+    <li
+      class="class__proficiency-item"
+      *ngFor="let proficiency of dataOfClass.proficiencies"
+    >
+      <a [href]="proficiency.url" class="class__proficiency-item-url">{{
+        proficiency.name
+      }}</a>
+    </li>
+  </ul>
+
+  <ul class="class__proficiency-choices">
+    <li
+      class="class__proficiency-item"
+      *ngFor="let proficiencies__choices of dataOfClass.proficiency_choices"
+    >
+      <h2 class="class__proficiency-item-title">
+        {{ proficiencies__choices.type }}
+      </h2>
+      <span class="class__proficiency-item-text">{{
+        proficiencies__choices.desc
+      }}</span>
+    </li>
+  </ul>
+
+  <div class="class__saving">
+    <h2 class="class__saving-title">Saving Throws</h2>
+    <ul class="class__saving-list">
+      <li
+        class="class__saving-item"
+        *ngFor="let saving of dataOfClass.saving_throws"
+      >
+        <a [href]="saving.url" class="class__saving-item-link">{{
+          saving.name
+        }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="class__starting-equipment">
+    <h2>Starting Equipment</h2>
+    <ul>
+      <li *ngFor="let equipment of dataOfClass.starting_equipment">
+        <a [href]="equipment.equipment.url">{{ equipment.equipment.name }}</a>
+        <span>Quantity: {{ equipment.quantity }}</span>
+      </li>
+    </ul>
+
+    <div
+      class="equipment-options"
+      *ngFor="let option of dataOfClass.starting_equipment_options"
+    >
+      <div class="equipment-options__option">
+        {{ option.choose }} x {{ option.desc }}
+      </div>
+      <div
+        class="equipment-options__option-detail"
+        *ngFor="let optionFromItem of option.from.options"
+      >
+        <ng-container
+          *ngIf="
+            optionFromItem.option_type === 'counted_reference';
+            else choiceBlock
+          "
+        >
+          <span class="equipment-options__option-count">
+            {{ optionFromItem.counted_reference?.count }}
+          </span>
+          <span class="equipment-options__option-name">
+            {{ optionFromItem.counted_reference?.of?.name }}
+          </span>
+        </ng-container>
+        <ng-template #choiceBlock>
+          <ng-container *ngIf="optionFromItem.option_type === 'choice'">
+            <div class="equipment-options__choice-description">
+              {{ optionFromItem.choice?.desc }}
+            </div>
+            <div class="equipment-options__choice-option">
+              {{ optionFromItem.choice?.choose }}
+            </div>
+          </ng-container>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="class__multiclass">
+    <h2>Multiclassing</h2>
+    <div
+      class="class__multiclass-loop"
+      *ngFor="let multiclass of dataOfClass.multi_classing.prerequisites"
+    >
+      <div class="class__multiclass-prerequisites">
+        {{ multiclass.ability_score.name }}
+        {{ multiclass.minimum_score }}
+      </div>
+    </div>
+    <div
+      class="class__multiclass-loop"
+      *ngFor="let multiclass of dataOfClass.multi_classing.proficiencies"
+    >
+      <div class="class__multiclass-proficiencies">
+        {{ multiclass.name }}
+      </div>
+    </div>
+  </div>
+
+  <div class="class-subclasses">
+    <h2 class="class-subclasses__title">Subclasses</h2>
+    <ul class="class-subclasses__list">
+      <li
+        class="class-subclasses__item"
+        *ngFor="let subclass of dataOfClass.subclasses"
+      >
+        <a class="class-subclasses__link" [href]="subclass.url">{{
+          subclass.name
+        }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="spellcasting" *ngIf="hasSpellcasting()">
+    <h2 class="spellcasting__title">Spellcasting</h2>
+    <p class="spellcasting__level">{{ dataOfClass.spellcasting?.level }}</p>
+    <span class="spellcasting__ability-name">{{
+      dataOfClass.spellcasting?.spellcasting_ability?.name
+    }}</span>
+    <div class="accordion">
+      <div
+        class="accordion__item"
+        *ngFor="let ability of dataOfClass.spellcasting?.info; let i = index"
+        (click)="openedItemIndex = openedItemIndex === i ? null : i"
+      >
+        <div class="accordion__item-header">
+          <span class="spellcasting__info-name">{{ ability.name }}</span>
+          <span class="accordion__item-indicator">
+            {{ openedItemIndex === i ? "-" : "+" }}
+          </span>
+        </div>
+        <div *ngIf="openedItemIndex === i" class="accordion__item-body">
+          <span class="spellcasting__info-desc">{{ ability.desc }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-classes-lvl [currentClass]="currentClass" />
+</div>

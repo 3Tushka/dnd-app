@@ -8,9 +8,12 @@ import { EquipmentComponent } from "./equipment/equipment.component";
 import { FeaturesComponent } from "./features/features.component";
 import { MonstersComponent } from "./monsters/monsters.component";
 import { RacesComponent } from "./races/races.component";
+import { RaceComponent } from "./races/race/race.component";
+import { ClassDetailsComponent } from "./classes/class-details/class-details.component";
 
 const routes: Routes = [
   { path: "classes", component: ClassesComponent },
+  { path: "classes/:id", component: ClassDetailsComponent },
   { path: "mechanics", component: MechanicsComponent },
   { path: "rules", component: RulesComponent },
   { path: "character", component: CharacterComponent },
@@ -18,6 +21,7 @@ const routes: Routes = [
   { path: "features", component: FeaturesComponent },
   { path: "monsters", component: MonstersComponent },
   { path: "races", component: RacesComponent },
+  { path: "races/:id", component: RaceComponent },
   // { path: "api/traits/:name", },
 ];
 

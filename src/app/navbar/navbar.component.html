@@ -1,4 +1,4 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <ul class="navbar__list">
     <app-navbar-item link="common" title="Common" />
     <app-navbar-item link="character" title="Character" />
@@ -15,4 +15,49 @@
     <app-navbar-item link="subraces" title="Subraces" />
     <app-navbar-item link="traits" title="Traits" />
   </ul>
-</nav>
+</nav> -->
+
+<div class="navbar">
+  <div class="navbar__wrapper">
+    <div class="navbar__main">
+      <div class="navbar__logo-and-search">
+        <div class="navbar__logo-and-search__logo">
+          <img src="../../assets/images/logo.png" alt="" />
+        </div>
+        <div class="navbar__logo-and-search__search">
+          <button type="submit" class="search-submit">
+            <img
+              src="../../assets/images/svg/search-svgrepo-com.svg"
+              alt="search"
+              class="search-icon"
+            />
+          </button>
+          <input type="text" placeholder="Search..." />
+        </div>
+      </div>
+      <div class="navbar__social">
+        <a *ngFor="let social of socialLinks" [href]="social.link">
+          <img [src]="social.icon" [alt]="social.alt" />
+        </a>
+      </div>
+    </div>
+    <div class="navbar__auth">
+      <div class="navbar__auth__wrapper">
+        <a href="https://www.login.com" class="login">Login</a>
+        <a href="https://www.register.com" class="register">Register</a>
+      </div>
+    </div>
+  </div>
+  <div class="navbar__links">
+    <div *ngFor="let dropdown of dropdowns" class="navbar__dropdown">
+      <button class="navbar__dropdown-button">{{ dropdown.title }}</button>
+      <div class="navbar__dropdown-content">
+        <app-navbar-item
+          *ngFor="let item of dropdown.items"
+          [link]="item.link"
+          [title]="item.title"
+        ></app-navbar-item>
+      </div>
+    </div>
+  </div>
+</div>
