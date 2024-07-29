@@ -1,12 +1,16 @@
 <app-navbar></app-navbar>
-
 <div class="class">
   <div class="class__wrapper">
     <div class="class__controll">
-      <div class="tabs">
-        <button (click)="selectClass('barbarian')">Barbarian</button>
-        <button (click)="selectClass('bard')">Bard</button>
-        <button (click)="selectClass('cleric')">Cleric</button>
+      <div
+        class="class__controll__item"
+        *ngFor="let classItem of classes"
+        [ngStyle]="{ 'background-image': classItem.backgroundImageUrl }"
+      >
+        <div class="class__controll__item-title">
+          <span>{{ classItem.name | titlecase }}</span>
+          <span>{{ classItem.text }}</span>
+        </div>
       </div>
     </div>
   </div>
