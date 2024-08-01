@@ -26,7 +26,13 @@ import { RaceComponent } from "./races/race/race.component";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
-import { ClassDetailsComponent } from './classes/class-details/class-details.component';
+import { ClassDetailsComponent } from "./classes/class-details/class-details.component";
+import { SpellsComponent } from "./spells/spells.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { ReactiveFormsModule } from "@angular/forms";
+import { SpellDetailComponent } from "./spells/spell-detail/spell-detail.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { StatsComponent } from './spells/spell-detail/stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +52,9 @@ import { ClassDetailsComponent } from './classes/class-details/class-details.com
     RacesComponent,
     RaceComponent,
     ClassDetailsComponent,
+    SpellsComponent,
+    SpellDetailComponent,
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +67,9 @@ import { ClassDetailsComponent } from './classes/class-details/class-details.com
     MatCardModule,
     MatButtonModule,
     MatMenuModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

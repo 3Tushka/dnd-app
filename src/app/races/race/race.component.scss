@@ -1,11 +1,4 @@
-$dark-brown: #3d2317;
-$rich-red: #8f1d21;
-$background: #f2efd7;
-$creamy-beige: #f4f1e7;
-$charcoal-gray: #423d3b;
-$mystical-blue: #626d72;
-$paper-background: #fdfcf8; // Light paper-like background color
-
+@import "src/assets/variables.scss";
 .race {
     font-family: "Caudex", serif;
     font-size: 1.2rem;

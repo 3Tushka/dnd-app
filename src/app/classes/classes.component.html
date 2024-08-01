@@ -4,12 +4,15 @@
     <div class="class__controll">
       <div
         class="class__controll__item"
+        (click)="navigateToClassDetail(classItem.name)"
         *ngFor="let classItem of classes"
         [ngStyle]="{ 'background-image': classItem.backgroundImageUrl }"
       >
         <div class="class__controll__item-title">
+          <img [src]="classItem.logo" alt="class-logo" />
           <span>{{ classItem.name | titlecase }}</span>
-          <span>{{ classItem.text }}</span>
+
+          <p>{{ classItem.text }}</p>
         </div>
       </div>
     </div>

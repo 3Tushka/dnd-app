@@ -10,6 +10,8 @@ import { MonstersComponent } from "./monsters/monsters.component";
 import { RacesComponent } from "./races/races.component";
 import { RaceComponent } from "./races/race/race.component";
 import { ClassDetailsComponent } from "./classes/class-details/class-details.component";
+import { SpellsComponent } from "./spells/spells.component";
+import { SpellDetailComponent } from "./spells/spell-detail/spell-detail.component";
 
 const routes: Routes = [
   { path: "classes", component: ClassesComponent },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: "monsters", component: MonstersComponent },
   { path: "races", component: RacesComponent },
   { path: "races/:id", component: RaceComponent },
+  { path: "spells", component: SpellsComponent },
+  { path: "spells/:id", component: SpellDetailComponent },
   // { path: "api/traits/:name", },
 ];
 

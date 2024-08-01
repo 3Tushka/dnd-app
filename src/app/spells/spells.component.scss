@@ -1,0 +1,106 @@
+@import "src/assets/variables.scss";
+
+.spells {
+    padding: 0 5rem;
+    background-image: url("../../assets/images/backgrounds/wood.jpg"); // Add a paper texture image
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem 5rem;
+        background-color: $paper-background;
+        background-image: $background-paper-url;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+
+        min-height: 100vh;
+
+        .form {
+            margin: 2rem 0;
+
+            &__wrapper {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            &__group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                max-width: 150px;
+            }
+
+            &__controll {
+                margin-top: 25px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                max-width: 20%;
+                font-family: $font-family-magic;
+
+                button {
+                    width: 100%;
+                    height: 50px;
+                    font-size: 1.2rem;
+                    background: linear-gradient(to bottom, #9877fa, #704cd9);
+                    color: white;
+                    cursor: pointer;
+                    transition: all ease 0.3s; // This line
+                    &:hover {
+                        background: linear-gradient(to bottom, #704cd9, #9877fa);
+                    }
+                }
+
+                span {
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    color: #704cd9;
+                }
+            }
+
+            label {
+                font-family: $font-family-magic;
+                font-weight: 700;
+                font-size: 1rem;
+
+                text-transform: uppercase;
+            }
+
+            input {
+                height: 50px;
+                font-family: $font-family-magic;
+                border: none;
+                box-shadow:
+                    rgba(0, 0, 0, 0.12) 0px 1px 3px,
+                    rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+                &:focus {
+                    outline: 1px solid black;
+                }
+            }
+        }
+
+        td {
+            font-size: 1.1rem;
+            font-family: $font-family-magic;
+        }
+
+        .mat-mdc-row {
+            font-family: $font-family-magic;
+
+            :hover {
+                background-color: #704cd9;
+                color: white;
+            }
+        }
+    }
+}

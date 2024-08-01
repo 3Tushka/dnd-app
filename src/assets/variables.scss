@@ -6,13 +6,16 @@ $charcoal-gray: #423d3b;
 $mystical-blue: #626d72;
 $paper-background: #fdfcf8; // Light paper-like background color
 
+$font-family-magic: "Caudex";
+
 $paddings: 2rem 10rem;
 
 $background-image-url: url("../assets/images/backgrounds/wood.jpg");
 $background-paper-url: url("../assets/images/backgrounds/paper.jpg");
 
-// &backround-image-variable {
-//     background-size: contain;
-//     background-repeat: repeat-y;
-//     background-position: center;
-// }
+@mixin background-image($image-url) {
+    background-image: $image-url;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
