@@ -1,12 +1,21 @@
+<app-navbar></app-navbar>
 <div class="feature" *ngIf="featureData">
-  {{ featureData.name }}
-  <p>{{ featureData.level }}</p>
+  <div class="feature__wrapper">
+    <div class="feature__header">
+      <h1 class="feature__name">{{ featureData.name }}</h1>
+      <p class="feature__level">Level: {{ featureData.level }}</p>
+    </div>
 
-  <div class="feature__class">
-    <a [href]="featureData.class.url"> {{ featureData.class.name }}</a>
-  </div>
+    <div class="feature__class">
+      <a class="feature__class-link" [href]="featureData.class.url">{{
+        featureData.class.name
+      }}</a>
+    </div>
 
-  <div class="feature__desc" *ngFor="let item of featureData.desc">
-    {{ item }}
+    <div class="feature__description">
+      <div class="feature__desc-item" *ngFor="let item of featureData.desc">
+        {{ item }}
+      </div>
+    </div>
   </div>
 </div>

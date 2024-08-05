@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FeaturesService } from "./features.service";
 import { ListOfElementsInterface } from "../interface/list.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-features",
@@ -8,11 +9,15 @@ import { ListOfElementsInterface } from "../interface/list.interface";
   styleUrls: ["./features.component.scss"],
 })
 export class FeaturesComponent {
-  constructor(private featuresService: FeaturesService) {}
+  constructor(
+    private featuresService: FeaturesService,
+    private router: Router
+  ) {}
 
   featureDataList!: ListOfElementsInterface | null;
   selectedFeatureName: string = "";
   showFeatureList: boolean = true;
+  filteredResults = [];
 
   ngOnInit(): void {
     this.getFeatureList();
@@ -21,11 +26,25 @@ export class FeaturesComponent {
   getFeatureList() {
     this.featuresService.getAllFeaturesList().subscribe({
       next: (data) => (
-        (this.featureDataList = data),
-        console.log("Data:", this.featureDataList)
+        (this.featureDataList = data), this.checkFeatureListOnDuplication()
       ),
       error: (error) => console.log("Error in Feature list", error),
     });
+  }
+
+  checkFeatureListOnDuplication() {
+    if (!this.featureDataList) return;
+
+    const featureNames = new Set<string>();
+
+    this.featureDataList.results.forEach((feature) => {
+      if (!featureNames.has(feature.name)) {
+        featureNames.add(feature.name);
+        this.filteredResults.push(feature as never);
+      }
+    });
+
+    this.featureDataList.results = this.filteredResults;
   }
 
   selectFeature(url: string): void {
@@ -33,7 +52,6 @@ export class FeaturesComponent {
     const decoded = decodeURIComponent(lastSegment);
     const formatted = decoded.replace(/\s+/g, "-").toLowerCase();
     this.selectedFeatureName = formatted;
-    this.showFeatureList = !this.showFeatureList;
-    console.log("Formatted Link: ", this.selectedFeatureName);
+    this.router.navigate([`/features/${this.selectedFeatureName}`]);
   }
 }

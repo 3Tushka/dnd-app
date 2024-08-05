@@ -14,21 +14,121 @@
         background-attachment: fixed;
         background-size: cover;
         background-position: center;
-
         min-height: 100vh;
     }
 
     &__header {
         padding: 1rem 0;
-        border-bottom: 3px solid $rich-red;
 
         &__stats {
+            padding: 1rem 0;
+
+            border-top: 3px solid $rich-red;
+            border-bottom: 3px solid $rich-red;
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
             justify-content: space-between;
             gap: 1rem;
-            margin-top: 1rem;
+        }
+    }
+
+    &__main {
+        padding: 2rem 5rem;
+        font-family: $font-family-magic;
+
+        &__desc {
+            font-size: 1.5rem;
+            line-height: 2.5rem;
+            text-align: justify;
+        }
+
+        &__high {
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+            text-align: justify;
+            padding: 1rem;
+            border-radius: 10px;
+            background: $background;
+        }
+    }
+    &__tags {
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 2rem;
+
+        &__group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &__title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-family: $font-family-magic;
+        }
+
+        &__container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        &__item {
+            border: 1px solid $rich-red;
+            background-color: $paper-background;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.2s ease-in;
+
+            &:hover {
+                background-color: $rich-red;
+                color: $paper-background;
+            }
+        }
+    }
+
+    &__classes {
+        border-radius: 4px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+
+        &__title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: $font-family-magic;
+            margin-bottom: 1rem;
+        }
+
+        &__container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        &__item {
+            border: 1px solid $rich-red;
+            background-color: $paper-background;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.2s ease-in;
+
+            &:hover {
+                background-color: $rich-red;
+                color: $paper-background;
+            }
         }
     }
 }

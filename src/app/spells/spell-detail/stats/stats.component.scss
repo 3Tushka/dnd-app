@@ -1,0 +1,31 @@
+@import "src/assets/variables.scss";
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 120px;
+    padding: 8px 0;
+    border: 1px solid $rich-red;
+    border-radius: 10px;
+
+    background-color: $background;
+    font-family: $font-family-magic;
+
+    &-label {
+        font-size: 1rem;
+        font-family: $font-family-magic;
+        font-weight: 700;
+    }
+
+    &-level {
+        // width: 100%;
+        font-size: 1rem;
+        font-family: $font-family-magic;
+        font-weight: 600;
+        color: $rich-red;
+        text-transform: capitalize;
+    }
+}

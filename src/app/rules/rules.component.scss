@@ -1,3 +1,121 @@
-.preformatted-text {
-    white-space: pre-wrap; /* CSS property to preserve whitespaces and newlines */
+@import "src/assets/variables.scss";
+
+// If i delete this code below. Error and background image will be gone. Dont know why.
+
+// .preformatted-text {
+//     white-space: pre-wrap; /* CSS property to preserve whitespaces and newlines */
+// }
+
+.rules {
+    padding: 0 5rem;
+    background-image: url("../../assets/images/backgrounds/wood.jpg"); // Add a paper texture image
+
+    &__wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem 5rem;
+        background-color: $paper-background;
+        background-image: $background-paper-url;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    &__form {
+        // border-bottom: 3px solid $rich-red;
+        padding-bottom: 2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        label {
+            font-family: $font-family-magic;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: $dark-brown;
+        }
+        .form-control {
+            font-family: $font-family-magic;
+            font-size: 1.2rem;
+            color: $dark-brown;
+            padding: 0.5rem;
+            border: none;
+            background-color: none;
+            border-radius: 5px;
+
+            option {
+                font-size: 1.2rem; // Change the font size of the option elements
+                padding: 0.5rem; // Add padding to the option elements
+            }
+        }
+
+        .fetch-button {
+            padding: 0.5rem 1rem;
+            font-family: $font-family-magic;
+            font-size: 1.2rem;
+            border: none;
+            background: linear-gradient(to bottom, $rich-red, $dark-brown);
+            color: white;
+            cursor: pointer;
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease; // Smooth transition for background and transform properties
+
+            &:hover {
+                background: linear-gradient(to bottom, $dark-brown, $rich-red);
+            }
+        }
+    }
+
+    &__data {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        font-family: $font-family-magic;
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+
+        .preformatted-text {
+            white-space: pre-wrap;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .custom-h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: $rich-red;
+            margin-top: 1rem;
+            margin: 0;
+            font-family: $font-family-magic;
+        }
+
+        .custom-h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: $dark-brown;
+            font-family: $font-family-magic;
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid $rich-red;
+            max-width: fit-content;
+        }
+
+        .custom-h4 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: $dark-brown;
+            font-family: $font-family-magic;
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid $rich-red;
+            max-width: fit-content;
+        }
+    }
 }

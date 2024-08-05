@@ -1,56 +1,84 @@
 <app-navbar></app-navbar>
-
 <div class="spell">
   <div class="spell__wrapper" *ngIf="spellData as spell">
-    <div class="spell__header">
+    <header class="spell__header">
       <h1 class="spell__title">{{ spell.name }}</h1>
       <div class="spell__header__stats">
-        <app-stats label="Level" [value]="spell.level" />
-        <app-stats label="Casting Time" [value]="spell.casting_time" />
-        <app-stats label="Range/Area" [value]="spell.range" />
-        <app-stats label="Components" [value]="spell.components" />
-        <app-stats label="Duration" [value]="spell.duration" />
-        <app-stats label="School" [value]="spell.school.name" />
-        <app-stats label="Attack/Save" [value]="spell.attack_type" />
         <app-stats
+          *ngIf="spell.level"
+          label="Level"
+          [value]="spell.level"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.casting_time"
+          label="Casting Time"
+          [value]="spell.casting_time"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.range"
+          label="Range/Area"
+          [value]="spell.range"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.components"
+          label="Components"
+          [value]="spell.components"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.duration"
+          label="Duration"
+          [value]="spell.duration"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.school?.name"
+          label="School"
+          [value]="spell.school.name"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.attack_type"
+          label="Attack/Save"
+          [value]="spell.attack_type"
+        ></app-stats>
+        <app-stats
+          *ngIf="spell.damage?.damage_type?.name"
           label="Damage/Effect"
           [value]="spell.damage?.damage_type?.name"
-        />
+        ></app-stats>
       </div>
-    </div>
+    </header>
     <main class="spell__main">
-      <div class="spell__main__desc">
+      <section class="spell__main__desc">
         <p class="spell__main__desc-text">{{ spell.desc }}</p>
-      </div>
-      <div class="spell__main__high">
+      </section>
+      <section class="spell__main__high">
         <p class="spell__main__high-text">
           At higher levels. {{ spell.higher_level }}
         </p>
-      </div>
-
-      <div class="spell__main__tags">
-        <h2 class="spell__main__tags-title">Tags</h2>
-        <div
-          class="spell__main__tags__container container"
-          *ngFor="let tag of spell.subclasses"
-        >
-          <div class="container-item">
-            <span>{{ tag.name }}</span>
-          </div>
-        </div>
-
-        <div class="spell__main__tags__classes">
-          <h2 class="spell__main__tags__classes-title">Classes</h2>
+      </section>
+      <section class="spell__tags">
+        <div class="spell__tags__group">
+          <h2 class="spell__tags__title">Tags:</h2>
           <div
-            class="spell__main__tags__classes__container container"
-            *ngFor="let tag of spell.classes"
+            class="spell__tags__container"
+            *ngFor="let tag of spell.subclasses"
           >
-            <div class="container-item">
+            <div class="spell__tags__item">
               <span>{{ tag.name }}</span>
             </div>
           </div>
         </div>
-      </div>
+        <div class="spell__classes">
+          <h2 class="spell__classes__title">Classes:</h2>
+          <div
+            class="spell__classes__container"
+            *ngFor="let tag of spell.classes"
+          >
+            <div class="spell__classes__item">
+              <span>{{ tag.name }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </div>

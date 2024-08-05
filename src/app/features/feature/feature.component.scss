@@ -1,0 +1,55 @@
+@import "src/assets/variables.scss";
+
+.feature {
+    padding: 0 5rem;
+    background-image: url("../../../assets/images/backgrounds/wood.jpg"); // Add a paper texture image
+
+    &__wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem 5rem;
+        background-color: $paper-background;
+        background-image: url("../../../assets/images/backgrounds/paper.jpg"); // Corrected path
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+    &__header {
+        margin-bottom: 1rem;
+    }
+
+    &__name {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    &__level {
+        font-size: 1.2rem;
+        color: #666;
+    }
+
+    &__class {
+        margin-bottom: 1rem;
+
+        &-link {
+            color: #007bff;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__description {
+        margin-top: 1rem;
+
+        &-item {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+    }
+}

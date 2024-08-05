@@ -14,7 +14,7 @@ export class SpellDetailComponent {
     private spellDetailService: SpellsService
   ) {}
 
-  spellName?: string | null;
+  spellName!: string;
   spellData?: Spell | null;
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class SpellDetailComponent {
       this.spellName = params["id"];
     });
 
-    this.getSpellsDetails("acid-arrow");
+    this.getSpellsDetails(this.spellName);
   }
 
   getSpellsDetails(spellName: string) {

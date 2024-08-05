@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from "@angular/core";
 import { FeaturesService } from "../features.service";
 import { FeatureByIndexInterface } from "../features.interface";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-feature",
@@ -8,16 +9,19 @@ import { FeatureByIndexInterface } from "../features.interface";
   styleUrls: ["./feature.component.scss"],
 })
 export class FeatureComponent {
-  @Input() featureName!: string;
+  constructor(
+    private featureService: FeaturesService,
+    private route: ActivatedRoute
+  ) {}
 
-  constructor(private featureService: FeaturesService) {}
-
+  featureName!: string | null;
   featureData!: FeatureByIndexInterface | null;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["featureName"]) {
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.featureName = params.get("id") || "";
       this.getFeatureByIndex(this.featureName);
-    }
+    });
   }
 
   getFeatureByIndex(name: string) {

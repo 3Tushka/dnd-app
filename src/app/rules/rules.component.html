@@ -1,43 +1,30 @@
-<p>rules works!</p>
+<app-navbar></app-navbar>
+<div class="rules">
+  <div class="rules__wrapper">
+    <form class="rules__form" (ngSubmit)="getRulesByNameData(ruleName)">
+      <div class="form-group">
+        <label for="ruleName">Rule Name: </label>
+        <select
+          id="ruleName"
+          [(ngModel)]="ruleName"
+          name="ruleName"
+          class="form-control"
+        >
+          <option *ngFor="let option of rulesOptions" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="fetch-button">Fetch Rule</button>
+    </form>
 
-<form (ngSubmit)="getRulesByNameData(ruleName)">
-  <div class="form-group">
-    <label for="ruleName">Rule Name:</label>
-    <select
-      id="ruleName"
-      [(ngModel)]="ruleName"
-      name="ruleName"
-      class="form-control"
-    >
-      <option *ngFor="let option of rulesOptions" [value]="option.id">
-        {{ option.name }}
-      </option>
-    </select>
+    <!-- Displaying fetched rules data -->
+    <div class="rules__data" *ngIf="rulesData">
+      <div
+        *ngIf="rulesData.desc"
+        class="preformatted-text"
+        [innerHTML]="rulesData.desc"
+      ></div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Fetch Rule</button>
-</form>
-
-<!-- Displaying fetched rules data -->
-<div *ngIf="rulesData">
-  <h2>{{ rulesData.name }}</h2>
-  <p *ngIf="rulesData.desc" class="preformatted-text">
-    {{ rulesData.desc }}
-  </p>
 </div>
-
-<form (ngSubmit)="getRuleByName(ruleName)">
-  <div class="form-group">
-    <label for="ruleName">Rule Name:</label>
-    <select
-      id="ruleName"
-      [(ngModel)]="ruleName"
-      name="ruleName"
-      class="form-control"
-    >
-      <option *ngFor="let option of rulesOptions" [value]="option.id">
-        {{ option.name }}
-      </option>
-    </select>
-  </div>
-  <button type="submit" class="btn btn-primary">Fetch Rule</button>
-</form>
