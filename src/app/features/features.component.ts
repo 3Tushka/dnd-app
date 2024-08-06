@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
 import { FeaturesService } from "./features.service";
-import { ListOfElementsInterface } from "../interface/list.interface";
+import {
+  ListInterface,
+  ListOfElementsInterface,
+} from "../interface/list.interface";
 import { Router } from "@angular/router";
 
 @Component({
@@ -17,7 +20,8 @@ export class FeaturesComponent {
   featureDataList!: ListOfElementsInterface | null;
   selectedFeatureName: string = "";
   showFeatureList: boolean = true;
-  filteredResults = [];
+  filteredResults: ListInterface[] = [];
+  searchTerm: string = "";
 
   ngOnInit(): void {
     this.getFeatureList();
@@ -26,7 +30,9 @@ export class FeaturesComponent {
   getFeatureList() {
     this.featuresService.getAllFeaturesList().subscribe({
       next: (data) => (
-        (this.featureDataList = data), this.checkFeatureListOnDuplication()
+        (this.featureDataList = data),
+        this.checkFeatureListOnDuplication(),
+        console.log("Feature list", data)
       ),
       error: (error) => console.log("Error in Feature list", error),
     });
@@ -53,5 +59,13 @@ export class FeaturesComponent {
     const formatted = decoded.replace(/\s+/g, "-").toLowerCase();
     this.selectedFeatureName = formatted;
     this.router.navigate([`/features/${this.selectedFeatureName}`]);
+  }
+
+  searchByName() {
+    if (!this.featureDataList) return console.log("No data found");
+
+    this.filteredResults = this.featureDataList.results.filter((feature) =>
+      feature.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 }

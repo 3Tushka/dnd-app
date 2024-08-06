@@ -1,8 +1,30 @@
+<app-navbar></app-navbar>
 <div class="features" *ngIf="showFeatureList">
-  <div class="feature-state" *ngIf="featureDataList">
-    <div *ngFor="let item of featureDataList.results">
-      {{ item.name }}
-      <span (click)="selectFeature(item.url)">{{ item.name }}</span>
+  <div class="features__wrapper">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="searchByName()"
+      placeholder="Search by name"
+    />
+    <div class="features__data" *ngIf="filteredResults.length > 0">
+      <ul class="features__list">
+        <li *ngFor="let item of filteredResults" class="features__item">
+          <span class="features__name">{{ item.name }}</span>
+          <a (click)="selectFeature(item.url)" class="features__link">Select</a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="features__data"
+      *ngIf="filteredResults.length === 0 && featureDataList"
+    >
+      <ul class="features__list">
+        <li *ngFor="let item of featureDataList.results" class="features__item">
+          <span class="features__name">{{ item.name }}</span>
+          <a (click)="selectFeature(item.url)" class="features__link">Select</a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
