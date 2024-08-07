@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { fetchApi } from "../functions";
+import { fetchApi } from "../sharing/functions";
 import { FeatureByIndexInterface } from "./features.interface";
 import { ListOfElementsInterface } from "../interface/list.interface";
 

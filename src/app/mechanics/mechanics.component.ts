@@ -60,6 +60,8 @@ export class MechanicsComponent implements OnInit {
   showDamage: boolean = false;
   showMagic: boolean = false;
 
+  showMechanicsData: boolean = false;
+
   ngOnInit() {
     this.getMechanicsData("");
   }
@@ -113,5 +115,23 @@ export class MechanicsComponent implements OnInit {
     this.showDamage = section === "damage" ? !this.showDamage : false;
     this.showMagic = section === "magic" ? !this.showMagic : false;
     this.mechanicsData = null;
+  }
+
+  setActiveButton(event: Event) {
+    const target = event.currentTarget as HTMLElement;
+    const isActive = target.classList.contains("active");
+
+    const buttons = document.querySelectorAll(".mechanics__controls-button");
+    buttons.forEach((button) => button.classList.remove("active"));
+
+    if (!isActive) {
+      target.classList.add("active");
+      this.showMechanicsData = true;
+    } else {
+      // Reset section states if the button is clicked twice
+      this.showMechanics = false;
+      this.showDamage = false;
+      this.showMagic = false;
+    }
   }
 }

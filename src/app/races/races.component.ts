@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { RacesService } from "./races.service";
 import { ListOfElementsInterface } from "../interface/list.interface";
-import { selectNameByLink } from "../functions";
+import { selectNameByLink } from "../sharing/functions";
 import { Router } from "@angular/router";
 
 @Component({

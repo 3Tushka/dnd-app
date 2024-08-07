@@ -1,21 +1,23 @@
 <app-navbar></app-navbar>
-<div class="features" *ngIf="showFeatureList">
+<section class="features" *ngIf="showFeatureList">
   <div class="features__wrapper">
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      (input)="searchByName()"
-      placeholder="Search by name"
-    />
-    <div class="features__data" *ngIf="filteredResults.length > 0">
+    <header class="features__search">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="searchByName()"
+        placeholder="Search by name"
+      />
+    </header>
+    <article class="features__data" *ngIf="filteredResults.length > 0">
       <ul class="features__list">
-        <li *ngFor="let item of filteredResults" class="features__item">
+        <li *ngFor="let item of paginatedResults" class="features__item">
           <span class="features__name">{{ item.name }}</span>
           <a (click)="selectFeature(item.url)" class="features__link">Select</a>
         </li>
       </ul>
-    </div>
-    <div
+    </article>
+    <article
       class="features__data"
       *ngIf="filteredResults.length === 0 && featureDataList"
     >
@@ -25,6 +27,34 @@
           <a (click)="selectFeature(item.url)" class="features__link">Select</a>
         </li>
       </ul>
-    </div>
+    </article>
+
+    <!-- pagination -->
+    <nav *ngIf="totalPages > 1" class="pagination">
+      <button
+        class="pagination__button pagination__button--prev"
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+      >
+        &larr;
+      </button>
+      <div class="pagination__bubbles" #paginationBubbles>
+        <span
+          *ngFor="let page of totalPagesArray; let i = index"
+          (click)="goToPage(i + 1)"
+          [class.active]="currentPage === i + 1"
+          class="pagination__bubbles--item"
+        >
+          {{ i + 1 }}
+        </span>
+      </div>
+      <button
+        class="pagination__button pagination__button--next"
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+      >
+        &rarr;
+      </button>
+    </nav>
   </div>
-</div>
+</section>

@@ -3,17 +3,19 @@
   <div class="feature__wrapper">
     <div class="feature__header">
       <h1 class="feature__name">{{ featureData.name }}</h1>
-      <p class="feature__level">Level: {{ featureData.level }}</p>
-    </div>
-
-    <div class="feature__class">
-      <a class="feature__class-link" [href]="featureData.class.url">{{
-        featureData.class.name
-      }}</a>
+      <div class="feature__class">
+        <p class="feature__level">Level: {{ featureData.level }}</p>
+        <a class="feature__class-link" [href]="featureData.class.url">{{
+          featureData.class.name
+        }}</a>
+      </div>
     </div>
 
     <div class="feature__description">
-      <div class="feature__desc-item" *ngFor="let item of featureData.desc">
+      <div
+        class="feature__description-item"
+        *ngFor="let item of featureData.desc"
+      >
         {{ item }}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FeaturesService } from "./features.service";
 import {
   ListInterface,
@@ -23,17 +23,24 @@ export class FeaturesComponent {
   filteredResults: ListInterface[] = [];
   searchTerm: string = "";
 
+  //pagination
+  @ViewChild("paginationBubbles") paginationBubbles!: ElementRef;
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  paginatedResults: ListInterface[] = [];
+
   ngOnInit(): void {
     this.getFeatureList();
   }
 
   getFeatureList() {
     this.featuresService.getAllFeaturesList().subscribe({
-      next: (data) => (
-        (this.featureDataList = data),
-        this.checkFeatureListOnDuplication(),
-        console.log("Feature list", data)
-      ),
+      next: (data) => {
+        this.featureDataList = data;
+        this.checkFeatureListOnDuplication();
+        this.updatePaginatedResults();
+      },
       error: (error) => console.log("Error in Feature list", error),
     });
   }
@@ -67,5 +74,40 @@ export class FeaturesComponent {
     this.filteredResults = this.featureDataList.results.filter((feature) =>
       feature.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+    this.updatePaginatedResults();
+  }
+
+  updatePaginatedResults() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedResults = this.filteredResults.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.updatePaginatedResults();
+    this.scrollToActiveBubble();
+  }
+
+  scrollToActiveBubble() {
+    const activeBubble =
+      this.paginationBubbles.nativeElement.querySelector(".active");
+    if (activeBubble) {
+      activeBubble.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredResults.length / this.itemsPerPage);
+  }
+
+  get totalPagesArray(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 }

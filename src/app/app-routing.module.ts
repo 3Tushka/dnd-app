@@ -13,8 +13,10 @@ import { ClassDetailsComponent } from "./classes/class-details/class-details.com
 import { SpellsComponent } from "./spells/spells.component";
 import { SpellDetailComponent } from "./spells/spell-detail/spell-detail.component";
 import { FeatureComponent } from "./features/feature/feature.component";
+import { HomepageComponent } from "./homepage/homepage.component";
 
 const routes: Routes = [
+  { path: "", component: HomepageComponent },
   { path: "classes", component: ClassesComponent },
   { path: "classes/:id", component: ClassDetailsComponent },
   { path: "mechanics", component: MechanicsComponent },

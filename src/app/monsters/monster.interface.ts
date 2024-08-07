@@ -81,6 +81,7 @@ export interface MonsterInterface {
   name: string;
   size: string;
   type: string;
+  desc?: string;
   alignment: string;
   armor_class: ArmorClass[];
   hit_points: number;

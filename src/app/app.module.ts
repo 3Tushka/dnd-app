@@ -32,7 +32,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SpellDetailComponent } from "./spells/spell-detail/spell-detail.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { StatsComponent } from './spells/spell-detail/stats/stats.component';
+import { StatsComponent } from "./spells/spell-detail/stats/stats.component";
+import { HomepageComponent } from "./homepage/homepage.component";
+import { LazyLoadBackgroundDirective } from "./sharing/lazy-loading";
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { StatsComponent } from './spells/spell-detail/stats/stats.component';
     SpellsComponent,
     SpellDetailComponent,
     StatsComponent,
+    HomepageComponent,
+    LazyLoadBackgroundDirective,
   ],
   imports: [
     BrowserModule,

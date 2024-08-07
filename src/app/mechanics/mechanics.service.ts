@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MechanicsInterface } from "./mechanics.interface";
-import { fetchApi } from "../functions";
+import { fetchApi } from "../sharing/functions";
 
 @Injectable({
   providedIn: "root",

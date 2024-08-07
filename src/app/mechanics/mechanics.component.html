@@ -1,40 +1,85 @@
 <app-navbar></app-navbar>
 
-<!-- Toggle Buttons -->
-<button (click)="toggleSection('mechanics')">Toggle Mechanics</button>
-<button (click)="toggleSection('damage')">Toggle Damage</button>
-<button (click)="toggleSection('magic')">Toggle Magic School</button>
+<main class="mechanics">
+  <section class="mechanics__wrapper">
+    <nav class="mechanics__controls">
+      <button
+        class="mechanics__controls-button mechanics__controls-button--mechanics"
+        (click)="toggleSection('mechanics'); setActiveButton($event)"
+      >
+        <span>Mechanics</span>
+      </button>
+      <button
+        class="mechanics__controls-button mechanics__controls-button--damage"
+        (click)="toggleSection('damage'); setActiveButton($event)"
+      >
+        <span>Damage</span>
+      </button>
+      <button
+        class="mechanics__controls-button mechanics__controls-button--magic"
+        (click)="toggleSection('magic'); setActiveButton($event)"
+      >
+        <span>Magic School</span>
+      </button>
+    </nav>
 
-<div *ngIf="showMechanics">
-  <p>mechanics works!</p>
-  <div *ngFor="let conditionType of buttonsConditionsTypes">
-    <button (click)="setMechanicCondition(conditionType.toLocaleLowerCase())">
-      {{ conditionType }}
-    </button>
-  </div>
-</div>
+    <section class="mechanics__content">
+      <ul class="mechanics__list" *ngIf="showMechanics">
+        <li
+          class="mechanics__list-item"
+          *ngFor="let conditionType of buttonsConditionsTypes"
+        >
+          <button
+            class="mechanics__list-button"
+            (click)="setMechanicCondition(conditionType.toLocaleLowerCase())"
+          >
+            <span>{{ conditionType }}</span>
+          </button>
+        </li>
+      </ul>
 
-<div *ngIf="showDamage">
-  Damage
-  <div *ngFor="let damageType of buttonsDamageTypes">
-    <button (click)="setDamageTypeCondition(damageType.toLowerCase())">
-      {{ damageType }}
-    </button>
-  </div>
-</div>
+      <ul class="mechanics__list" *ngIf="showDamage">
+        <li
+          class="mechanics__list-item"
+          *ngFor="let damageType of buttonsDamageTypes"
+        >
+          <button
+            class="mechanics__list-button"
+            (click)="setDamageTypeCondition(damageType.toLowerCase())"
+          >
+            <span> {{ damageType }}</span>
+          </button>
+        </li>
+      </ul>
 
-<div *ngIf="showMagic">
-  Magic School
-  <div *ngFor="let magicType of buttonsMagicSchools">
-    <button (click)="setMagicSchoolCondition(magicType.toLowerCase())">
-      {{ magicType }}
-    </button>
-  </div>
-</div>
+      <ul class="mechanics__list" *ngIf="showMagic">
+        <li
+          class="mechanics__list-item"
+          *ngFor="let magicType of buttonsMagicSchools"
+        >
+          <button
+            class="mechanics__list-button"
+            (click)="setMagicSchoolCondition(magicType.toLowerCase())"
+          >
+            <span> {{ magicType }}</span>
+          </button>
+        </li>
+      </ul>
 
-<div *ngIf="mechanicsData">
-  {{ mechanicsData.name }}
-  <div *ngFor="let mechanics of mechanicsData.desc">
-    {{ mechanics }}
-  </div>
-</div>
+      <section
+        class="mechanics__details"
+        *ngIf="mechanicsData && showMechanicsData"
+      >
+        <header class="mechanics__details-header">
+          <h3 class="mechanics__details-title">{{ mechanicsData.name }}</h3>
+        </header>
+        <div
+          class="mechanics__details-desc"
+          *ngFor="let mechanics of mechanicsData.desc"
+        >
+          {{ mechanics }}
+        </div>
+      </section>
+    </section>
+  </section>
+</main>
