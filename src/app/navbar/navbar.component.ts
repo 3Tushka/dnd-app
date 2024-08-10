@@ -1,4 +1,7 @@
-import { Component } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Component, Renderer2 } from "@angular/core";
+import { AuthService } from "@auth0/auth0-angular";
+import { Observable, tap } from "rxjs";
 
 @Component({
   selector: "app-navbar",
@@ -6,6 +9,11 @@ import { Component } from "@angular/core";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
+  isAuthenticated$!: Observable<boolean>;
+  constructor(public auth: AuthService, private http: HttpClient) {
+    this.isAuthenticated$ = this.auth.isAuthenticated$;
+  }
+
   dropdowns = [
     {
       title: "Game Rules",
@@ -47,4 +55,38 @@ export class NavbarComponent {
       alt: "twitch",
     },
   ];
+
+  login(): void {
+    this.auth.loginWithRedirect({
+      appState: { target: "/profile" },
+    });
+  }
+
+  logout(): void {
+    this.auth.logout();
+  }
+
+  getToken() {
+    this.auth.idTokenClaims$
+      .pipe(
+        tap((idTokenClaims: any) => {
+          console.log("This token: ", idTokenClaims?.__raw);
+        })
+      )
+      .subscribe();
+  }
+
+  // sendTokenToServer(token: string) {
+  //   const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
+  //   this.http
+  //     .post("http://localhost:3000/api/endpoint", {}, { headers })
+  //     .subscribe(
+  //       (response) => {
+  //         console.log("Response from server:", response);
+  //       },
+  //       (error) => {
+  //         console.error("Error sending token to server:", error);
+  //       }
+  //     );
+  // }
 }

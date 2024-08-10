@@ -1,22 +1,3 @@
-<!-- <nav class="navbar">
-  <ul class="navbar__list">
-    <app-navbar-item link="common" title="Common" />
-    <app-navbar-item link="character" title="Character" />
-    <app-navbar-item link="classes" title="Classes" />
-    <app-navbar-item link="mechanics" title="Mechanics" />
-    <app-navbar-item link="equipment" title="Equipment" />
-    <app-navbar-item link="feats" title="Feats" />
-    <app-navbar-item link="features" title="Features" />
-    <app-navbar-item link="monsters" title="Monsters" />
-    <app-navbar-item link="races" title="Races" />
-    <app-navbar-item link="rules" title="Rules" />
-    <app-navbar-item link="spells" title="Spells" />
-    <app-navbar-item link="subclasses" title="Subclasses" />
-    <app-navbar-item link="subraces" title="Subraces" />
-    <app-navbar-item link="traits" title="Traits" />
-  </ul>
-</nav> -->
-
 <div class="navbar">
   <div class="navbar__wrapper">
     <div class="navbar__main">
@@ -42,9 +23,24 @@
       </div>
     </div>
     <div class="navbar__auth">
-      <div class="navbar__auth__wrapper">
+      <div
+        class="navbar__auth__wrapper"
+        *ngIf="!(auth.isAuthenticated$ | async)"
+      >
         <a href="https://www.login.com" class="login">Login</a>
-        <a href="https://www.register.com" class="register">Register</a>
+        <a href="https://www.register.com" class="register" (click)="login()"
+          >Register</a
+        >
+      </div>
+
+      <div
+        class="navbar__auth__wrapper"
+        *ngIf="(auth.isAuthenticated$ | async) && auth.user$ as user"
+      >
+        <a href="https://www.login.com" class="login"></a>
+        <a href="https://www.register.com" class="register" (click)="login()"
+          >Register</a
+        >
       </div>
     </div>
   </div>

@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+
+<div class="profile">
+  <div class="profile__wrapper">
+    <div class="profile__data">
+      <div class="profile__header" *ngIf="userData$ | async as user">
+        <div class="profile__header__avatar">
+          <img [src]="user.picture" alt="" />
+        </div>
+        <div class="profile__header__info">
+          <h1 class="profile__header__info__name">{{ user.name }}</h1>
+          <p class="profile__header__info__email"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

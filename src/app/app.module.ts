@@ -35,6 +35,10 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { StatsComponent } from "./spells/spell-detail/stats/stats.component";
 import { HomepageComponent } from "./homepage/homepage.component";
 import { LazyLoadBackgroundDirective } from "./sharing/lazy-loading";
+import { AuthModule } from "@auth0/auth0-angular";
+import { environment } from "./environments";
+import { ProfileComponent } from "./profile/profile.component";
+import { CreatorComponent } from "./creator/creator.component";
 
 @NgModule({
   declarations: [
@@ -59,6 +63,8 @@ import { LazyLoadBackgroundDirective } from "./sharing/lazy-loading";
     StatsComponent,
     HomepageComponent,
     LazyLoadBackgroundDirective,
+    ProfileComponent,
+    CreatorComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +80,13 @@ import { LazyLoadBackgroundDirective } from "./sharing/lazy-loading";
     MatFormFieldModule,
     ReactiveFormsModule,
     MatPaginatorModule,
+    AuthModule.forRoot({
+      domain: environment.auth.domain,
+      clientId: environment.auth.clientId,
+      authorizationParams: {
+        redirect_uri: environment.auth.redirectUri,
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

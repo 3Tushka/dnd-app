@@ -14,6 +14,7 @@ import { SpellsComponent } from "./spells/spells.component";
 import { SpellDetailComponent } from "./spells/spell-detail/spell-detail.component";
 import { FeatureComponent } from "./features/feature/feature.component";
 import { HomepageComponent } from "./homepage/homepage.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: "races/:id", component: RaceComponent },
   { path: "spells", component: SpellsComponent },
   { path: "spells/:id", component: SpellDetailComponent },
+  { path: "profile", component: ProfileComponent },
   // { path: "api/traits/:name", },
 ];
 
