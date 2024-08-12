@@ -716,92 +716,124 @@ export const fightingStyles: FightingStyle[] = [
   },
 ];
 
-export interface EquipmentOption {
-  type: string; // Description of the option group
-  items: string[];
-}
-
-interface ClassEquipment {
-  class: string;
-  equipment: EquipmentOption[];
-}
-
-export const classStartEquipment: ClassEquipment[] = [
+export const equipment: any[] = [
   {
     class: "Barbarian",
-    equipment: [
-      { type: "Weapon", items: ["Greataxe", "Any martial melee weapon"] },
-      { type: "Equipment Pack", items: ["Explorer's pack"] },
-      { type: "Additional", items: ["Four javelins"] },
+    equipment_choices: [
+      { item: "greataxe", alternate: "any martial melee weapon" },
+      { item: "two handaxes", alternate: "any simple weapon" },
     ],
+    standard_equipment: ["explorer's pack", "four javelins"],
   },
   {
     class: "Bard",
-    equipment: [
-      { type: "Weapon", items: ["Rapier", "Longsword", "Any simple weapon"] },
+    equipment_choices: [
       {
-        type: "Equipment Pack",
-        items: ["Diplomat's pack", "Entertainer's pack"],
+        item: "rapier",
+        alternate: ["longsword (if proficient)", "any simple weapon"],
       },
-      {
-        type: "Musical Instrument",
-        items: ["A lute or any other musical instrument"],
-      },
-      { type: "Armor", items: ["Leather armor"] },
-      { type: "Weapon", items: ["Dagger"] },
+      { item: "diplomat's pack", alternate: "entertainer's pack" },
+      { item: "lute", alternate: "any other musical instrument" },
     ],
+    standard_equipment: ["leather armor", "dagger"],
   },
   {
     class: "Cleric",
-    equipment: [
-      { type: "Weapon", items: ["Mace", "Warhammer (if proficient)"] },
+    equipment_choices: [
+      { item: "mace", alternate: "warhammer (if proficient)" },
       {
-        type: "Armor",
-        items: ["Scale mail", "Leather armor", "Chain mail (if proficient)"],
+        item: "scale mail",
+        alternate: ["leather armor", "chain mail (if proficient)"],
       },
-      { type: "Equipment Pack", items: ["Priest's pack", "Explorer's pack"] },
-      { type: "Shield", items: ["Shield"] },
-      { type: "Holy Symbol", items: ["A holy symbol"] },
+      { item: "light crossbow and 20 bolts", alternate: "any simple weapon" },
+      { item: "priest's pack", alternate: "explorer's pack" },
     ],
+    standard_equipment: ["shield", "holy symbol"],
   },
   {
     class: "Druid",
-    equipment: [
-      { type: "Armor", items: ["Leather armor"] },
-      { type: "Weapon", items: ["Wooden shield", "Any simple weapon"] },
-      { type: "Scimitar", items: ["Scimitar"] },
-      { type: "Equipment Pack", items: ["Explorer's pack"] },
-      { type: "Druidic Focus", items: ["A druidic focus"] },
+    equipment_choices: [
+      { item: "wooden shield", alternate: "any simple weapon" },
+      { item: "scimitar", alternate: "any simple melee weapon" },
     ],
+    standard_equipment: ["leather armor", "explorer's pack", "druidic focus"],
   },
   {
     class: "Fighter",
-    equipment: [
+    equipment_choices: [
       {
-        type: "Weapon",
-        items: ["Chain mail", "Leather armor, longbow, and 20 arrows"],
+        item: "chain mail",
+        alternate: ["leather armor", "longbow and 20 arrows"],
       },
+      { item: "martial weapon and shield", alternate: "two martial weapons" },
+      { item: "light crossbow and 20 bolts", alternate: "two handaxes" },
+      { item: "dungeoneer's pack", alternate: "explorer's pack" },
+    ],
+    standard_equipment: [],
+  },
+  {
+    class: "Monk",
+    equipment_choices: [
+      { item: "shortsword", alternate: "any simple weapon" },
+      { item: "dungeoneer's pack", alternate: "explorer's pack" },
+    ],
+    standard_equipment: ["10 darts"],
+  },
+  {
+    class: "Paladin",
+    equipment_choices: [
+      { item: "martial weapon and shield", alternate: "two martial weapons" },
+      { item: "five javelins", alternate: "any simple melee weapon" },
+      { item: "priest's pack", alternate: "explorer's pack" },
+    ],
+    standard_equipment: ["chain mail", "holy symbol"],
+  },
+  {
+    class: "Ranger",
+    equipment_choices: [
+      { item: "scale mail", alternate: "leather armor" },
+      { item: "two shortswords", alternate: "two simple melee weapons" },
+      { item: "dungeoneer's pack", alternate: "explorer's pack" },
+    ],
+    standard_equipment: ["longbow", "quiver of 20 arrows"],
+  },
+  {
+    class: "Rogue",
+    equipment_choices: [
+      { item: "rapier", alternate: "shortsword" },
+      { item: "shortbow and 20 arrows", alternate: "shortsword" },
       {
-        type: "Weapon Choice",
-        items: ["A martial weapon and a shield", "Two martial weapons"],
-      },
-      {
-        type: "Equipment Pack",
-        items: ["Dungeoneer's pack", "Explorer's pack"],
-      },
-      {
-        type: "Weapon",
-        items: ["Light crossbow and 20 bolts", "Two handaxes"],
+        item: "burglar's pack",
+        alternate: ["dungeoneer's pack", "explorer's pack"],
       },
     ],
+    standard_equipment: ["leather armor", "two daggers", "thieves’ tools"],
+  },
+  {
+    class: "Sorcerer",
+    equipment_choices: [
+      { item: "light crossbow and 20 bolts", alternate: "any simple weapon" },
+      { item: "component pouch", alternate: "arcane focus" },
+      { item: "dungeoneer's pack", alternate: "explorer's pack" },
+    ],
+    standard_equipment: ["two daggers"],
+  },
+  {
+    class: "Warlock",
+    equipment_choices: [
+      { item: "light crossbow and 20 bolts", alternate: "any simple weapon" },
+      { item: "component pouch", alternate: "arcane focus" },
+      { item: "scholar's pack", alternate: "dungeoneer's pack" },
+    ],
+    standard_equipment: ["leather armor", "two daggers"],
   },
   {
     class: "Wizard",
-    equipment: [
-      { type: "Weapon", items: ["A quarterstaff", "A dagger"] },
-      { type: "Equipment Pack", items: ["Scholar's pack", "Explorer's pack"] },
-      { type: "Spellcasting", items: ["A spellbook"] },
-      { type: "Component Pouch", items: ["Component pouch", "Arcane focus"] },
+    equipment_choices: [
+      { item: "quarterstaff", alternate: "dagger" },
+      { item: "component pouch", alternate: "arcane focus" },
+      { item: "scholar's pack", alternate: "explorer's pack" },
     ],
+    standard_equipment: ["spellbook"],
   },
 ];

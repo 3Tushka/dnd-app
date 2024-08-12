@@ -29,28 +29,6 @@
         </option>
       </select>
 
-      <div>
-        <label for="skills">Skills:</label>
-        <div id="skills" formArrayName="skills">
-          <div *ngFor="let skill of classAndBackgroundSkill; let i = index">
-            <input
-              type="checkbox"
-              [value]="skill"
-              (change)="onSkillChange($event, skill)"
-              [checked]="selectedSkills.includes(skill)"
-              [disabled]="
-                backgrounds[
-                  characterCreationForm.get('background')?.value
-                ]?.includes(skill)
-              "
-            />
-            {{ skill }}
-          </div>
-        </div>
-      </div>
-
-      <button type="button" (click)="selectArchetype()">Arch</button>
-      <button type="button" (click)="onGetTwoButtons()">Two Button Way</button>
       <button type="button" (click)="nextStep()">Next</button>
     </div>
 
@@ -126,17 +104,30 @@
     </div>
 
     <div *ngIf="currentStep === 3">
-      <h2>Step 3: Background</h2>
+      <label for="skills">Skills:</label>
+      <div id="skills" formArrayName="skills">
+        <div *ngFor="let skill of classAndBackgroundSkill; let i = index">
+          <input
+            type="checkbox"
+            [value]="skill"
+            (change)="onSkillChange($event, skill)"
+            [checked]="selectedSkills.includes(skill)"
+            [disabled]="
+              backgrounds[
+                characterCreationForm.get('background')?.value
+              ]?.includes(skill)
+            "
+          />
+          {{ skill }}
+        </div>
+      </div>
 
-      <label for="equipment">Equipment:</label>
-      <select id="equipment" formControlName="equipment" required>
-        <option
-          *ngFor="let equipmentItem of selectedEquipmentOption"
-          [value]="equipmentItem"
-        >
-          {{ equipmentItem }}
-        </option>
-      </select>
+      <button type="button" (click)="prevStep()">Previous</button>
+      <button type="button" (click)="nextStep()">Next</button>
+    </div>
+
+    <div *ngIf="currentStep === 4">
+      <h2>Step 3: Background</h2>
 
       <label for="archeTypes">Archetype:</label>
       <select id="archeTypes" formControlName="archeTypes" required>
@@ -147,7 +138,6 @@
           {{ archeTypes }}
         </option>
       </select>
-
       <button type="button" (click)="prevStep()">Previous</button>
       <button type="submit" (click)="onSubmit()">Submit</button>
     </div>

@@ -3,7 +3,6 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  AbstractControl,
   FormArray,
   FormControl,
 } from "@angular/forms";
@@ -15,10 +14,8 @@ import {
   classArchetypesWithSpells,
   classSkills,
   fightingStyles,
-  classStartEquipment,
-  EquipmentOption,
+  equipment,
 } from "./data";
-import { ThisReceiver } from "@angular/compiler";
 
 @Component({
   selector: "app-creator",
@@ -39,15 +36,12 @@ export class CreatorComponent {
   archetype = classArchetypesWithSpells;
   fightingStyles = fightingStyles;
   skills = classSkills;
-  startEquipment = classStartEquipment;
 
   // Form and selected data
   characterCreationForm: FormGroup;
   filteredArchetypes: string[] = [];
   classAndBackgroundSkill: string[] = [];
   selectedSkills: string[] = [];
-  selectedEquipment: EquipmentOption[] = [];
-  selectedEquipmentOption: string[] = [];
 
   constructor(private fb: FormBuilder) {
     this.characterCreationForm = this.fb.group({
@@ -83,7 +77,8 @@ export class CreatorComponent {
       }),
       archeTypes: ["", Validators.required],
       skills: this.fb.array([], Validators.required),
-      equipment: this.fb.array([], Validators.required),
+      equipment: this.fb.array([]),
+      equipment_choices: this.fb.array([]),
     });
   }
 
@@ -94,6 +89,11 @@ export class CreatorComponent {
 
   get equipmentFormArray(): FormArray {
     return this.characterCreationForm.get("equipment") as FormArray;
+  }
+
+  get equipmentChoicesControls() {
+    return (this.characterCreationForm.get("equipment_choices") as FormArray)
+      .controls;
   }
 
   // Utility methods
@@ -222,47 +222,35 @@ export class CreatorComponent {
     }
   }
 
-  selectEquipmentOption() {
+  selectEquipment() {
     const selectedClass = this.characterCreationForm.get("class")?.value;
-    const selectedEquipment = this.startEquipment.find(
-      (equipment) => equipment.class === selectedClass
+    const selectedEquipment = equipment.find(
+      (equip) => equip.class === selectedClass
     );
+    const equipmentList = selectedEquipment?.equipment_choices || [];
 
-    this.selectedEquipment = selectedEquipment?.equipment || [];
-
-    if (this.selectedEquipment.length > 0) {
-      this.selectedEquipment.forEach((equipment) => {
-        if (equipment.items) {
-          equipment.items.forEach((item) => {
-            this.selectedEquipmentOption.push(item);
-          });
-        }
-      });
-    }
-
-    console.log("Selected equipment options:", this.selectedEquipmentOption);
+    console.log("Equipment list:", equipmentList);
   }
 
-  onCheckboxChangeEquipment(event: any, equipment: any) {
+  onEquipmentChange(event: any, equipment: any) {
+    this.selectEquipment();
+
     if (event.target.checked) {
-      if (this.selectedEquipmentOption.length < 2) {
-        this.selectedEquipmentOption.push(equipment);
-        this.equipmentFormArray.push(new FormControl(equipment));
-      } else {
-        event.target.checked = false;
-        console.log("You can only select 2 items.");
-      }
+      this.equipmentFormArray.push(new FormControl(equipment));
     } else {
-      const index = this.selectedEquipmentOption.indexOf(equipment);
-      if (index !== -1) {
-        this.selectedEquipmentOption.splice(index, 1);
-      }
+      const index = this.equipmentFormArray.controls.findIndex(
+        (control) => control.value === equipment
+      );
+      this.equipmentFormArray.removeAt(index);
     }
   }
 
   // Navigation methods
   nextStep() {
-    if (this.currentStep < 3) {
+    this.selectArchetype();
+    this.selectBackground();
+    this.getSkills();
+    if (this.currentStep < 4) {
       this.currentStep++;
     }
   }
@@ -273,16 +261,8 @@ export class CreatorComponent {
     }
   }
 
-  // Form submission
-  onGetTwoButtons() {
-    this.getSkills();
-    this.selectBackground();
-    this.selectEquipmentOption();
-  }
-
   onSubmit() {
     if (this.characterCreationForm.valid) {
-      this.selectArchetype();
       this.nextStep();
       this.calculateRacialBonus();
       console.log("Form data:", this.characterCreationForm.value);
