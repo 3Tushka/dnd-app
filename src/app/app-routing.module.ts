@@ -15,6 +15,8 @@ import { SpellDetailComponent } from "./spells/spell-detail/spell-detail.compone
 import { FeatureComponent } from "./features/feature/feature.component";
 import { HomepageComponent } from "./homepage/homepage.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { AuthGuard } from "@auth0/auth0-angular";
+import { CreatorComponent } from "./creator/creator.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -31,7 +33,8 @@ const routes: Routes = [
   { path: "races/:id", component: RaceComponent },
   { path: "spells", component: SpellsComponent },
   { path: "spells/:id", component: SpellDetailComponent },
-  { path: "profile", component: ProfileComponent },
+  { path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: "creator", component: CreatorComponent },
   // { path: "api/traits/:name", },
 ];
 

@@ -1,1 +1,155 @@
-<p>creator works!</p>
+<div class="multi-step-form">
+  <form [formGroup]="characterCreationForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="currentStep === 1">
+      <h2>Step 1: Basic Information</h2>
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" required />
+
+      <label for="race">Race:</label>
+      <input id="race" formControlName="race" list="raceOptions" required />
+      <datalist id="raceOptions">
+        <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+      </datalist>
+
+      <label for="class">Class:</label>
+      <input id="class" formControlName="class" list="classOptions" required />
+      <datalist id="classOptions">
+        <option *ngFor="let class of classes" [value]="class">
+          {{ class }}
+        </option>
+      </datalist>
+
+      <label for="background">Background:</label>
+      <select id="background" formControlName="background" required>
+        <option
+          *ngFor="let background of backgrounds | keyvalue"
+          [value]="background.key"
+        >
+          {{ background.key }}
+        </option>
+      </select>
+
+      <div>
+        <label for="skills">Skills:</label>
+        <div id="skills" formArrayName="skills">
+          <div *ngFor="let skill of classAndBackgroundSkill; let i = index">
+            <input
+              type="checkbox"
+              [value]="skill"
+              (change)="onSkillChange($event, skill)"
+              [checked]="selectedSkills.includes(skill)"
+              [disabled]="
+                backgrounds[
+                  characterCreationForm.get('background')?.value
+                ]?.includes(skill)
+              "
+            />
+            {{ skill }}
+          </div>
+        </div>
+      </div>
+
+      <button type="button" (click)="selectArchetype()">Arch</button>
+      <button type="button" (click)="onGetTwoButtons()">Two Button Way</button>
+      <button type="button" (click)="nextStep()">Next</button>
+    </div>
+
+    <div *ngIf="currentStep === 2">
+      <h2>Step 2: Ability Scores</h2>
+      <div formGroupName="abilityScores">
+        <label for="strength">Strength:</label>
+        <input
+          id="strength"
+          formControlName="strength"
+          type="number"
+          required
+          min="8"
+          max="15"
+          (change)="onAbilityScoreChange()"
+        />
+        <label for="dexterity">Dexterity:</label>
+        <input
+          id="dexterity"
+          formControlName="dexterity"
+          type="number"
+          required
+          min="8"
+          max="15"
+          (change)="onAbilityScoreChange()"
+        />
+        <label for="constitution">Constitution:</label>
+        <input
+          id="constitution"
+          formControlName="constitution"
+          type="number"
+          required
+          min="8"
+          max="15"
+          (change)="onAbilityScoreChange()"
+        />
+        <label for="intelligence">Intelligence:</label>
+        <input
+          id="intelligence"
+          formControlName="intelligence"
+          type="number"
+          required
+          min="8"
+          max="15"
+          (change)="onAbilityScoreChange()"
+        />
+        <label for="wisdom">Wisdom:</label>
+        <input
+          id="wisdom"
+          formControlName="wisdom"
+          type="number"
+          required
+          min="8"
+          max="15"
+          (change)="onAbilityScoreChange()"
+        />
+        <label for="charisma">Charisma:</label>
+        <input
+          id="charisma"
+          formControlName="charisma"
+          type="number"
+          required
+          min="8"
+          max="15"
+          (change)="onAbilityScoreChange()"
+        />
+      </div>
+      <div>
+        <p>Points Remaining: {{ abilityPoints }}</p>
+      </div>
+      <button type="button" (click)="prevStep()">Previous</button>
+      <button type="button" (click)="nextStep()">Next</button>
+    </div>
+
+    <div *ngIf="currentStep === 3">
+      <h2>Step 3: Background</h2>
+
+      <label for="equipment">Equipment:</label>
+      <select id="equipment" formControlName="equipment" required>
+        <option
+          *ngFor="let equipmentItem of selectedEquipmentOption"
+          [value]="equipmentItem"
+        >
+          {{ equipmentItem }}
+        </option>
+      </select>
+
+      <label for="archeTypes">Archetype:</label>
+      <select id="archeTypes" formControlName="archeTypes" required>
+        <option
+          *ngFor="let archeTypes of filteredArchetypes"
+          [value]="archeTypes"
+        >
+          {{ archeTypes }}
+        </option>
+      </select>
+
+      <button type="button" (click)="prevStep()">Previous</button>
+      <button type="submit" (click)="onSubmit()">Submit</button>
+    </div>
+  </form>
+</div>

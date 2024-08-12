@@ -23,24 +23,12 @@
       </div>
     </div>
     <div class="navbar__auth">
-      <div
-        class="navbar__auth__wrapper"
-        *ngIf="!(auth.isAuthenticated$ | async)"
-      >
+      <div class="navbar__auth__wrapper">
         <a href="https://www.login.com" class="login">Login</a>
         <a href="https://www.register.com" class="register" (click)="login()"
           >Register</a
         >
-      </div>
-
-      <div
-        class="navbar__auth__wrapper"
-        *ngIf="(auth.isAuthenticated$ | async) && auth.user$ as user"
-      >
-        <a href="https://www.login.com" class="login"></a>
-        <a href="https://www.register.com" class="register" (click)="login()"
-          >Register</a
-        >
+        <button (click)="getToken()">Send token</button>
       </div>
     </div>
   </div>

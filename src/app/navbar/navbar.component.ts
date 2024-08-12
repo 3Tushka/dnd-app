@@ -71,22 +71,18 @@ export class NavbarComponent {
       .pipe(
         tap((idTokenClaims: any) => {
           console.log("This token: ", idTokenClaims?.__raw);
+          this.sendTokenToServer(idTokenClaims?.__raw);
         })
       )
       .subscribe();
   }
 
-  // sendTokenToServer(token: string) {
-  //   const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
-  //   this.http
-  //     .post("http://localhost:3000/api/endpoint", {}, { headers })
-  //     .subscribe(
-  //       (response) => {
-  //         console.log("Response from server:", response);
-  //       },
-  //       (error) => {
-  //         console.error("Error sending token to server:", error);
-  //       }
-  //     );
-  // }
+  sendTokenToServer(token: string) {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
+    this.http
+      .post("http://localhost:3000/users", {}, { headers })
+      .subscribe((response) => {
+        console.log("Server response:", response);
+      });
+  }
 }
