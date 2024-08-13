@@ -1,5 +1,102 @@
+@import "src/assets/variables.scss";
+
 .monsters {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    font-family: "Caudex", serif;
+    font-size: 1.2rem;
+    background-image: url("../../assets/images/backgrounds/wood.jpg");
+    background-size: contain;
+    background-repeat: repeat-y;
+    background-position: center;
+
+    &__wrapper {
+        margin: 0 10rem;
+        padding: 2rem;
+        background-color: $paper-background;
+        background-image: url("../../assets/images/backgrounds/paper.jpg"); // Add a paper texture image
+        background-attachment: fixed; // This creates the parallax effect
+        background-size: cover;
+        background-position: center;
+    }
+
+    .monsters__form {
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 8px;
+
+        /* Form wrapper */
+        .form {
+            &__wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            &__group {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+
+                /* Label */
+                label {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+
+                /* Input */
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    transition: border-color 0.3s;
+
+                    &:focus {
+                        border-color: #007bff;
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        margin: 20px 0;
+    }
+
+    &__list {
+        width: 100%;
+
+        &__items {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 80%;
+        }
+
+        .monster {
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-bottom: 2px solid $rich-red;
+        }
+    }
+
+    &__emptyList {
+        width: 100%;
+        max-width: 50%;
+        &__item {
+            padding: 1rem;
+            background-color: aliceblue;
+            margin: 1rem;
+        }
+    }
+
+    &__topResult {
+        width: 100%;
+        height: fit-content;
+        max-width: 30%;
+        padding: 1rem 2rem;
+        background-color: aliceblue;
+    }
 }

@@ -15,23 +15,24 @@ export class MonstersComponent {
     private fb: FormBuilder
   ) {
     this.searchForm = this.fb.group({
-      name: [""],
+      name: ["a"],
     });
   }
 
   monsterDataList!: ListOfElementsInterface | null;
   monsterDetails: MonsterInterface[] = [];
 
-  selectMonsterName: string = "";
+  selectMonsterName: string = "a";
   searchForm!: FormGroup;
 
   showMonsterList: boolean = false;
-  showFilteredMonsterList: boolean = false;
+  showFilteredMonsterList: boolean = true;
   count: number = 0;
   filteredMonsters: MonsterInterface[] = [];
 
   ngOnInit(): void {
     this.getAllMonstersList();
+    this.searchByName();
   }
 
   getAllMonstersList() {

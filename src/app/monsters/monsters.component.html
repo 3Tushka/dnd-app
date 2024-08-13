@@ -16,37 +16,123 @@
     </div>
 
     <div class="monsters__content">
-      <div class="monsters__content-check" *ngIf="!showMonsterList">
-        <div *ngIf="filteredMonsters.length > 0">
-          <div class="monsters__content__list">
-            <article
-              class="monsters__content__list-item monster"
-              *ngFor="let monster of filteredMonsters"
-            >
-              <div class="monster__name">
-                {{ monster.name }}
-              </div>
-              <div class="monster__type">
-                {{ monster.type }}
-              </div>
-              <div class="monster__desc">
-                {{ monster.desc }}
-              </div>
-            </article>
-          </div>
+      <div class="monsters__list">
+        <div class="monsters__list__items" *ngIf="filteredMonsters.length > 0">
+          <article
+            class="monsters__list__item monster"
+            *ngFor="let monster of filteredMonsters"
+          >
+            <div class="monster__name">
+              {{ monster.name }}
+            </div>
+            <div class="monster__type">
+              {{ monster.type.toUpperCase() }}
+            </div>
+            <div class="monster__desc">
+              {{ monster.desc }}
+            </div>
+          </article>
         </div>
-
-        <div *ngIf="filteredMonsters.length === 0">
+        <div class="monsters__emptyList" *ngIf="filteredMonsters.length === 0">
           <div class="monster-state" *ngIf="monsterDataList">
-            <div *ngFor="let item of monsterDataList.results">
+            <div
+              class="monsters__emptyList__item"
+              *ngFor="let item of monsterDataList.results"
+            >
               <span (click)="selectMonster(item.url)">{{ item.name }}</span>
             </div>
           </div>
         </div>
       </div>
+      <div class="monsters__topResult top-monster" *ngIf="filteredMonsters[0]">
+        <header class="top-monster__header">
+          <div class="top-monster__name">
+            {{ filteredMonsters[0].name }}
+          </div>
+          <div class="top-monster__type">
+            {{ filteredMonsters[0].type.toUpperCase() }}
+          </div>
+        </header>
+        <main class="top-monster__content">
+          <div class="top-monster__desc">
+            {{ filteredMonsters[0].desc }}
+          </div>
+          <div class="top-monster__stats">
+            <div class="stat">
+              <span class="stat__label">Strength:</span>
+              <span class="stat__value">{{
+                filteredMonsters[0].strength
+              }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Dexterity:</span>
+              <span class="stat__value">{{
+                filteredMonsters[0].dexterity
+              }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Constitution:</span>
+              <span class="stat__value">{{
+                filteredMonsters[0].constitution
+              }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Intelligence:</span>
+              <span class="stat__value">{{
+                filteredMonsters[0].intelligence
+              }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Wisdom:</span>
+              <span class="stat__value">{{ filteredMonsters[0].wisdom }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Charisma:</span>
+              <span class="stat__value">{{
+                filteredMonsters[0].charisma
+              }}</span>
+            </div>
+          </div>
+          <div class="top-monster__cr">
+            <span class="top-monster__cr__label">Challenge Rating:</span>
+            <span class="top-monster__cr__value">{{
+              filteredMonsters[0].challenge_rating
+            }}</span>
 
-      <div class="" *ngIf="filteredMonsters[0]">
-        <div class="">{{ filteredMonsters[0].name }}</div>
+            <span class="top-monster__cr__label">Hit Points:</span>
+            <span class="top-monster__cr__value">{{
+              filteredMonsters[0].hit_points
+            }}</span>
+
+            <span class="top-monster__cr__label">Armor Class:</span>
+            <span
+              class="top-monster__cr__value"
+              *ngFor="let item of filteredMonsters[0].armor_class"
+              >{{ item.value }}
+            </span>
+
+            <span class="top-monster__cr__label">Speed:</span>
+            <span class="top-monster__cr__value">{{
+              filteredMonsters[0].speed.walk
+            }}</span>
+          </div>
+          <div class="top-monster__info">
+            <span class="top-monster__info__label">Size:</span>
+            <span class="top-monster__info__value">{{
+              filteredMonsters[0].size
+            }}</span>
+
+            <span class="top-monster__info__label">Alignment:</span>
+            <span class="top-monster__info__value">{{
+              filteredMonsters[0].alignment
+            }}</span>
+
+            <span class="top-monster__info__label">Languages:</span>
+            <span class="top-monster__info__value">{{
+              filteredMonsters[0].languages
+            }}</span>
+          </div>
+        </main>
       </div>
     </div>
   </div>

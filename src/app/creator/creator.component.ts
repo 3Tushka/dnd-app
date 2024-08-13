@@ -5,6 +5,7 @@ import {
   Validators,
   FormArray,
   FormControl,
+  AbstractControl,
 } from "@angular/forms";
 import {
   dndClasses,
@@ -42,6 +43,7 @@ export class CreatorComponent {
   filteredArchetypes: string[] = [];
   classAndBackgroundSkill: string[] = [];
   selectedSkills: string[] = [];
+  selectedEquipment: string[] = [];
 
   constructor(private fb: FormBuilder) {
     this.characterCreationForm = this.fb.group({
@@ -78,6 +80,7 @@ export class CreatorComponent {
       archeTypes: ["", Validators.required],
       skills: this.fb.array([], Validators.required),
       equipment_choices: this.fb.array([]),
+      standart_equipment: this.fb.array([]),
     });
   }
 
@@ -226,54 +229,84 @@ export class CreatorComponent {
     const selectedEquipment = equipment.find(
       (equip) => equip.class === selectedClass
     );
-    const equipmentList = selectedEquipment?.equipment_choices || [];
 
-    const equipmentChoicesArray = this.characterCreationForm.get(
+    const equipmentChoicesFormArray = this.characterCreationForm.get(
       "equipment_choices"
     ) as FormArray;
-    equipmentChoicesArray.clear();
+    equipmentChoicesFormArray.clear(); // Clear previous selections
 
-    equipmentList.forEach((choice: any) => {
-      equipmentChoicesArray.push(
-        new FormControl({
-          options: [
-            choice.item,
-            ...(Array.isArray(choice.alternate)
-              ? choice.alternate
-              : [choice.alternate]),
-          ],
-          selected: choice.item,
-        })
-      );
-    });
-    console.log("Equipment list:", equipmentList);
+    if (selectedEquipment) {
+      selectedEquipment.equipment_choices.forEach((choice: any) => {
+        equipmentChoicesFormArray.push(
+          this.fb.group({
+            item: [choice.item],
+            alternate: [choice.alternate],
+            itemDisabled: [{ value: false, disabled: false }],
+            alternateDisabled: [{ value: false, disabled: false }],
+            selected: [null],
+          })
+        );
+      });
+    }
   }
 
-  onEquipmentChange(event: any, equipment: any) {
-    if (event.target.checked) {
-      if (
-        !this.equipmentFormArray.controls.some(
-          (control) => control.value === equipment
-        )
-      ) {
-        this.equipmentFormArray.push(new FormControl(equipment));
+  checkEnableOptions() {
+    const equipmentChoicesFormArray = this.characterCreationForm.get(
+      "equipment_choices"
+    ) as FormArray;
+
+    equipmentChoicesFormArray.controls.forEach(
+      (group: AbstractControl, index: number) => {
+        const itemDisabled = group.get("itemDisabled")?.disabled;
+        const alternateDisabled = group.get("alternateDisabled")?.disabled;
+        console.log(
+          `Choice ${index}: itemDisabled=${itemDisabled}, alternateDisabled=${alternateDisabled}`
+        );
       }
+    );
+  }
+
+  onSelectionChange(index: number, type: "item" | "alternate") {
+    const equipmentChoicesFormArray = this.characterCreationForm.get(
+      "equipment_choices"
+    ) as FormArray;
+    const choiceGroup = equipmentChoicesFormArray.at(index) as FormGroup;
+
+    if (type === "item") {
+      choiceGroup.get("itemDisabled")?.enable();
+      choiceGroup.get("alternateDisabled")?.disable();
+      choiceGroup.get("selected")?.setValue(choiceGroup.get("item")?.value);
     } else {
-      const index = this.equipmentFormArray.controls.findIndex(
-        (control) => control.value === equipment
-      );
-      if (index !== -1) {
-        this.equipmentFormArray.removeAt(index);
-      }
+      choiceGroup.get("itemDisabled")?.disable();
+      choiceGroup.get("alternateDisabled")?.enable();
+      choiceGroup
+        .get("selected")
+        ?.setValue(choiceGroup.get("alternate")?.value);
     }
+
+    this.checkEnableOptions();
+  }
+
+  onUncheck(index: number) {
+    const equipmentChoicesFormArray = this.characterCreationForm.get(
+      "equipment_choices"
+    ) as FormArray;
+    const choiceGroup = equipmentChoicesFormArray.at(index) as FormGroup;
+
+    choiceGroup.get("itemDisabled")?.enable();
+    choiceGroup.get("alternateDisabled")?.enable();
+    choiceGroup.get("selected")?.setValue(null);
+
+    this.checkEnableOptions();
   }
 
   // Navigation methods
   nextStep() {
     this.selectArchetype();
     this.selectBackground();
+    this.selectEquipment();
     this.getSkills();
-    if (this.currentStep < 4) {
+    if (this.currentStep < 5) {
       this.currentStep++;
     }
   }

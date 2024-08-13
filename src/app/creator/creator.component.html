@@ -1,26 +1,47 @@
-<div class="multi-step-form">
-  <form [formGroup]="characterCreationForm" (ngSubmit)="onSubmit()">
-    <div *ngIf="currentStep === 1">
-      <h2>Step 1: Basic Information</h2>
-      <label for="name">Name:</label>
-      <input id="name" formControlName="name" required />
+<div class="creator">
+  <form
+    class="creator__form"
+    [formGroup]="characterCreationForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="creator__step" *ngIf="currentStep === 1">
+      <h2 class="creator__title">Step 1: Basic Information</h2>
+      <label class="creator__label" for="name">Name:</label>
+      <input class="creator__input" id="name" formControlName="name" required />
 
-      <label for="race">Race:</label>
-      <input id="race" formControlName="race" list="raceOptions" required />
-      <datalist id="raceOptions">
+      <label class="creator__label" for="race">Race:</label>
+      <input
+        class="creator__input"
+        id="race"
+        formControlName="race"
+        list="raceOptions"
+        required
+      />
+      <datalist class="creator__datalist" id="raceOptions">
         <option *ngFor="let race of races" [value]="race">{{ race }}</option>
       </datalist>
 
-      <label for="class">Class:</label>
-      <input id="class" formControlName="class" list="classOptions" required />
-      <datalist id="classOptions">
+      <label class="creator__label" for="class">Class:</label>
+      <input
+        class="creator__input"
+        id="class"
+        formControlName="class"
+        list="classOptions"
+        required
+      />
+      <datalist class="creator__datalist" id="classOptions">
         <option *ngFor="let class of classes" [value]="class">
           {{ class }}
         </option>
       </datalist>
 
-      <label for="background">Background:</label>
-      <select id="background" formControlName="background" required>
+      <label class="creator__label" for="background">Background:</label>
+      <select
+        class="creator__select"
+        id="background"
+        formControlName="background"
+        required
+      >
         <option
           *ngFor="let background of backgrounds | keyvalue"
           [value]="background.key"
@@ -28,31 +49,17 @@
           {{ background.key }}
         </option>
       </select>
-
-      <button type="button" (click)="nextStep()">Next</button>
+      <button class="creator__button" type="button" (click)="nextStep()">
+        Next
+      </button>
     </div>
 
-    <div *ngIf="currentStep === 2">
-      <button (click)="selectEquipment()">Get Equipment</button>
-
-      <div formArrayName="equipment_choices">
-        <div *ngFor="let choice of equipmentChoicesControls; let i = index">
-          <label [for]="'equipment_choice_' + i">Choose Equipment:</label>
-          <select [formControlName]="i" [id]="'equipment_choice_' + i">
-            <option
-              *ngFor="let option of choice.value.options"
-              [value]="option"
-            >
-              {{ option }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <h2>Step 2: Ability Scores</h2>
+    <div class="creator__step" *ngIf="currentStep === 2">
+      <h2 class="creator__title">Step 2: Ability Scores</h2>
       <div formGroupName="abilityScores">
-        <label for="strength">Strength:</label>
+        <label class="creator__label" for="strength">Strength:</label>
         <input
+          class="creator__input"
           id="strength"
           formControlName="strength"
           type="number"
@@ -61,8 +68,9 @@
           max="15"
           (change)="onAbilityScoreChange()"
         />
-        <label for="dexterity">Dexterity:</label>
+        <label class="creator__label" for="dexterity">Dexterity:</label>
         <input
+          class="creator__input"
           id="dexterity"
           formControlName="dexterity"
           type="number"
@@ -71,8 +79,9 @@
           max="15"
           (change)="onAbilityScoreChange()"
         />
-        <label for="constitution">Constitution:</label>
+        <label class="creator__label" for="constitution">Constitution:</label>
         <input
+          class="creator__input"
           id="constitution"
           formControlName="constitution"
           type="number"
@@ -81,8 +90,9 @@
           max="15"
           (change)="onAbilityScoreChange()"
         />
-        <label for="intelligence">Intelligence:</label>
+        <label class="creator__label" for="intelligence">Intelligence:</label>
         <input
+          class="creator__input"
           id="intelligence"
           formControlName="intelligence"
           type="number"
@@ -91,8 +101,9 @@
           max="15"
           (change)="onAbilityScoreChange()"
         />
-        <label for="wisdom">Wisdom:</label>
+        <label class="creator__label" for="wisdom">Wisdom:</label>
         <input
+          class="creator__input"
           id="wisdom"
           formControlName="wisdom"
           type="number"
@@ -101,8 +112,9 @@
           max="15"
           (change)="onAbilityScoreChange()"
         />
-        <label for="charisma">Charisma:</label>
+        <label class="creator__label" for="charisma">Charisma:</label>
         <input
+          class="creator__input"
           id="charisma"
           formControlName="charisma"
           type="number"
@@ -113,17 +125,25 @@
         />
       </div>
       <div>
-        <p>Points Remaining: {{ abilityPoints }}</p>
+        <p class="creator__points-remaining">
+          Points Remaining: {{ abilityPoints }}
+        </p>
       </div>
-      <button type="button" (click)="prevStep()">Previous</button>
-      <button type="button" (click)="nextStep()">Next</button>
+      <button class="creator__button" type="button" (click)="prevStep()">
+        Previous
+      </button>
+      <button class="creator__button" type="button" (click)="nextStep()">
+        Next
+      </button>
     </div>
 
-    <div *ngIf="currentStep === 3">
-      <label for="skills">Skills:</label>
+    <div class="creator__step" *ngIf="currentStep === 3">
+      <h2 class="creator__title">Step 3: Skills</h2>
+      <label class="creator__label" for="skills">Skills:</label>
       <div id="skills" formArrayName="skills">
         <div *ngFor="let skill of classAndBackgroundSkill; let i = index">
           <input
+            class="creator__checkbox"
             type="checkbox"
             [value]="skill"
             (change)="onSkillChange($event, skill)"
@@ -137,16 +157,23 @@
           {{ skill }}
         </div>
       </div>
-
-      <button type="button" (click)="prevStep()">Previous</button>
-      <button type="button" (click)="nextStep()">Next</button>
+      <button class="creator__button" type="button" (click)="prevStep()">
+        Previous
+      </button>
+      <button class="creator__button" type="button" (click)="nextStep()">
+        Next
+      </button>
     </div>
 
-    <div *ngIf="currentStep === 4">
-      <h2>Step 3: Background</h2>
-
-      <label for="archeTypes">Archetype:</label>
-      <select id="archeTypes" formControlName="archeTypes" required>
+    <div class="creator__step" *ngIf="currentStep === 4">
+      <h2 class="creator__title">Step 4: Background</h2>
+      <label class="creator__label" for="archeTypes">Archetype:</label>
+      <select
+        class="creator__select"
+        id="archeTypes"
+        formControlName="archeTypes"
+        required
+      >
         <option
           *ngFor="let archeTypes of filteredArchetypes"
           [value]="archeTypes"
@@ -154,8 +181,55 @@
           {{ archeTypes }}
         </option>
       </select>
-      <button type="button" (click)="prevStep()">Previous</button>
-      <button type="submit" (click)="onSubmit()">Submit</button>
+      <button class="creator__button" type="button" (click)="prevStep()">
+        Previous
+      </button>
+      <button class="creator__button" type="button" (click)="nextStep()">
+        Next
+      </button>
+    </div>
+
+    <div class="creator__step" *ngIf="currentStep === 5">
+      <h2 class="creator__title">Step 5: Equipment</h2>
+      <div
+        formArrayName="equipment_choices"
+        *ngFor="let choice of equipmentChoicesControls; let i = index"
+      >
+        <div [formGroupName]="i">
+          <label>
+            <input
+              class="creator__checkbox"
+              type="checkbox"
+              formControlName="itemDisabled"
+              (change)="
+                choice.get('itemDisabled')?.value
+                  ? onSelectionChange(i, 'item')
+                  : onUncheck(i)
+              "
+            />
+            {{ choice.get("item")?.value }}
+          </label>
+          <label *ngIf="choice.get('alternate')?.value">
+            <input
+              class="creator__checkbox"
+              type="checkbox"
+              formControlName="alternateDisabled"
+              (change)="
+                choice.get('alternateDisabled')?.value
+                  ? onSelectionChange(i, 'alternate')
+                  : onUncheck(i)
+              "
+            />
+            {{ choice.get("alternate")?.value }}
+          </label>
+        </div>
+      </div>
+      <button class="creator__button" type="button" (click)="prevStep()">
+        Previous
+      </button>
+      <button class="creator__button" type="submit" (click)="onSubmit()">
+        Submit
+      </button>
     </div>
   </form>
 </div>
