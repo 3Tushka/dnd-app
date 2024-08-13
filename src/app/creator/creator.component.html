@@ -33,6 +33,22 @@
     </div>
 
     <div *ngIf="currentStep === 2">
+      <button (click)="selectEquipment()">Get Equipment</button>
+
+      <div formArrayName="equipment_choices">
+        <div *ngFor="let choice of equipmentChoicesControls; let i = index">
+          <label [for]="'equipment_choice_' + i">Choose Equipment:</label>
+          <select [formControlName]="i" [id]="'equipment_choice_' + i">
+            <option
+              *ngFor="let option of choice.value.options"
+              [value]="option"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </div>
+
       <h2>Step 2: Ability Scores</h2>
       <div formGroupName="abilityScores">
         <label for="strength">Strength:</label>

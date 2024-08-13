@@ -77,7 +77,6 @@ export class CreatorComponent {
       }),
       archeTypes: ["", Validators.required],
       skills: this.fb.array([], Validators.required),
-      equipment: this.fb.array([]),
       equipment_choices: this.fb.array([]),
     });
   }
@@ -229,19 +228,43 @@ export class CreatorComponent {
     );
     const equipmentList = selectedEquipment?.equipment_choices || [];
 
+    const equipmentChoicesArray = this.characterCreationForm.get(
+      "equipment_choices"
+    ) as FormArray;
+    equipmentChoicesArray.clear();
+
+    equipmentList.forEach((choice: any) => {
+      equipmentChoicesArray.push(
+        new FormControl({
+          options: [
+            choice.item,
+            ...(Array.isArray(choice.alternate)
+              ? choice.alternate
+              : [choice.alternate]),
+          ],
+          selected: choice.item,
+        })
+      );
+    });
     console.log("Equipment list:", equipmentList);
   }
 
   onEquipmentChange(event: any, equipment: any) {
-    this.selectEquipment();
-
     if (event.target.checked) {
-      this.equipmentFormArray.push(new FormControl(equipment));
+      if (
+        !this.equipmentFormArray.controls.some(
+          (control) => control.value === equipment
+        )
+      ) {
+        this.equipmentFormArray.push(new FormControl(equipment));
+      }
     } else {
       const index = this.equipmentFormArray.controls.findIndex(
         (control) => control.value === equipment
       );
-      this.equipmentFormArray.removeAt(index);
+      if (index !== -1) {
+        this.equipmentFormArray.removeAt(index);
+      }
     }
   }
 
