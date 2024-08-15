@@ -38,6 +38,8 @@ export class CreatorComponent {
   fightingStyles = fightingStyles;
   skills = classSkills;
 
+  hasArchetypes: boolean = false;
+
   // Form and selected data
   characterCreationForm: FormGroup;
   filteredArchetypes: string[] = [];
@@ -77,13 +79,12 @@ export class CreatorComponent {
           [Validators.required, Validators.min(1), Validators.max(20)],
         ],
       }),
-      archeTypes: ["", Validators.required],
+      archeTypes: [""],
       skills: this.fb.array([], Validators.required),
       equipment_choices: this.fb.array([]),
       standart_equipment: this.fb.array([]),
     });
   }
-
   // Getters
   get skillsFormArray(): FormArray {
     return this.characterCreationForm.get("skills") as FormArray;
@@ -189,12 +190,13 @@ export class CreatorComponent {
   }
 
   onSkillChange(event: any, skill: any) {
+    const backgroundValue = this.characterCreationForm.get("background")?.value;
+    const backgroundSkills = this.backgrounds[backgroundValue];
+
     if (event.target.checked) {
       if (
         this.selectedSkills.length <
-        2 +
-          this.backgrounds[this.characterCreationForm.get("background")?.value]
-            .length
+        2 + (backgroundSkills ? backgroundSkills.length : 0)
       ) {
         this.selectedSkills.push(skill);
         this.skillsFormArray.push(new FormControl(skill));
@@ -215,12 +217,14 @@ export class CreatorComponent {
 
     if (selectedClass === "Fighter") {
       this.filteredArchetypes = this.fightingStyles.map((style) => style.name);
+      this.hasArchetypes = this.filteredArchetypes.length > 0;
     } else {
       const selectedArchetype = this.archetype.find(
         (archetype) => archetype.class === selectedClass
       );
       this.filteredArchetypes =
         selectedArchetype?.archetypes.map((archetype) => archetype.name) || [];
+      this.hasArchetypes = this.filteredArchetypes.length > 0;
     }
   }
 
@@ -306,7 +310,7 @@ export class CreatorComponent {
     this.selectBackground();
     this.selectEquipment();
     this.getSkills();
-    if (this.currentStep < 5) {
+    if (this.currentStep < 6) {
       this.currentStep++;
     }
   }

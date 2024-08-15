@@ -1,0 +1,85 @@
+.monster {
+    &__wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    &__content {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        &-name {
+            font-size: 2em;
+            margin: 0;
+            flex: 1;
+        }
+
+        &-image {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+    }
+
+    &__details {
+        &-description {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        &-stats {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+
+            &-stat {
+                flex: 1 1 30%;
+                margin-bottom: 10px;
+
+                &-label {
+                    font-weight: bold;
+                }
+
+                &-value {
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        &-abilities,
+        &-actions,
+        &-legendary-actions {
+            margin-bottom: 20px;
+
+            &-title {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+
+            &-list {
+                list-style: none;
+                padding: 0;
+
+                &-ability,
+                &-action,
+                &-legendary-action {
+                    margin-bottom: 10px;
+
+                    strong {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}

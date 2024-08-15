@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from "@angular/core";
 import { MonsterInterface } from "../monster.interface";
 import { MonstersService } from "../monsters.service";
+import { ActivatedRoute } from "@angular/router"; // Import ActivatedRoute module
 
 @Component({
   selector: "app-monster",
@@ -10,20 +11,30 @@ import { MonstersService } from "../monsters.service";
 export class MonsterComponent {
   @Input() monsterName!: string;
 
-  constructor(private monsterService: MonstersService) {}
+  constructor(
+    private monsterService: MonstersService,
+    private route: ActivatedRoute // Inject ActivatedRoute
+  ) {}
 
   monsterData!: MonsterInterface | null;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["monsterName"]) {
-      this.getMonster(this.monsterName);
-    }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get("id");
+      if (id) {
+        this.getMonster(id);
+      }
+    });
   }
 
   getMonster(monsterName: string) {
     this.monsterService.getMonsterByIndex(monsterName).subscribe({
       next: (data) => {
-        this.monsterData = data;
+        const monster: MonsterInterface = {
+          ...data,
+          image: `${this.monsterService.baseUrl}images/monsters/${data.index}.png`,
+        };
+        this.monsterData = monster;
         console.log("Data by index: ", this.monsterData);
       },
       error: (error) => console.log("ERROR: ", error),

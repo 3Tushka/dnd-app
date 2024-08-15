@@ -57,7 +57,11 @@ export class MonstersComponent {
   getMonsterDetails(index: string) {
     this.monsterService.getMonsterByIndex(index).subscribe({
       next: (data) => {
-        this.monsterDetails.push(data);
+        const monster: MonsterInterface = {
+          ...data,
+          image: `${this.monsterService.baseUrl}images/monsters/${data.index}.png`,
+        };
+        this.monsterDetails.push(monster);
       },
       error: (error) => console.log("Error in Monster details", error),
     });

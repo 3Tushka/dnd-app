@@ -1,235 +1,284 @@
+<app-navbar></app-navbar>
 <div class="creator">
-  <form
-    class="creator__form"
-    [formGroup]="characterCreationForm"
-    (ngSubmit)="onSubmit()"
-  >
-    <div class="creator__step" *ngIf="currentStep === 1">
-      <h2 class="creator__title">Step 1: Basic Information</h2>
-      <label class="creator__label" for="name">Name:</label>
-      <input class="creator__input" id="name" formControlName="name" required />
-
-      <label class="creator__label" for="race">Race:</label>
-      <input
-        class="creator__input"
-        id="race"
-        formControlName="race"
-        list="raceOptions"
-        required
-      />
-      <datalist class="creator__datalist" id="raceOptions">
-        <option *ngFor="let race of races" [value]="race">{{ race }}</option>
-      </datalist>
-
-      <label class="creator__label" for="class">Class:</label>
-      <input
-        class="creator__input"
-        id="class"
-        formControlName="class"
-        list="classOptions"
-        required
-      />
-      <datalist class="creator__datalist" id="classOptions">
-        <option *ngFor="let class of classes" [value]="class">
-          {{ class }}
-        </option>
-      </datalist>
-
-      <label class="creator__label" for="background">Background:</label>
-      <select
-        class="creator__select"
-        id="background"
-        formControlName="background"
-        required
-      >
-        <option
-          *ngFor="let background of backgrounds | keyvalue"
-          [value]="background.key"
-        >
-          {{ background.key }}
-        </option>
-      </select>
-      <button class="creator__button" type="button" (click)="nextStep()">
-        Next
-      </button>
-    </div>
-
-    <div class="creator__step" *ngIf="currentStep === 2">
-      <h2 class="creator__title">Step 2: Ability Scores</h2>
-      <div formGroupName="abilityScores">
-        <label class="creator__label" for="strength">Strength:</label>
-        <input
-          class="creator__input"
-          id="strength"
-          formControlName="strength"
-          type="number"
-          required
-          min="8"
-          max="15"
-          (change)="onAbilityScoreChange()"
-        />
-        <label class="creator__label" for="dexterity">Dexterity:</label>
-        <input
-          class="creator__input"
-          id="dexterity"
-          formControlName="dexterity"
-          type="number"
-          required
-          min="8"
-          max="15"
-          (change)="onAbilityScoreChange()"
-        />
-        <label class="creator__label" for="constitution">Constitution:</label>
-        <input
-          class="creator__input"
-          id="constitution"
-          formControlName="constitution"
-          type="number"
-          required
-          min="8"
-          max="15"
-          (change)="onAbilityScoreChange()"
-        />
-        <label class="creator__label" for="intelligence">Intelligence:</label>
-        <input
-          class="creator__input"
-          id="intelligence"
-          formControlName="intelligence"
-          type="number"
-          required
-          min="8"
-          max="15"
-          (change)="onAbilityScoreChange()"
-        />
-        <label class="creator__label" for="wisdom">Wisdom:</label>
-        <input
-          class="creator__input"
-          id="wisdom"
-          formControlName="wisdom"
-          type="number"
-          required
-          min="8"
-          max="15"
-          (change)="onAbilityScoreChange()"
-        />
-        <label class="creator__label" for="charisma">Charisma:</label>
-        <input
-          class="creator__input"
-          id="charisma"
-          formControlName="charisma"
-          type="number"
-          required
-          min="8"
-          max="15"
-          (change)="onAbilityScoreChange()"
-        />
-      </div>
-      <div>
-        <p class="creator__points-remaining">
-          Points Remaining: {{ abilityPoints }}
-        </p>
-      </div>
-      <button class="creator__button" type="button" (click)="prevStep()">
-        Previous
-      </button>
-      <button class="creator__button" type="button" (click)="nextStep()">
-        Next
-      </button>
-    </div>
-
-    <div class="creator__step" *ngIf="currentStep === 3">
-      <h2 class="creator__title">Step 3: Skills</h2>
-      <label class="creator__label" for="skills">Skills:</label>
-      <div id="skills" formArrayName="skills">
-        <div *ngFor="let skill of classAndBackgroundSkill; let i = index">
+  <div class="creator__wrapper">
+    <form
+      class="creator__form"
+      [formGroup]="characterCreationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="creator__step" *ngIf="currentStep === 1">
+        <h2 class="creator__title">Step 1: Basic Information</h2>
+        <div class="creator__step__content">
+          <label class="creator__label" for="name">Name:</label>
           <input
-            class="creator__checkbox"
-            type="checkbox"
-            [value]="skill"
-            (change)="onSkillChange($event, skill)"
-            [checked]="selectedSkills.includes(skill)"
-            [disabled]="
-              backgrounds[
-                characterCreationForm.get('background')?.value
-              ]?.includes(skill)
-            "
+            class="creator__input"
+            id="name"
+            formControlName="name"
+            required
           />
-          {{ skill }}
-        </div>
-      </div>
-      <button class="creator__button" type="button" (click)="prevStep()">
-        Previous
-      </button>
-      <button class="creator__button" type="button" (click)="nextStep()">
-        Next
-      </button>
-    </div>
 
-    <div class="creator__step" *ngIf="currentStep === 4">
-      <h2 class="creator__title">Step 4: Background</h2>
-      <label class="creator__label" for="archeTypes">Archetype:</label>
-      <select
-        class="creator__select"
-        id="archeTypes"
-        formControlName="archeTypes"
-        required
-      >
-        <option
-          *ngFor="let archeTypes of filteredArchetypes"
-          [value]="archeTypes"
+          <label class="creator__label" for="race">Race:</label>
+          <input
+            class="creator__input"
+            id="race"
+            formControlName="race"
+            list="raceOptions"
+            required
+          />
+          <datalist class="creator__datalist" id="raceOptions">
+            <option *ngFor="let race of races" [value]="race">
+              {{ race }}
+            </option>
+          </datalist>
+
+          <label class="creator__label" for="class">Class:</label>
+          <input
+            class="creator__input"
+            id="class"
+            formControlName="class"
+            list="classOptions"
+            required
+          />
+          <datalist class="creator__datalist" id="classOptions">
+            <option *ngFor="let class of classes" [value]="class">
+              {{ class }}
+            </option>
+          </datalist>
+
+          <label class="creator__label" for="background">Background:</label>
+          <input
+            class="creator__input"
+            id="background"
+            formControlName="background"
+            list="backgroundOptions"
+            required
+          />
+          <datalist class="creator__datalist" id="backgroundOptions">
+            <option
+              *ngFor="let background of backgrounds | keyvalue"
+              [value]="background.key"
+            >
+              {{ background.key }}
+            </option>
+          </datalist>
+        </div>
+        <div
+          class="creator__controlls"
+          [ngClass]="{ 'creator__controlls--end': currentStep === 1 }"
         >
-          {{ archeTypes }}
-        </option>
-      </select>
-      <button class="creator__button" type="button" (click)="prevStep()">
-        Previous
-      </button>
-      <button class="creator__button" type="button" (click)="nextStep()">
-        Next
-      </button>
-    </div>
-
-    <div class="creator__step" *ngIf="currentStep === 5">
-      <h2 class="creator__title">Step 5: Equipment</h2>
-      <div
-        formArrayName="equipment_choices"
-        *ngFor="let choice of equipmentChoicesControls; let i = index"
-      >
-        <div [formGroupName]="i">
-          <label>
-            <input
-              class="creator__checkbox"
-              type="checkbox"
-              formControlName="itemDisabled"
-              (change)="
-                choice.get('itemDisabled')?.value
-                  ? onSelectionChange(i, 'item')
-                  : onUncheck(i)
-              "
-            />
-            {{ choice.get("item")?.value }}
-          </label>
-          <label *ngIf="choice.get('alternate')?.value">
-            <input
-              class="creator__checkbox"
-              type="checkbox"
-              formControlName="alternateDisabled"
-              (change)="
-                choice.get('alternateDisabled')?.value
-                  ? onSelectionChange(i, 'alternate')
-                  : onUncheck(i)
-              "
-            />
-            {{ choice.get("alternate")?.value }}
-          </label>
+          <button class="creator__button" type="button" (click)="nextStep()">
+            Next
+          </button>
         </div>
       </div>
-      <button class="creator__button" type="button" (click)="prevStep()">
-        Previous
-      </button>
-      <button class="creator__button" type="submit" (click)="onSubmit()">
-        Submit
-      </button>
+
+      <div class="creator__step" *ngIf="currentStep === 2">
+        <h2 class="creator__title">Step 2: Ability Scores</h2>
+        <div class="ability-scores" formGroupName="abilityScores">
+          <div class="ability-scores__item">
+            <label class="ability-scores__label" for="strength">STR</label>
+            <input
+              class="ability-scores__input"
+              id="strength"
+              formControlName="strength"
+              type="number"
+              required
+              min="8"
+              max="15"
+              (change)="onAbilityScoreChange()"
+            />
+          </div>
+          <div class="ability-scores__item">
+            <label class="ability-scores__label" for="dexterity">DEX</label>
+            <input
+              class="ability-scores__input"
+              id="dexterity"
+              formControlName="dexterity"
+              type="number"
+              required
+              min="8"
+              max="15"
+              (change)="onAbilityScoreChange()"
+            />
+          </div>
+          <div class="ability-scores__item">
+            <label class="ability-scores__label" for="constitution">CON</label>
+            <input
+              class="ability-scores__input"
+              id="constitution"
+              formControlName="constitution"
+              type="number"
+              required
+              min="8"
+              max="15"
+              (change)="onAbilityScoreChange()"
+            />
+          </div>
+          <div class="ability-scores__item">
+            <label class="ability-scores__label" for="intelligence">INT</label>
+            <input
+              class="ability-scores__input"
+              id="intelligence"
+              formControlName="intelligence"
+              type="number"
+              required
+              min="8"
+              max="15"
+              (change)="onAbilityScoreChange()"
+            />
+          </div>
+          <div class="ability-scores__item">
+            <label class="ability-scores__label" for="wisdom">WIS</label>
+            <input
+              class="ability-scores__input"
+              id="wisdom"
+              formControlName="wisdom"
+              type="number"
+              required
+              min="8"
+              max="15"
+              (change)="onAbilityScoreChange()"
+            />
+          </div>
+          <div class="ability-scores__item">
+            <label class="ability-scores__label" for="charisma">CHA</label>
+            <input
+              class="ability-scores__input"
+              id="charisma"
+              formControlName="charisma"
+              type="number"
+              required
+              min="8"
+              max="15"
+              (change)="onAbilityScoreChange()"
+            />
+          </div>
+        </div>
+        <div>
+          <p class="creator__points-remaining">
+            Points Remaining: {{ abilityPoints }}
+          </p>
+        </div>
+        <div class="creator__controlls">
+          <button class="creator__button" type="button" (click)="prevStep()">
+            Previous
+          </button>
+          <button class="creator__button" type="button" (click)="nextStep()">
+            Next
+          </button>
+        </div>
+      </div>
+
+      <div class="creator__step" *ngIf="currentStep === 3">
+        <h2 class="creator__title">Step 3: Skills</h2>
+        <label class="creator__label" for="skills">Skills:</label>
+        <div id="skills" formArrayName="skills">
+          <div *ngFor="let skill of classAndBackgroundSkill; let i = index">
+            <input
+              class="creator__checkbox"
+              type="checkbox"
+              [value]="skill"
+              (change)="onSkillChange($event, skill)"
+              [checked]="selectedSkills.includes(skill)"
+              [disabled]="
+                backgrounds[
+                  characterCreationForm.get('background')?.value
+                ]?.includes(skill)
+              "
+            />
+            {{ skill }}
+          </div>
+        </div>
+        <div class="creator__controlls">
+          <button class="creator__button" type="button" (click)="prevStep()">
+            Previous
+          </button>
+          <button class="creator__button" type="button" (click)="nextStep()">
+            Next
+          </button>
+        </div>
+      </div>
+
+      <div class="creator__step" *ngIf="currentStep === 4">
+        <h2 class="creator__title">Step 4: Background</h2>
+        <label class="creator__label" for="archeTypes">Archetype:</label>
+        <select
+          *ngIf="hasArchetypes == true"
+          class="creator__select"
+          id="archeTypes"
+          formControlName="archeTypes"
+          required
+        >
+          <option
+            *ngFor="let archeTypes of filteredArchetypes"
+            [value]="archeTypes"
+          >
+            {{ archeTypes }}
+          </option>
+        </select>
+        <div class="creator__controlls">
+          <button class="creator__button" type="button" (click)="prevStep()">
+            Previous
+          </button>
+          <button class="creator__button" type="button" (click)="nextStep()">
+            Next
+          </button>
+        </div>
+      </div>
+
+      <div class="creator__step" *ngIf="currentStep === 5">
+        <h2 class="creator__title">Step 5: Equipment</h2>
+        <div
+          formArrayName="equipment_choices"
+          *ngFor="let choice of equipmentChoicesControls; let i = index"
+        >
+          <div [formGroupName]="i">
+            <label>
+              <input
+                class="creator__checkbox"
+                type="checkbox"
+                formControlName="itemDisabled"
+                (change)="
+                  choice.get('itemDisabled')?.value
+                    ? onSelectionChange(i, 'item')
+                    : onUncheck(i)
+                "
+              />
+              {{ choice.get("item")?.value }}
+            </label>
+            <label *ngIf="choice.get('alternate')?.value">
+              <input
+                class="creator__checkbox"
+                type="checkbox"
+                formControlName="alternateDisabled"
+                (change)="
+                  choice.get('alternateDisabled')?.value
+                    ? onSelectionChange(i, 'alternate')
+                    : onUncheck(i)
+                "
+              />
+              {{ choice.get("alternate")?.value }}
+            </label>
+          </div>
+        </div>
+        <div class="creator__controlls">
+          <button class="creator__button" type="button" (click)="prevStep()">
+            Previous
+          </button>
+          <button class="creator__button" type="submit" (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="creator__step" *ngIf="currentStep === 6">
+      <h2 class="creator__title">Character Sheet</h2>
+      <div class="character-sheet">
+        <div class="character-sheet__item">
+          <h3 class="character-sheet__title">Basic Information</h3>
+          <p>Name: {{ characterCreationForm.value | json }}</p>
+        </div>
+      </div>
     </div>
-  </form>
+  </div>
 </div>

@@ -87,7 +87,7 @@ export interface MonsterInterface {
   hit_points: number;
   hit_dice: string;
   hit_points_roll: string;
-  speed: Speed;
+  speed: Speed[];
   strength: number;
   dexterity: number;
   constitution: number;
@@ -107,6 +107,6 @@ export interface MonsterInterface {
   special_abilities: SpecialAbility[];
   actions: Action[];
   legendary_actions: LegendaryAction[];
-  image: string;
+  image?: string;
   url: string;
 }

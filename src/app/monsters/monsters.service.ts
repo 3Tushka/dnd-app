@@ -8,7 +8,7 @@ import { ListOfElementsInterface } from "../interface/list.interface";
   providedIn: "root",
 })
 export class MonstersService {
-  private baseUrl = "https://www.dnd5eapi.co/api/";
+  public baseUrl = "https://www.dnd5eapi.co/api/";
 
   constructor(private http: HttpClient) {}
 

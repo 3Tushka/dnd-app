@@ -1,53 +1,114 @@
-<div *ngIf="monsterData">
-  <h2>{{ monsterData.name }}</h2>
-  <img [src]="monsterData.image" alt="{{ monsterData.name }}" />
-  <p><strong>Size:</strong> {{ monsterData.size }}</p>
-  <p><strong>Type:</strong> {{ monsterData.type }}</p>
-  <p><strong>Alignment:</strong> {{ monsterData.alignment }}</p>
-  <p>
-    <strong>Armor Class:</strong> {{ monsterData.armor_class[0].value }} ({{
-      monsterData.armor_class[0].type
-    }})
-  </p>
-  <p>
-    <strong>Hit Points:</strong> {{ monsterData.hit_points }} ({{
-      monsterData.hit_dice
-    }})
-  </p>
-  <p>
-    <strong>Speed:</strong> Walk: {{ monsterData.speed.walk }}, Swim:
-    {{ monsterData.speed.swim }}
-  </p>
-  <p><strong>Strength:</strong> {{ monsterData.strength }}</p>
-  <p><strong>Dexterity:</strong> {{ monsterData.dexterity }}</p>
-  <p><strong>Constitution:</strong> {{ monsterData.constitution }}</p>
-  <p><strong>Intelligence:</strong> {{ monsterData.intelligence }}</p>
-  <p><strong>Wisdom:</strong> {{ monsterData.wisdom }}</p>
-  <p><strong>Charisma:</strong> {{ monsterData.charisma }}</p>
-  <p><strong>Languages:</strong> {{ monsterData.languages }}</p>
-  <p><strong>Challenge Rating:</strong> {{ monsterData.challenge_rating }}</p>
-  <div *ngIf="monsterData.special_abilities.length > 0">
-    <h3>Special Abilities</h3>
-    <ul>
-      <li *ngFor="let ability of monsterData.special_abilities">
-        <strong>{{ ability.name }}:</strong> {{ ability.desc }}
-      </li>
-    </ul>
-  </div>
-  <div *ngIf="monsterData.actions.length > 0">
-    <h3>Actions</h3>
-    <ul>
-      <li *ngFor="let action of monsterData.actions">
-        <strong>{{ action.name }}:</strong> {{ action.desc }}
-      </li>
-    </ul>
-  </div>
-  <div *ngIf="monsterData.legendary_actions.length > 0">
-    <h3>Legendary Actions</h3>
-    <ul>
-      <li *ngFor="let action of monsterData.legendary_actions">
-        <strong>{{ action.name }}:</strong> {{ action.desc }}
-      </li>
-    </ul>
+<app-navbar></app-navbar>
+
+<div class="monster">
+  <div class="monster__wrapper">
+    <div class="monster__content">
+      <div class="monster__header">
+        <h1 class="monster__name">{{ monsterData?.name }}</h1>
+        <img
+          class="monster__image"
+          [src]="monsterData?.image"
+          alt="{{ monsterData?.name }}"
+        />
+      </div>
+      <div class="monster__details">
+        <p class="monster__description">{{ monsterData?.desc }}</p>
+        <div class="monster__stats">
+          <div
+            class="monster__stat"
+            *ngFor="let ac of monsterData?.armor_class"
+          >
+            <span class="monster__stat-label"
+              >Armor Class ({{ ac.type }}):</span
+            >
+            <span class="monster__stat-value">{{ ac.value }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Hit Points:</span>
+            <span class="monster__stat-value">{{
+              monsterData?.hit_points
+            }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Speed:</span>
+            <span
+              class="monster__stat-value"
+              *ngFor="let speed of monsterData?.speed"
+              >{{ speed.walk }} (walk), {{ speed.swim }} (swim)</span
+            >
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Strength:</span>
+            <span class="monster__stat-value">{{ monsterData?.strength }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Dexterity:</span>
+            <span class="monster__stat-value">{{
+              monsterData?.dexterity
+            }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Constitution:</span>
+            <span class="monster__stat-value">{{
+              monsterData?.constitution
+            }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Intelligence:</span>
+            <span class="monster__stat-value">{{
+              monsterData?.intelligence
+            }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Wisdom:</span>
+            <span class="monster__stat-value">{{ monsterData?.wisdom }}</span>
+          </div>
+          <div class="monster__stat">
+            <span class="monster__stat-label">Charisma:</span>
+            <span class="monster__stat-value">{{ monsterData?.charisma }}</span>
+          </div>
+        </div>
+        <div
+          class="monster__abilities"
+          *ngIf="monsterData?.special_abilities?.length"
+        >
+          <h2 class="monster__abilities-title">Special Abilities</h2>
+          <ul class="monster__abilities-list">
+            <li
+              class="monster__ability"
+              *ngFor="let ability of monsterData?.special_abilities"
+            >
+              <strong>{{ ability.name }}:</strong> {{ ability.desc }}
+            </li>
+          </ul>
+        </div>
+        <div class="monster__actions" *ngIf="monsterData?.actions?.length">
+          <h2 class="monster__actions-title">Actions</h2>
+          <ul class="monster__actions-list">
+            <li
+              class="monster__action"
+              *ngFor="let action of monsterData?.actions"
+            >
+              <strong>{{ action.name }}:</strong> {{ action.desc }}
+            </li>
+          </ul>
+        </div>
+        <div
+          class="monster__legendary-actions"
+          *ngIf="monsterData?.legendary_actions?.length"
+        >
+          <h2 class="monster__legendary-actions-title">Legendary Actions</h2>
+          <ul class="monster__legendary-actions-list">
+            <li
+              class="monster__legendary-action"
+              *ngFor="let legendaryAction of monsterData?.legendary_actions"
+            >
+              <strong>{{ legendaryAction.name }}:</strong>
+              {{ legendaryAction.desc }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

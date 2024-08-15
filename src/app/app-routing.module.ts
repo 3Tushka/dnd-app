@@ -17,6 +17,7 @@ import { HomepageComponent } from "./homepage/homepage.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AuthGuard } from "@auth0/auth0-angular";
 import { CreatorComponent } from "./creator/creator.component";
+import { MonsterComponent } from "./monsters/monster/monster.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: "features", component: FeaturesComponent },
   { path: "features/:id", component: FeatureComponent },
   { path: "monsters", component: MonstersComponent },
+  { path: "monsters/:id", component: MonsterComponent },
   { path: "races", component: RacesComponent },
   { path: "races/:id", component: RaceComponent },
   { path: "spells", component: SpellsComponent },
