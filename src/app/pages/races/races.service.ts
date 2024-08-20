@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ListOfElementsInterface } from "../interface/list.interface";
-import { fetchApi } from "../sharing/functions";
+import { ListOfElementsInterface } from "../../interface/list.interface";
+import { fetchApi } from "../../sharing/functions";
 import { RaceInterface } from "./race/race.interface";
 
 @Injectable({

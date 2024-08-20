@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { MonstersService } from "./monsters.service";
 import { MonsterInterface } from "./monster.interface";
-import { ListOfElementsInterface } from "../interface/list.interface";
+import { ListOfElementsInterface } from "../../interface/list.interface";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({

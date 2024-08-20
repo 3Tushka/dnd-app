@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { fetchApi } from "../sharing/functions";
+import { fetchApi } from "../../sharing/functions";
 import { MonsterInterface } from "./monster.interface";
-import { ListOfElementsInterface } from "../interface/list.interface";
+import { ListOfElementsInterface } from "../../interface/list.interface";
 
 @Injectable({
   providedIn: "root",

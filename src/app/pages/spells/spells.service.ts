@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { fetchApi } from "../sharing/functions";
+import { fetchApi } from "../../sharing/functions";
 import { Spell, SpellsInterface } from "./spells.interface";
 
 @Injectable({

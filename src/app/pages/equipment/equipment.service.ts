@@ -6,7 +6,7 @@ import {
   MagicItem,
 } from "./equipment.interface";
 
-import { fetchApi } from "../sharing/functions";
+import { fetchApi } from "../../sharing/functions";
 
 @Injectable({
   providedIn: "root",

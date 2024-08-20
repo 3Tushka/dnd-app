@@ -1,7 +1,7 @@
 import {
   ListInterface,
   ListOfElementsInterface,
-} from "../interface/list.interface";
+} from "../../interface/list.interface";
 
 export interface SpellsInterface {
   count: number;

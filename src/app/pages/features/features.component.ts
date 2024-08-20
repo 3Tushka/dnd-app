@@ -3,7 +3,7 @@ import { FeaturesService } from "./features.service";
 import {
   ListInterface,
   ListOfElementsInterface,
-} from "../interface/list.interface";
+} from "../../interface/list.interface";
 import { Router } from "@angular/router";
 
 @Component({
