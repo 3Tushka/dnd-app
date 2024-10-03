@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 export function fetchApi<T>(
   http: HttpClient,
@@ -19,4 +20,8 @@ export function selectNameByLink(url: string) {
   console.log("Formatted:", formatted);
 
   return formatted;
+}
+
+export function onClickGoToDetails(router: Router, path: string, id: string) {
+  router.navigate([path, id]);
 }

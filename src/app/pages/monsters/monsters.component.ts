@@ -3,6 +3,8 @@ import { MonstersService } from "./monsters.service";
 import { MonsterInterface } from "./monster.interface";
 import { ListOfElementsInterface } from "../../interface/list.interface";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { onClickGoToDetails } from "src/app/sharing/functions";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-monsters",
@@ -12,17 +14,18 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class MonstersComponent {
   constructor(
     private monsterService: MonstersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.searchForm = this.fb.group({
-      name: ["a"],
+      name: ["Acolyte"],
     });
   }
 
   monsterDataList!: ListOfElementsInterface | null;
   monsterDetails: MonsterInterface[] = [];
 
-  selectMonsterName: string = "a";
+  selectMonsterName: string = "Acolyte";
   searchForm!: FormGroup;
 
   showMonsterList: boolean = false;
@@ -74,6 +77,10 @@ export class MonstersComponent {
     this.selectMonsterName = formatted;
     this.showMonsterList = !this.showMonsterList;
     console.log("Formatted Link: ", this.selectMonsterName);
+  }
+
+  onClickMonster(monsterId: string) {
+    onClickGoToDetails(this.router, "monsters", monsterId);
   }
 
   searchByName() {

@@ -2,11 +2,11 @@
 
 .features {
     padding: 0 5rem;
-    background-image: url("../../assets/images/backgrounds/wood.jpg"); // Add a wood texture image
+    background-image: url("../../../assets/images/backgrounds/wood.jpg"); // Add a wood texture image
 
     &__wrapper {
         padding: 2rem 10rem;
-        background-image: url("../../assets/images/backgrounds/paper.jpg");
+        background-image: url("/src/assets/images/backgrounds/paper.jpg"); // Add a paper texture image
         background-attachment: fixed;
         background-size: cover;
         background-position: center;

@@ -3,7 +3,7 @@
 .monsters {
     font-family: "Caudex", serif;
     font-size: 1.2rem;
-    background-image: url("../../assets/images/backgrounds/wood.jpg");
+    background-image: url("../../../assets/images/backgrounds/wood.jpg");
     background-size: contain;
     background-repeat: repeat;
     background-position: center;
@@ -12,7 +12,7 @@
         margin: 0 10rem;
         padding: 2rem;
         background-color: $paper-background;
-        background-image: url("../../assets/images/backgrounds/paper.jpg"); // Add a paper texture image
+        background-image: url("../../../assets/images/backgrounds/paper.jpg"); // Add a paper texture image
         background-attachment: fixed; // This creates the parallax effect
         background-size: cover;
         background-position: center;
@@ -87,12 +87,14 @@
             flex-direction: column;
             width: 100%;
             max-width: 80%;
+            cursor: pointer;
         }
 
         .monster {
             margin: 1rem 0;
             padding: 1rem 0;
             border-bottom: 2px solid $rich-red;
+            cursor: pointer;
         }
     }
 
@@ -103,6 +105,7 @@
             padding: 1rem;
             background-color: aliceblue;
             margin: 1rem;
+            cursor: pointer;
         }
     }
 }
@@ -228,4 +231,8 @@
             color: $rich-red;
         }
     }
+}
+
+.link {
+    cursor: pointer;
 }

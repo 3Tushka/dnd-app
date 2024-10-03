@@ -75,7 +75,7 @@ export class FeaturesComponent {
       feature.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
-    this.updatePaginatedResults();
+    this.goToPage(1);
   }
 
   updatePaginatedResults() {

@@ -1,85 +1,68 @@
+@import "src/assets/variables.scss";
+
 .monster {
+    font-family: "Caudex", serif;
+    font-size: 1.2rem;
+    background-image: url("../../../../assets/images/backgrounds/wood.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    background-position: center;
+
     &__wrapper {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
+        background-color: $paper-background;
+        background-image: url("../../../../assets/images/backgrounds/paper.jpg");
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
     }
 
     &__content {
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         padding: 20px;
     }
 
-    &__header {
+    &-header {
         display: flex;
-        align-items: center;
+        justify-content: space-around;
         margin-bottom: 20px;
 
-        &-name {
-            font-size: 2em;
-            margin: 0;
-            flex: 1;
-        }
-
-        &-image {
-            max-width: 150px;
-            max-height: 150px;
-            border-radius: 50%;
-            margin-left: 20px;
-        }
-    }
-
-    &__details {
-        &-description {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        &-stats {
+        &__stats {
             display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-
-            &-stat {
-                flex: 1 1 30%;
-                margin-bottom: 10px;
-
-                &-label {
-                    font-weight: bold;
-                }
-
-                &-value {
-                    margin-left: 5px;
-                }
-            }
+            flex-direction: column;
+            gap: 20px;
         }
 
-        &-abilities,
-        &-actions,
-        &-legendary-actions {
-            margin-bottom: 20px;
+        &__name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: $rich-red;
+            font-family: $font-family-magic;
+        }
 
-            &-title {
-                font-size: 1.5em;
-                margin-bottom: 10px;
-            }
+        &__stats-list {
+            // Styles for the stats list container
+        }
 
-            &-list {
-                list-style: none;
-                padding: 0;
+        &__info {
+            // Styles for the individual armor class info
+        }
 
-                &-ability,
-                &-action,
-                &-legendary-action {
-                    margin-bottom: 10px;
+        &__stat {
+            // Styles for each stat container
+        }
 
-                    strong {
-                        font-weight: bold;
-                    }
-                }
-            }
+        &__stat-label {
+            // Styles for the stat labels
+        }
+
+        &__stat-value {
+            // Styles for the stat values
+        }
+
+        &__image {
+            // Styles for the monster image
         }
     }
 }

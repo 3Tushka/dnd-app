@@ -4,8 +4,8 @@ interface ArmorClass {
 }
 
 interface Speed {
-  walk?: string;
-  swim?: string;
+  walk: string;
+  swim: string;
 }
 
 interface ProficiencyDetail {

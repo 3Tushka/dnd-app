@@ -11,6 +11,31 @@
     background-repeat: repeat;
     background-position: center;
 
+    &__header-info {
+        display: flex;
+        flex-direction: column;
+
+        &-title {
+            font-size: 2rem;
+            font-family: "Caudex";
+            margin-bottom: 1rem;
+        }
+
+        &-hitReg {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-left: 1rem;
+            font-size: 1.2rem;
+            font-family: "Caudex";
+
+            span {
+                padding: 5px 10px;
+                background-color: #007bff;
+            }
+        }
+    }
+
     &__data {
         width: 100%;
         padding: 2rem;
@@ -24,42 +49,128 @@
         flex-wrap: wrap;
 
         &-box {
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: space-between;
             width: 100%;
             max-width: 30%;
-            // background-color: $dark-brown;
+            height: auto;
+            background-color: $paper-background;
+            font-family: $font-family-magic;
             padding: 1rem;
 
             h2 {
-                font-size: 1.5rem;
+                font-size: 2.2rem;
                 margin-bottom: 1rem;
-                font-family: "Caudex";
+                font-family: $font-family-magic;
+            }
+
+            span {
+                font-size: 1.1rem;
+                line-height: 1.3rem;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 1rem 0;
+
+                width: 100%;
+                li {
+                    border-top: 1px solid black;
+                    border-left: 1px solid black;
+                    border-right: 1px solid black;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    &:last-child {
+                        border-bottom: 1px solid black;
+                    }
+
+                    button {
+                        width: 100%;
+                        height: 80px;
+                        background-color: $background;
+                        border: none;
+                        font-size: 1.4rem;
+                        text-align: center;
+                        font-weight: 700;
+
+                        color: $rich-red;
+                        cursor: pointer;
+                        transition: 0.1s ease-in;
+                        font-family: $font-family-magic;
+
+                        &:hover {
+                            background-color: $dark-brown;
+                            font-size: 1.6rem;
+                            color: $background;
+                        }
+                    }
+                }
             }
         }
     }
 
-    &__proficiency {
-        // padding: 1rem;
+    &__equipment {
+        &__list-choose {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
 
-        &__list {
-            padding: 0;
-            margin: 0;
+            &--item {
+                width: 100%;
+                // border: 1px solid black;
+                padding: 5px 1rem;
 
-            &-item {
-                margin-bottom: 0.5rem;
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-
-                .class__proficiency-item-url {
-                    text-decoration: none;
-                    color: #007bff;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
+                color: $charcoal-gray;
+                font-size: 1.1rem;
+                line-height: 1.5rem;
+                text-transform: capitalize;
             }
+        }
+    }
+
+    &__columns {
+        margin: 2rem 0;
+    }
+
+    &__multiclass {
+        &-stats {
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &-prerequisites {
+            background-color: $rich-red;
+            border: 2px solid $dark-brown;
+            border-radius: 12px;
+            padding: 10px 16px;
+            max-width: 50px;
+            font-size: 1.3rem;
+            font-family: 700;
+            line-height: 30px;
+            color: $background;
+
+            text-align: center;
+            text-wrap: wrap;
+        }
+
+        &-prof {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        &-proficiencies {
+            padding: 0.5rem 0;
+            font-size: 1.2rem;
+            width: 100%;
         }
     }
 }

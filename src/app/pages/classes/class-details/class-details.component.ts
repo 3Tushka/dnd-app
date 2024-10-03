@@ -3,6 +3,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ClassesService } from "../classes.service";
 import { ClassInterface } from "../classes.interface";
 import { BehaviorSubject } from "rxjs";
+import {
+  selectNameByLink,
+  onClickGoToDetails,
+} from "src/app/sharing/functions";
 
 @Component({
   selector: "app-class-details",
@@ -45,5 +49,10 @@ export class ClassDetailsComponent implements OnInit {
 
   hasSpellcasting(): boolean {
     return !!this.dataOfClass?.spellcasting;
+  }
+
+  navigateTo(url: string) {
+    const id = selectNameByLink(url); // Assuming selectNameByLink is also imported
+    onClickGoToDetails(this.router, "/details", id);
   }
 }

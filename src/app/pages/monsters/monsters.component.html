@@ -18,6 +18,7 @@
           <article
             class="monsters__list__item monster"
             *ngFor="let monster of filteredMonsters"
+            (click)="onClickMonster(monster.index)"
           >
             <div class="monsters__name">
               {{ monster.name.toUpperCase() }}
@@ -35,6 +36,7 @@
             <div
               class="monsters__emptyList__item"
               *ngFor="let item of monsterDetails"
+              (click)="onClickMonster(item.index)"
             >
               <div class="monsters__name">
                 {{ item.name.toUpperCase() }}
@@ -50,115 +52,119 @@
         </div>
       </div>
       <div class="monsters__topResult top-monster" *ngIf="filteredMonsters[0]">
-        <header class="top-monster__header">
-          <div class="top-monster__header__name">
-            {{ filteredMonsters[0].name.toUpperCase() }}
-          </div>
-          <div class="top-monster__header__type">
-            {{ filteredMonsters[0].type }}
-          </div>
-
-          <div class="top-monster__header__image">
-            <img
-              [appLazyLoadBackground]="filteredMonsters[0].image"
-              [src]="filteredMonsters[0].image"
-              alt=""
-            />
-          </div>
-        </header>
-        <main class="top-monster__content">
-          <div class="top-monster__desc">
-            {{ filteredMonsters[0].desc }}
-          </div>
-          <div class="top-monster__stats">
-            <div class="stat">
-              <span class="stat__label">STR</span>
-              <span class="stat__value">{{
-                filteredMonsters[0].strength
-              }}</span>
+        <div class="link" (click)="onClickMonster(filteredMonsters[0].index)">
+          <header class="top-monster__header">
+            <div class="top-monster__header__name">
+              {{ filteredMonsters[0].name.toUpperCase() }}
             </div>
-            <div class="stat">
-              <span class="stat__label">DEX</span>
-              <span class="stat__value">{{
-                filteredMonsters[0].dexterity
-              }}</span>
-            </div>
-            <div class="stat">
-              <span class="stat__label">CON</span>
-              <span class="stat__value">{{
-                filteredMonsters[0].constitution
-              }}</span>
-            </div>
-            <div class="stat">
-              <span class="stat__label">INT</span>
-              <span class="stat__value">{{
-                filteredMonsters[0].intelligence
-              }}</span>
-            </div>
-            <div class="stat">
-              <span class="stat__label">WIS</span>
-              <span class="stat__value">{{ filteredMonsters[0].wisdom }}</span>
-            </div>
-            <div class="stat">
-              <span class="stat__label">CHA</span>
-              <span class="stat__value">{{
-                filteredMonsters[0].charisma
-              }}</span>
-            </div>
-          </div>
-          <div class="top-monster__cr">
-            <div class="top-monster__cr--item">
-              <span class="top-monster__cr__label">Challenge</span>
-              <span class="top-monster__cr__value">{{
-                filteredMonsters[0].challenge_rating
-              }}</span>
+            <div class="top-monster__header__type">
+              {{ filteredMonsters[0].type }}
             </div>
 
-            <div class="top-monster__cr--item">
-              <span class="top-monster__cr__label">Hit Points</span>
-              <span class="top-monster__cr__value">{{
-                filteredMonsters[0].hit_points
-              }}</span>
+            <div class="top-monster__header__image">
+              <img
+                [appLazyLoadBackground]="filteredMonsters[0].image"
+                [src]="filteredMonsters[0].image"
+                alt=""
+              />
             </div>
+          </header>
+          <main class="top-monster__content">
+            <div class="top-monster__desc">
+              {{ filteredMonsters[0].desc }}
+            </div>
+            <div class="top-monster__stats">
+              <div class="stat">
+                <span class="stat__label">STR</span>
+                <span class="stat__value">{{
+                  filteredMonsters[0].strength
+                }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">DEX</span>
+                <span class="stat__value">{{
+                  filteredMonsters[0].dexterity
+                }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">CON</span>
+                <span class="stat__value">{{
+                  filteredMonsters[0].constitution
+                }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">INT</span>
+                <span class="stat__value">{{
+                  filteredMonsters[0].intelligence
+                }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">WIS</span>
+                <span class="stat__value">{{
+                  filteredMonsters[0].wisdom
+                }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">CHA</span>
+                <span class="stat__value">{{
+                  filteredMonsters[0].charisma
+                }}</span>
+              </div>
+            </div>
+            <div class="top-monster__cr">
+              <div class="top-monster__cr--item">
+                <span class="top-monster__cr__label">Challenge</span>
+                <span class="top-monster__cr__value">{{
+                  filteredMonsters[0].challenge_rating
+                }}</span>
+              </div>
 
-            <div class="top-monster__cr--item">
-              <span class="top-monster__cr__label">Armor Class</span>
-              <span
-                class="top-monster__cr__value"
-                *ngFor="let item of filteredMonsters[0].armor_class"
-                >{{ item.value }}
-              </span>
-            </div>
+              <div class="top-monster__cr--item">
+                <span class="top-monster__cr__label">Hit Points</span>
+                <span class="top-monster__cr__value">{{
+                  filteredMonsters[0].hit_points
+                }}</span>
+              </div>
 
-            <div class="top-monster__cr--item">
-              <span class="top-monster__cr__label">Speed</span>
-              <span class="top-monster__cr__value">{{
-                filteredMonsters[0].speed[0].walk
-              }}</span>
-            </div>
-          </div>
-          <div class="top-monster__info">
-            <div class="top-monster__info--item">
-              <span class="top-monster__info__label">Size:</span>
-              <span class="top-monster__info__value">{{
-                filteredMonsters[0].size
-              }}</span>
-            </div>
-            <div class="top-monster__info--item">
-              <span class="top-monster__info__label">Alignment:</span>
-              <span class="top-monster__info__value">{{
-                filteredMonsters[0].alignment
-              }}</span>
-            </div>
+              <div class="top-monster__cr--item">
+                <span class="top-monster__cr__label">Armor Class</span>
+                <span
+                  class="top-monster__cr__value"
+                  *ngFor="let item of filteredMonsters[0]?.armor_class"
+                  >{{ item.value }}
+                </span>
+              </div>
 
-            <div class="top-monster__info--item">
-              <span class="top-monster__info__label">Languages:</span>
-              <span class="top-monster__info__value">{{
-                filteredMonsters[0].languages
-              }}</span>
+              <div class="top-monster__cr--item">
+                <span class="top-monster__cr__label">Speed</span>
+                <span class="top-monster__cr__value">{{
+                  filteredMonsters[0].speed[0]
+                }}</span>
+              </div>
             </div>
-          </div>
-        </main>
+            <div class="top-monster__info">
+              <div class="top-monster__info--item">
+                <span class="top-monster__info__label">Size:</span>
+                <span class="top-monster__info__value">{{
+                  filteredMonsters[0].size
+                }}</span>
+              </div>
+              <div class="top-monster__info--item">
+                <span class="top-monster__info__label">Alignment:</span>
+                <span class="top-monster__info__value">{{
+                  filteredMonsters[0].alignment
+                }}</span>
+              </div>
+
+              <div class="top-monster__info--item">
+                <span class="top-monster__info__label">Languages:</span>
+                <span class="top-monster__info__value">{{
+                  filteredMonsters[0].languages
+                }}</span>
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   </div>

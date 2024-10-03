@@ -3,6 +3,8 @@ import { SpellsService } from "./spells.service";
 import { Spell, SpellsInterface } from "./spells.interface";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { onClickGoToDetails } from "src/app/sharing/functions";
 
 @Component({
   selector: "app-spells",
@@ -30,7 +32,11 @@ export class SpellsComponent {
 
   readonly panelOpenState = signal(false);
 
-  constructor(private spellService: SpellsService, private fb: FormBuilder) {
+  constructor(
+    private spellService: SpellsService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.searchForm = this.fb.group({
       classes: [""],
       name: [""],
@@ -66,6 +72,10 @@ export class SpellsComponent {
       },
       error: (error) => console.log("Error", error),
     });
+  }
+
+  onClickSpell(spellId: string) {
+    onClickGoToDetails(this.router, "spells", spellId);
   }
 
   filterSpells() {

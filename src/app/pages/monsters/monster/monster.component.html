@@ -3,71 +3,80 @@
 <div class="monster">
   <div class="monster__wrapper">
     <div class="monster__content">
-      <div class="monster__header">
-        <h1 class="monster__name">{{ monsterData?.name }}</h1>
+      <div class="monster-header">
+        <div class="monster-header__stats">
+          <h1 class="monster-header__name">{{ monsterData?.name }}</h1>
+          <div class="monster-header__stats-list">
+            <div
+              class="monster-header__info"
+              *ngFor="let ac of monsterData?.armor_class"
+            >
+              <span class="monster-header__stat-label"
+                >Armor Class ({{ ac.type }}):</span
+              >
+              <span class="monster-header__stat-value">{{ ac.value }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Hit Points:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.hit_points
+              }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Speed:</span>
+              <span
+                class="monster-header__stat-value"
+                *ngFor="let speed of monsterData?.speed"
+                >{{ speed.walk }} (walk), {{ speed.swim }} (swim)</span
+              >
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Strength:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.strength
+              }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Dexterity:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.dexterity
+              }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Constitution:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.constitution
+              }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Intelligence:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.intelligence
+              }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Wisdom:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.wisdom
+              }}</span>
+            </div>
+            <div class="monster-header__stat">
+              <span class="monster-header__stat-label">Charisma:</span>
+              <span class="monster-header__stat-value">{{
+                monsterData?.charisma
+              }}</span>
+            </div>
+          </div>
+        </div>
         <img
-          class="monster__image"
+          [appLazyLoadBackground]="monsterData?.image"
+          class="monster-header__image"
           [src]="monsterData?.image"
           alt="{{ monsterData?.name }}"
         />
       </div>
       <div class="monster__details">
         <p class="monster__description">{{ monsterData?.desc }}</p>
-        <div class="monster__stats">
-          <div
-            class="monster__stat"
-            *ngFor="let ac of monsterData?.armor_class"
-          >
-            <span class="monster__stat-label"
-              >Armor Class ({{ ac.type }}):</span
-            >
-            <span class="monster__stat-value">{{ ac.value }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Hit Points:</span>
-            <span class="monster__stat-value">{{
-              monsterData?.hit_points
-            }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Speed:</span>
-            <span
-              class="monster__stat-value"
-              *ngFor="let speed of monsterData?.speed"
-              >{{ speed.walk }} (walk), {{ speed.swim }} (swim)</span
-            >
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Strength:</span>
-            <span class="monster__stat-value">{{ monsterData?.strength }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Dexterity:</span>
-            <span class="monster__stat-value">{{
-              monsterData?.dexterity
-            }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Constitution:</span>
-            <span class="monster__stat-value">{{
-              monsterData?.constitution
-            }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Intelligence:</span>
-            <span class="monster__stat-value">{{
-              monsterData?.intelligence
-            }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Wisdom:</span>
-            <span class="monster__stat-value">{{ monsterData?.wisdom }}</span>
-          </div>
-          <div class="monster__stat">
-            <span class="monster__stat-label">Charisma:</span>
-            <span class="monster__stat-value">{{ monsterData?.charisma }}</span>
-          </div>
-        </div>
         <div
           class="monster__abilities"
           *ngIf="monsterData?.special_abilities?.length"
