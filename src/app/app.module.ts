@@ -38,9 +38,9 @@ import { StatsComponent } from "./pages/spells/spell-detail/stats/stats.componen
 import { HomepageComponent } from "./homepage/homepage.component";
 import { LazyLoadBackgroundDirective } from "./sharing/lazy-loading";
 import { AuthHttpInterceptor, AuthModule } from "@auth0/auth0-angular";
-import { environment } from "./environments/environments";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { CreatorComponent } from "./creator/creator.component";
+import { environment } from "./environments/environments";
 
 @NgModule({
   declarations: [

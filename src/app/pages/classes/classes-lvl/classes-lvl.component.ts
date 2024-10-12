@@ -17,8 +17,6 @@ export class ClassesLvlComponent {
   levelClassDetailsData!: any | null;
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.getClassLevelDetails(this.levelInput);
   }
 
@@ -49,16 +47,30 @@ export class ClassesLvlComponent {
   }
 
   getKeys(obj: any): string[] {
-    return Object.keys(obj);
+    const keys = Object.keys(obj);
+    return keys;
   }
 
   isObject(value: any): boolean {
-    return value && typeof value === "object" && !Array.isArray(value);
+    const result = value && typeof value === "object" && !Array.isArray(value);
+    return result;
   }
 
   formatKey(key: string): string {
-    return key
+    const formattedKey = key
       .replace(/_/g, " ")
       .replace(/\b\w/g, (char) => char.toUpperCase());
+    if (this.levelClassDetailsData.spellcasting[key] === 0) {
+      return "";
+    }
+
+    return formattedKey;
+  }
+
+  formatValue(key: string) {
+    const formattedKey = key
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+    return formattedKey;
   }
 }
