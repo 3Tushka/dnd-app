@@ -55,34 +55,4 @@ export class NavbarComponent {
       alt: "twitch",
     },
   ];
-
-  login(): void {
-    this.auth.loginWithRedirect({
-      appState: { target: "/profile" },
-    });
-  }
-
-  logout(): void {
-    this.auth.logout();
-  }
-
-  getToken() {
-    this.auth.idTokenClaims$
-      .pipe(
-        tap((idTokenClaims: any) => {
-          console.log("This token: ", idTokenClaims?.__raw);
-          this.sendTokenToServer(idTokenClaims?.__raw);
-        })
-      )
-      .subscribe();
-  }
-
-  sendTokenToServer(token: string) {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
-    this.http
-      .post("http://localhost:3000/users", {}, { headers })
-      .subscribe((response) => {
-        console.log("Server response:", response);
-      });
-  }
 }

@@ -2,7 +2,7 @@
 
 .feature {
     padding: 0 5rem;
-    background-image: url("../../../assets/images/backgrounds/wood.jpg"); // Add a paper texture image
+    background-image: url("/src/assets/images/backgrounds/wood.jpg"); // Add a paper texture image
 
     &__wrapper {
         min-height: 80vh;
@@ -10,7 +10,7 @@
         flex-direction: column;
         padding: 4rem 5rem 0;
         background-color: $paper-background;
-        background-image: url("../../../assets/images/backgrounds/paper.jpg"); // Corrected path
+        background-image: url("/src/assets/images/backgrounds/paper.jpg"); // Corrected path
         background-attachment: fixed;
         background-size: cover;
         background-position: center;

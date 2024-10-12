@@ -1,71 +1,143 @@
 <div class="level">
-  <button (click)="getClassLevels()">Get level</button>
-  <div class="level-details">
-    <input type="number" [(ngModel)]="levelInput" min="1" class="level-input" />
-    <button (click)="getClassLevelDetails(levelInput)">
-      Get Level Details
-    </button>
-  </div>
+  <section class="level-controls-details">
+    <div class="level-controls">
+      <input
+        type="number"
+        [(ngModel)]="levelInput"
+        min="1"
+        class="level-controls__input"
+      />
+      <button
+        class="level-controls__details-button"
+        (click)="getClassLevelDetails(levelInput)"
+      >
+        Get Level Details
+      </button>
+      <button class="level-controls__button" (click)="getClassLevels()">
+        Get all levels
+      </button>
+    </div>
 
-  <div *ngIf="levelClassData">
-    <div class="level-item" *ngFor="let levelItem of levelClassData">
-      <h3>Level Details</h3>
-      <p>Level: {{ levelItem.level }}</p>
-      <p>Proficiency Bonus: {{ levelItem.prof_bonus }}</p>
+    <div class="level-details" *ngIf="levelClassDetailsData">
+      <h3 class="level-details__title">Level Details</h3>
+      <div class="level-details__content">
+        <div class="level-details__stats details-column">
+          <h4 class="level-details__stats-title">Stats</h4>
+          <p class="level-details__ability-bonus">
+            Ability Bonus: {{ levelClassDetailsData.ability_score_bonuses }}
+          </p>
+          <p class="level-details__prof-bonus">
+            Proficiency Bonus: {{ levelClassDetailsData.prof_bonus }}
+          </p>
+        </div>
+
+        <!-- Features Section -->
+        <div
+          class="level-details__features details-column"
+          *ngIf="
+            levelClassDetailsData.features &&
+            levelClassDetailsData.features.length
+          "
+        >
+          <h4 class="level-details__features-title">Features</h4>
+          <div
+            *ngFor="let feature of levelClassDetailsData.features"
+            class="level-details__feature"
+          >
+            <p class="level-details__feature-name">{{ feature.name }}</p>
+          </div>
+        </div>
+
+        <!-- Spellcasting Section -->
+        <div
+          class="level-details__spellcasting details-column"
+          *ngIf="levelClassDetailsData.spellcasting"
+        >
+          <h4 class="level-details__spellcasting-title">Spellcasting</h4>
+          <div *ngFor="let key of getKeys(levelClassDetailsData.spellcasting)">
+            <p>
+              {{ formatKey(key) }}:
+              {{ levelClassDetailsData.spellcasting[key] }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Class Specific Section -->
+        <div
+          class="level-details__class-specific details-column"
+          *ngIf="levelClassDetailsData.class_specific"
+        >
+          <h4 class="level-details__class-specific-title">Class Specific</h4>
+          <div
+            *ngFor="let key of getKeys(levelClassDetailsData.class_specific)"
+          >
+            <p *ngIf="!isObject(levelClassDetailsData.class_specific[key])">
+              {{ formatKey(key) }}:
+              {{ levelClassDetailsData.class_specific[key] }}
+            </p>
+            <div *ngIf="isObject(levelClassDetailsData.class_specific[key])">
+              <p>{{ formatKey(key) }}:</p>
+              <div
+                *ngFor="
+                  let subKey of getKeys(
+                    levelClassDetailsData.class_specific[key]
+                  )
+                "
+              >
+                <p class="level-details__class-specific-subitem">
+                  {{ formatKey(subKey) }}:
+                  {{ levelClassDetailsData.class_specific[key][subKey] }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="levelClassData" class="level__class-data">
+    <div class="level__item" *ngFor="let levelItem of levelClassData">
+      <h3 class="level__item-title">Level Details</h3>
+      <p class="level__item-level">Level: {{ levelItem.level }}</p>
+      <p class="level__item-prof-bonus">
+        Proficiency Bonus: {{ levelItem.prof_bonus }}
+      </p>
 
       <!-- Features Section -->
-      <div *ngFor="let feature of levelItem.features">
+      <div
+        *ngFor="let feature of levelItem.features"
+        class="level__item-feature"
+      >
         <p *ngIf="feature?.name">Feature: {{ feature.name }}</p>
       </div>
 
       <!-- Spellcasting Section -->
-      <div *ngIf="levelItem.spellcasting">
-        Spells Known: {{ levelItem.spellcasting.spells_known }}
-
-        1-st: {{ levelItem.spellcasting.spell_slots_level_1 }}
-
-        2-st: {{ levelItem.spellcasting.spell_slots_level_2 }}
-
-        3-st: {{ levelItem.spellcasting.spell_slots_level_3 }}
-
-        4-st: {{ levelItem.spellcasting.spell_slots_level_4 }}
-
-        5-st: {{ levelItem.spellcasting.spell_slots_level_5 }}
-
-        6-st: {{ levelItem.spellcasting.spell_slots_level_6 }}
-
-        7-st: {{ levelItem.spellcasting.spell_slots_level_7 }}
-
-        8-st: {{ levelItem.spellcasting.spell_slots_level_8 }}
-
-        9-st: {{ levelItem.spellcasting.spell_slots_level_9 }}
+      <div class="level__spellcasting" *ngIf="levelItem.spellcasting">
+        <h4 class="level__spellcasting-title">Spellcasting</h4>
+        <div *ngFor="let key of getKeys(levelItem.spellcasting)">
+          <p>{{ formatKey(key) }}: {{ levelItem.spellcasting[key] }}</p>
+        </div>
       </div>
 
-      <!-- class specific section -->
-      <div class="" *ngIf="levelItem.class_specific">
-        <p>Hit Die: {{ levelItem.class_specific.bardic_inspiration_die }}</p>
-        <p>Songs: {{ levelItem.class_specific.song_of_rest_die }}</p>
-        <p>
-          Magical secrests 1-st:
-          {{ levelItem.class_specific.magical_secrets_max_5 }}
-        </p>
-
-        <p>
-          Magical secrests 2-st:
-          {{ levelItem.class_specific.magical_secrets_max_7 }}
-        </p>
-
-        <p>
-          Magical secrests 3-st:
-          {{ levelItem.class_specific.magical_secrets_max_9 }}
-        </p>
+      <!-- Class Specific Section -->
+      <div class="level__class-specific" *ngIf="levelItem.class_specific">
+        <h4 class="level__class-specific-title">Class Specific</h4>
+        <div *ngFor="let key of getKeys(levelItem.class_specific)">
+          <p *ngIf="!isObject(levelItem.class_specific[key])">
+            {{ formatKey(key) }}: {{ levelItem.class_specific[key] }}
+          </p>
+          <div *ngIf="isObject(levelItem.class_specific[key])">
+            <p>{{ formatKey(key) }}:</p>
+            <div *ngFor="let subKey of getKeys(levelItem.class_specific[key])">
+              <p class="level__class-specific-subitem">
+                {{ formatKey(subKey) }}:
+                {{ levelItem.class_specific[key][subKey] }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="levelClassDetailsData">
-    <h3>Level Details</h3>
-    <p>Ability bonus: {{ levelClassDetailsData.ability_score_bonuses }}</p>
-    <p>Description: {{ levelClassDetailsData.description }}</p>
   </div>
 </div>

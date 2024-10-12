@@ -7,8 +7,8 @@
     padding: 0 10rem;
 
     background-image: $background-image-url;
-    background-size: contain;
-    background-repeat: repeat;
+    background-size: cover;
+    background-repeat: repeat-y;
     background-position: center;
 
     &__header-info {
@@ -171,6 +171,102 @@
             padding: 0.5rem 0;
             font-size: 1.2rem;
             width: 100%;
+        }
+    }
+
+    &__subclass {
+        background-color: $paper-background;
+        padding: 1rem;
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            font-family: $font-family-magic;
+        }
+
+        &__content {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &__title {
+            font-size: 1.8rem;
+            font-family: $font-family-magic;
+            font-weight: 700;
+            color: $rich-red;
+            padding-bottom: 10px;
+            border-bottom: 2px solid $rich-red;
+            width: fit-content;
+        }
+
+        &__desc {
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+            font-family: $font-family-magic;
+            line-height: 2rem;
+        }
+    }
+}
+
+.spellcasting {
+    &__atributes {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .accordion {
+        margin-top: 1rem;
+        overflow: hidden;
+
+        &__item {
+            background-color: $background;
+            border: 1px solid $dark-brown;
+            padding: 10px 16px;
+            margin: 10px 0;
+            font-size: 1.3rem;
+            font-family: 700;
+            line-height: 30px;
+            color: $rich-red;
+            cursor: pointer;
+            transition: 0.1s ease-in;
+
+            &__header {
+                transition: transform 0.1s ease-in;
+            }
+
+            &:not(&--active):hover {
+                padding-left: 20px;
+                background-color: lighten($background, 10%);
+            }
+
+            &-name {
+                font-size: 1.5rem;
+            }
+
+            &-indicator {
+                float: right;
+                font-size: 2rem;
+            }
+
+            &-body {
+                background-color: $background;
+                color: black;
+            }
+
+            &-desc {
+                width: 100%;
+                max-width: 80%;
+            }
+        }
+
+        .active {
+            .accordion__item-header {
+                padding-bottom: 10px;
+                border-bottom: 2px solid $rich-red;
+            }
         }
     }
 }

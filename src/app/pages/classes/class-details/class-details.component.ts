@@ -7,6 +7,7 @@ import {
   selectNameByLink,
   onClickGoToDetails,
 } from "src/app/sharing/functions";
+import { Subclass } from "src/app/interface/sublcasses.interface";
 
 @Component({
   selector: "app-class-details",
@@ -22,6 +23,7 @@ export class ClassDetailsComponent implements OnInit {
 
   idOfClass!: string;
   dataOfClass!: ClassInterface | null;
+  dataOfSubclasses!: Subclass | null;
   openedItemIndex: number | null = null;
   currentClass = new BehaviorSubject<string>("");
 
@@ -29,7 +31,6 @@ export class ClassDetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.idOfClass = params["id"];
       this.currentClass.next(this.idOfClass);
-      console.log(this.idOfClass);
     });
 
     this.getClassDetails();
@@ -39,10 +40,22 @@ export class ClassDetailsComponent implements OnInit {
     this.classService.getClasses(this.idOfClass).subscribe(
       (data) => {
         this.dataOfClass = data;
-        console.log(this.dataOfClass);
+        const firstSubclassIndex = this.dataOfClass.subclasses[0]?.index;
+        if (firstSubclassIndex !== undefined) {
+          this.classService.getClassSubclasses(firstSubclassIndex).subscribe(
+            (subData) => {
+              this.dataOfSubclasses = subData;
+            },
+            (subError) => {
+              console.error("Error in fetching subclasses: ", subError);
+            }
+          );
+        } else {
+          console.warn("No subclasses found.");
+        }
       },
       (error) => {
-        console.log("Error in API: ", error);
+        console.error("Error in API: ", error);
       }
     );
   }
@@ -54,5 +67,9 @@ export class ClassDetailsComponent implements OnInit {
   navigateTo(url: string) {
     const id = selectNameByLink(url); // Assuming selectNameByLink is also imported
     onClickGoToDetails(this.router, "/details", id);
+  }
+
+  toggleAccordion(index: number) {
+    this.openedItemIndex = this.openedItemIndex === index ? null : index;
   }
 }

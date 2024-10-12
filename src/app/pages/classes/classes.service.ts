@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import {
   ClassFeaturesResponseInterface,
   ClassInterface,
   ClassLevelInterface,
   SpellcastingInterface,
-} from './classes.interface';
+} from "./classes.interface";
+import { Subclass } from "src/app/interface/sublcasses.interface";
+import { ClassLevelDetails } from "./classes-lvl/class-lvl.interface";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ClassesService {
-  private baseUrl = 'https://www.dnd5eapi.co/api/classes/';
+  private baseUrl = "https://www.dnd5eapi.co/api/classes/";
 
   constructor(private http: HttpClient) {}
 
@@ -37,6 +39,11 @@ export class ClassesService {
 
   getClassLevelDetails(className: string, level: number) {
     const apiUrl = `${this.baseUrl}${className}/levels/${level}`;
-    return this.http.get(apiUrl);
+    return this.http.get<ClassLevelDetails>(apiUrl);
+  }
+
+  getClassSubclasses(subClassName: string) {
+    const apiUrl = `https://www.dnd5eapi.co/api/subclasses/${subClassName}`;
+    return this.http.get<Subclass>(apiUrl);
   }
 }

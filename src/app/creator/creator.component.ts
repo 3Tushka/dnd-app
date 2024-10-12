@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Renderer2 } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -47,7 +47,7 @@ export class CreatorComponent {
   selectedSkills: string[] = [];
   selectedEquipment: string[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {
     this.characterCreationForm = this.fb.group({
       name: ["", [Validators.required, Validators.minLength(1)]],
       race: ["", Validators.required],
@@ -137,6 +137,27 @@ export class CreatorComponent {
     return characterAbilitiesData;
   }
 
+  addInputValidation() {
+    const abilityScoresGroup = this.characterCreationForm.get(
+      "abilityScores"
+    ) as FormGroup;
+    Object.keys(abilityScoresGroup.controls).forEach((key) => {
+      const control = abilityScoresGroup.get(key) as FormControl;
+      const inputElement = document.querySelector(
+        `input[formControlName="${key}"]`
+      );
+      if (inputElement) {
+        this.renderer.listen(inputElement, "input", (event) => {
+          const value = event.target.value;
+          if (value < 1 || value > 20) {
+            event.target.value = Math.max(1, Math.min(20, value));
+            control.setValue(event.target.value);
+          }
+        });
+      }
+    });
+  }
+
   // Event handlers
   onAbilityScoreChange() {
     const totalPoints = this.calculatePoints();
@@ -148,7 +169,7 @@ export class CreatorComponent {
           const control = abilityScores.get(key);
           if (control && control.dirty) {
             control.setValue(control.value - 1);
-            control.markAsPristine();
+            // control.markAsPristine();
             break;
           }
         }
@@ -156,6 +177,8 @@ export class CreatorComponent {
     } else {
       this.abilityPoints = this.maxAbilityPoints - totalPoints;
     }
+
+    this.addInputValidation();
   }
 
   selectBackground() {
@@ -254,21 +277,21 @@ export class CreatorComponent {
     }
   }
 
-  checkEnableOptions() {
-    const equipmentChoicesFormArray = this.characterCreationForm.get(
-      "equipment_choices"
-    ) as FormArray;
+  // checkEnableOptions() {
+  //   const equipmentChoicesFormArray = this.characterCreationForm.get(
+  //     "equipment_choices"
+  //   ) as FormArray;
 
-    equipmentChoicesFormArray.controls.forEach(
-      (group: AbstractControl, index: number) => {
-        const itemDisabled = group.get("itemDisabled")?.disabled;
-        const alternateDisabled = group.get("alternateDisabled")?.disabled;
-        console.log(
-          `Choice ${index}: itemDisabled=${itemDisabled}, alternateDisabled=${alternateDisabled}`
-        );
-      }
-    );
-  }
+  //   equipmentChoicesFormArray.controls.forEach(
+  //     (group: AbstractControl, index: number) => {
+  //       const itemDisabled = group.get("itemDisabled")?.disabled;
+  //       const alternateDisabled = group.get("alternateDisabled")?.disabled;
+  //       console.log(
+  //         `Choice ${index}: itemDisabled=${itemDisabled}, alternateDisabled=${alternateDisabled}`
+  //       );
+  //     }
+  //   );
+  // }
 
   onSelectionChange(index: number, type: "item" | "alternate") {
     const equipmentChoicesFormArray = this.characterCreationForm.get(
@@ -288,7 +311,7 @@ export class CreatorComponent {
         ?.setValue(choiceGroup.get("alternate")?.value);
     }
 
-    this.checkEnableOptions();
+    // this.checkEnableOptions();
   }
 
   onUncheck(index: number) {
@@ -301,7 +324,7 @@ export class CreatorComponent {
     choiceGroup.get("alternateDisabled")?.enable();
     choiceGroup.get("selected")?.setValue(null);
 
-    this.checkEnableOptions();
+    // this.checkEnableOptions();
   }
 
   // Navigation methods

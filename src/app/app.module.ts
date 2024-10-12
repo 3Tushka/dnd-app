@@ -4,7 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ClassesComponent } from "./pages/classes/classes.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { ClassesLvlComponent } from "./pages/classes/classes-lvl/classes-lvl.component";
 import { FormsModule } from "@angular/forms";
 import { MechanicsComponent } from "./pages/mechanics/mechanics.component";
@@ -37,7 +37,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { StatsComponent } from "./pages/spells/spell-detail/stats/stats.component";
 import { HomepageComponent } from "./homepage/homepage.component";
 import { LazyLoadBackgroundDirective } from "./sharing/lazy-loading";
-import { AuthModule } from "@auth0/auth0-angular";
+import { AuthHttpInterceptor, AuthModule } from "@auth0/auth0-angular";
 import { environment } from "./environments/environments";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { CreatorComponent } from "./creator/creator.component";
@@ -88,9 +88,14 @@ import { CreatorComponent } from "./creator/creator.component";
       authorizationParams: {
         redirect_uri: environment.auth.redirectUri,
       },
+      httpInterceptor: {
+        allowedList: ["http://localhost:3000/*"],
+      },
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
