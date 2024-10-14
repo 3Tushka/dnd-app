@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import {
   Equipment,
+  EquipmentAllCall,
   EquipmentCategoryItem,
   MagicItem,
 } from "./equipment.interface";
@@ -17,7 +18,7 @@ export class EquipmentService {
   constructor(private http: HttpClient) {}
 
   getAllEquipment() {
-    return this.http.get<Equipment[]>(`${this.baseUrl}equipment`);
+    return this.http.get<EquipmentAllCall>(`${this.baseUrl}equipment`);
   }
 
   getEquipmentByIndex(equipmentIndex: string) {
@@ -47,12 +48,12 @@ export class EquipmentService {
     );
   }
 
-  // getWeaponProperties(weaponPropertiesName: string) {
-  //   return fetchApi<Equipment>(
-  //     this.http,
-  //     this.baseUrl,
-  //     "weapon-properties",
-  //     weaponPropertiesName
-  //   );
-  // }
+  getWeaponProperties(weaponPropertiesName: string) {
+    return fetchApi<Equipment>(
+      this.http,
+      this.baseUrl,
+      "weapon-properties",
+      weaponPropertiesName
+    );
+  }
 }

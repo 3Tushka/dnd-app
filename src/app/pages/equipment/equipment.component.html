@@ -1,18 +1,103 @@
-<div>
-  <input
-    type="text"
-    [(ngModel)]="searchTerm"
-    placeholder="Search by index..."
-  />
-  <button (click)="searchEquipment()">Search</button>
-</div>
+<app-navbar></app-navbar>
+<div class="equipment">
+  <div class="equipment__wrapper">
+    <div class="equipment__details-search">
+      <div class="equipment__search">
+        <form (ngSubmit)="searchEquipment()" class="equipment__search-form">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            name="searchTerm"
+            placeholder="Search by index..."
+            class="equipment__search-input"
+          />
+          <select
+            [(ngModel)]="selectedCategory"
+            name="selectedCategory"
+            class="equipment__search-select"
+            (change)="filterByCategory()"
+          >
+            <option value="">Select Category</option>
+            <option *ngFor="let category of knownCategories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+          <button type="submit" class="equipment__search-button">Search</button>
+        </form>
 
-<div class="" *ngIf="equipmentCategoryData">
-  {{ equipmentCategoryData.name }}
+        <div *ngIf="allEquipment" class="equipment__list">
+          <h2 class="equipment__list-title">All Equipment</h2>
+          <ul class="equipment__list-items">
+            <li
+              *ngFor="let equipment of allEquipment.results"
+              class="equipment__list-item"
+            >
+              <span (click)="setSearchTermAndSearch(equipment.index)">{{
+                equipment.name
+              }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-  <div class="" *ngFor="let item of equipmentCategoryData.equipment">
-    <div class="item">
-      <div class="name">{{ item.name }}</div>
+      <div class="equipment__details" *ngIf="equipmentData">
+        <h2 class="equipment__name">{{ equipmentData.name }}</h2>
+        <p
+          class="equipment__description"
+          *ngIf="equipmentData.desc && equipmentData.desc.length"
+        >
+          {{ equipmentData.desc.join(", ") }}
+        </p>
+        <div
+          class="equipment__category"
+          *ngIf="
+            equipmentData.equipment_category &&
+            equipmentData.equipment_category.name
+          "
+        >
+          <strong>Category:</strong> {{ equipmentData.equipment_category.name }}
+        </div>
+        <div
+          class="equipment__gear-category"
+          *ngIf="
+            equipmentData.gear_category && equipmentData.gear_category.name
+          "
+        >
+          <strong>Gear Category:</strong> {{ equipmentData.gear_category.name }}
+        </div>
+        <div
+          class="equipment__cost"
+          *ngIf="
+            equipmentData.cost &&
+            equipmentData.cost.quantity &&
+            equipmentData.cost.unit
+          "
+        >
+          <strong>Cost:</strong> {{ equipmentData.cost.quantity }}
+          {{ equipmentData.cost.unit }}
+        </div>
+        <div class="equipment__weight" *ngIf="equipmentData.weight">
+          <strong>Weight:</strong> {{ equipmentData.weight }} lbs
+        </div>
+        <div
+          class="equipment__contents"
+          *ngIf="equipmentData.contents && equipmentData.contents.length"
+        >
+          <strong>Contents:</strong> {{ equipmentData.contents.join(", ") }}
+        </div>
+        <div
+          class="equipment__properties"
+          *ngIf="equipmentData.properties && equipmentData.properties.length"
+        >
+          <strong>Properties:</strong> {{ equipmentData.properties.join(", ") }}
+        </div>
+        <div
+          class="equipment__special"
+          *ngIf="equipmentData.special && equipmentData.special.length"
+        >
+          <strong>Special:</strong> {{ equipmentData.special.join(", ") }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

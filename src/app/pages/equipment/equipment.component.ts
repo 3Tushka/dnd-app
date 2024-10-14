@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { EquipmentService } from "./equipment.service";
 import {
   Equipment,
+  EquipmentAllCall,
   EquipmentCategoryItem,
   MagicItem,
 } from "./equipment.interface";
@@ -11,15 +12,17 @@ import {
   templateUrl: "./equipment.component.html",
   styleUrls: ["./equipment.component.scss"],
 })
-export class EquipmentComponent {
+export class EquipmentComponent implements OnInit {
   constructor(private equipmenetService: EquipmentService) {}
 
   equipmentData!: Equipment | null;
   equipmentCategoryData!: EquipmentCategoryItem | null;
   magicItemData!: MagicItem | null;
+  allEquipment?: EquipmentAllCall;
 
   equipmentIndex!: string;
   searchTerm: string = "";
+  selectedCategory: string = "";
 
   knownCategories = [
     "adventuring-gear",
@@ -63,13 +66,14 @@ export class EquipmentComponent {
     "wondrous-items",
   ];
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getAllEquipment();
   }
 
   getAllEquipment() {
     this.equipmenetService.getAllEquipment().subscribe((data) => {
-      console.log(data);
+      this.allEquipment = data;
+      console.log("All data:", this.allEquipment);
     });
   }
 
@@ -98,27 +102,44 @@ export class EquipmentComponent {
     });
   }
 
-  // getWeaponProperties(weaponPropertiesName: string) {
-  //   this.equipmenetService
-  //     .getWeaponProperties(weaponPropertiesName)
-  //     .subscribe((data) => {
-  //       this.equipmentData = data;
-  //       console.log(data);
-  //     });
-  // }
+  getWeaponProperties(weaponPropertiesName: string) {
+    this.equipmenetService
+      .getWeaponProperties(weaponPropertiesName)
+      .subscribe((data) => {
+        this.equipmentData = data;
+        console.log(data);
+      });
+  }
 
   isCategory(term: string): boolean {
     return this.knownCategories.includes(term.toLowerCase());
   }
 
   searchEquipment() {
-    this.searchTerm.toLocaleLowerCase();
-    if (!this.searchTerm) return;
+    this.searchTerm = this.searchTerm.toLocaleLowerCase().replace(/\s+/g, "-");
+    if (!this.searchTerm || this.searchTerm === "all") {
+      this.getAllEquipment();
+      return;
+    }
 
     if (this.isCategory(this.searchTerm)) {
       this.getEquipmentCategories(this.searchTerm);
     } else {
       this.getEquipmentByIndex(this.searchTerm);
+    }
+  }
+
+  setSearchTermAndSearch(name: string) {
+    this.searchTerm = name.toLocaleLowerCase().replace(/\s+/g, "-");
+    this.searchEquipment();
+  }
+
+  filterByCategory() {
+    if (this.selectedCategory) {
+      this.searchTerm = this.selectedCategory;
+      this.getEquipmentCategories(this.selectedCategory);
+    } else {
+      this.getAllEquipment();
     }
   }
 }

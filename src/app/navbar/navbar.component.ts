@@ -55,4 +55,12 @@ export class NavbarComponent {
       alt: "twitch",
     },
   ];
+
+  login(): void {
+    this.auth.loginWithRedirect();
+  }
+
+  logout(): void {
+    this.auth.logout({ logoutParams: { returnTo: window.location.origin } });
+  }
 }

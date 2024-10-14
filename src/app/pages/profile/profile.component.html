@@ -9,7 +9,128 @@
         </div>
         <div class="profile__header__info">
           <h1 class="profile__header__info__name">{{ user.name }}</h1>
-          <p class="profile__header__info__email"></p>
+          <p class="profile__header__info__email">{{ user.email }}</p>
+        </div>
+        <button (click)="getAllCharacters()">All</button>
+        <button (click)="retrieveFormDataFromServer(1)">Retrieve</button>
+      </div>
+
+      <!-- If characterData is an object -->
+      <div class="creator" *ngIf="characterData">
+        <div class="creator__header">
+          <h1 class="creator__title">{{ characterData.name }}</h1>
+          <p class="creator__subtitle">
+            {{ characterData.race }} {{ characterData.class }}
+          </p>
+        </div>
+
+        <div class="creator__section">
+          <h2 class="creator__section-title">Ability Scores</h2>
+          <ul class="creator__ability-scores">
+            <li
+              class="creator__ability-score"
+              *ngFor="let score of characterData.abilityScores | keyvalue"
+            >
+              <span class="creator__ability-score__name">{{ score.key }}</span>
+              <span class="creator__ability-score__value">{{
+                score.value
+              }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="creator__section">
+          <h2 class="creator__section-title">Archetype</h2>
+          <p class="creator__archetype">{{ characterData.archeTypes }}</p>
+        </div>
+
+        <div class="creator__section">
+          <h2 class="creator__section-title">Skills</h2>
+          <ul class="creator__skills">
+            <li
+              class="creator__skill"
+              *ngFor="let skill of characterData.skills"
+            >
+              {{ skill }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="creator__section">
+          <h2 class="creator__section-title">Equipment Choices</h2>
+          <ul class="creator__equipment-choices">
+            <li
+              class="creator__equipment-choice"
+              *ngFor="let choice of characterData.equipment_choices"
+            >
+              <span class="creator__equipment-choice__item">{{
+                choice.item
+              }}</span>
+              <span class="creator__equipment-choice__alternate">{{
+                choice.alternate
+              }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- If characterData is an array of objects -->
+      <div *ngIf="characterDataArray">
+        <div *ngFor="let character of characterDataArray" class="creator">
+          <div class="creator__header">
+            <h1 class="creator__title">{{ character.name }}</h1>
+            <p class="creator__subtitle">
+              {{ character.race }} {{ character.class }}
+            </p>
+          </div>
+
+          <div class="creator__section">
+            <h2 class="creator__section-title">Ability Scores</h2>
+            <ul class="creator__ability-scores">
+              <li
+                class="creator__ability-score"
+                *ngFor="let score of character.abilityScores | keyvalue"
+              >
+                <span class="creator__ability-score__name">{{
+                  score.key
+                }}</span>
+                <span class="creator__ability-score__value">{{
+                  score.value
+                }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="creator__section">
+            <h2 class="creator__section-title">Archetype</h2>
+            <p class="creator__archetype">{{ character.archeTypes }}</p>
+          </div>
+
+          <div class="creator__section">
+            <h2 class="creator__section-title">Skills</h2>
+            <ul class="creator__skills">
+              <li class="creator__skill" *ngFor="let skill of character.skills">
+                {{ skill }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="creator__section">
+            <h2 class="creator__section-title">Equipment Choices</h2>
+            <ul class="creator__equipment-choices">
+              <li
+                class="creator__equipment-choice"
+                *ngFor="let choice of character.equipment_choices"
+              >
+                <span class="creator__equipment-choice__item">{{
+                  choice.item
+                }}</span>
+                <span class="creator__equipment-choice__alternate">{{
+                  choice.alternate
+                }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

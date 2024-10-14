@@ -1,12 +1,13 @@
-import { Component, Renderer2 } from "@angular/core";
+import { Component, Renderer2, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormArray,
   FormControl,
-  AbstractControl,
 } from "@angular/forms";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthService } from "@auth0/auth0-angular";
 import {
   dndClasses,
   dndRaces,
@@ -23,7 +24,7 @@ import {
   templateUrl: "./creator.component.html",
   styleUrls: ["./creator.component.scss"],
 })
-export class CreatorComponent {
+export class CreatorComponent implements OnInit {
   // Step and points management
   currentStep = 1;
   abilityPoints = 27;
@@ -47,7 +48,12 @@ export class CreatorComponent {
   selectedSkills: string[] = [];
   selectedEquipment: string[] = [];
 
-  constructor(private fb: FormBuilder, private renderer: Renderer2) {
+  constructor(
+    private fb: FormBuilder,
+    private renderer: Renderer2,
+    private http: HttpClient,
+    public auth: AuthService
+  ) {
     this.characterCreationForm = this.fb.group({
       name: ["", [Validators.required, Validators.minLength(1)]],
       race: ["", Validators.required],
@@ -83,8 +89,19 @@ export class CreatorComponent {
       skills: this.fb.array([], Validators.required),
       equipment_choices: this.fb.array([]),
       standart_equipment: this.fb.array([]),
+      sub: [""], // Add sub to the form
     });
   }
+
+  ngOnInit(): void {
+    // Retrieve the sub from the Auth0 token and set it in the form
+    this.auth.user$.subscribe((user) => {
+      if (user && user.sub) {
+        this.characterCreationForm.patchValue({ sub: user.sub });
+      }
+    });
+  }
+
   // Getters
   get skillsFormArray(): FormArray {
     return this.characterCreationForm.get("skills") as FormArray;
@@ -277,22 +294,6 @@ export class CreatorComponent {
     }
   }
 
-  // checkEnableOptions() {
-  //   const equipmentChoicesFormArray = this.characterCreationForm.get(
-  //     "equipment_choices"
-  //   ) as FormArray;
-
-  //   equipmentChoicesFormArray.controls.forEach(
-  //     (group: AbstractControl, index: number) => {
-  //       const itemDisabled = group.get("itemDisabled")?.disabled;
-  //       const alternateDisabled = group.get("alternateDisabled")?.disabled;
-  //       console.log(
-  //         `Choice ${index}: itemDisabled=${itemDisabled}, alternateDisabled=${alternateDisabled}`
-  //       );
-  //     }
-  //   );
-  // }
-
   onSelectionChange(index: number, type: "item" | "alternate") {
     const equipmentChoicesFormArray = this.characterCreationForm.get(
       "equipment_choices"
@@ -310,8 +311,6 @@ export class CreatorComponent {
         .get("selected")
         ?.setValue(choiceGroup.get("alternate")?.value);
     }
-
-    // this.checkEnableOptions();
   }
 
   onUncheck(index: number) {
@@ -323,8 +322,6 @@ export class CreatorComponent {
     choiceGroup.get("itemDisabled")?.enable();
     choiceGroup.get("alternateDisabled")?.enable();
     choiceGroup.get("selected")?.setValue(null);
-
-    // this.checkEnableOptions();
   }
 
   // Navigation methods
@@ -349,11 +346,24 @@ export class CreatorComponent {
       this.nextStep();
       this.calculateRacialBonus();
       console.log("Form data:", this.characterCreationForm.value);
+      this.saveFormDataToFile();
     } else {
       console.log(
         "Please fill out all required fields.",
         this.characterCreationForm
       );
     }
+  }
+
+  saveFormDataToFile() {
+    const data = this.characterCreationForm.value;
+    this.http.post("http://localhost:3000/character", data).subscribe(
+      (response) => {
+        console.log("Form data saved successfully:", response);
+      },
+      (error) => {
+        console.error("Error saving form data:", error);
+      }
+    );
   }
 }

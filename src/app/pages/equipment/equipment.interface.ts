@@ -1,15 +1,15 @@
 export interface Equipment {
-  desc: string[];
-  special: string[];
-  index: string;
-  name: string;
-  equipment_category: Category;
-  gear_category: Category;
-  cost: Cost;
-  weight: number;
-  url: string;
-  contents: any[]; // Adjust this type based on the actual contents structure
-  properties: any[]; // Adjust this type based on the actual properties structure
+  desc?: string[];
+  special?: string[];
+  index?: string;
+  name?: string;
+  equipment_category?: Category;
+  gear_category?: Category;
+  cost?: Cost;
+  weight?: number;
+  url?: string;
+  contents?: string[];
+  properties?: string[];
 }
 
 interface Category {
@@ -35,7 +35,7 @@ export interface MagicItem {
   name: string;
   equipment_category: Category;
   rarity: Rarity;
-  variants: any[];
+  variants: string[];
   variant: boolean;
   desc: string[];
   url: string;
@@ -43,4 +43,9 @@ export interface MagicItem {
 
 interface Rarity {
   name: string;
+}
+
+export interface EquipmentAllCall {
+  count: number;
+  results: Category[];
 }

@@ -1,0 +1,111 @@
+@import "src/assets/variables.scss";
+
+.equipment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-image: $background-image-url;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    font-family: $font-family-magic;
+
+    &__wrapper {
+        margin: 0 10rem;
+        width: 100%;
+        background-color: $background;
+    }
+
+    &__details-search {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem 2rem;
+    }
+
+    &__search {
+        margin: 1rem 2rem;
+
+        &-form {
+            display: flex;
+            align-items: center;
+        }
+
+        &-input {
+            flex: 1;
+            padding: 0.5rem;
+            margin-right: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        &-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+    }
+
+    &__details {
+        width: 100%;
+        height: fit-content;
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+
+        &__name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        &__description,
+        &__category,
+        &__gear-category,
+        &__cost,
+        &__weight,
+        &__contents,
+        &__properties,
+        &__special {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    }
+
+    &__list {
+        &-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        &-items {
+            list-style: none;
+            padding: 0;
+
+            &-item {
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #ccc;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                span {
+                    display: block;
+                }
+            }
+        }
+    }
+}

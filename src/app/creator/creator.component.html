@@ -8,6 +8,7 @@
     >
       <div class="creator__step" *ngIf="currentStep === 1">
         <h2 class="creator__title">Step 1: Basic Information</h2>
+
         <div class="creator__step__content">
           <label class="creator__label" for="name">Name:</label>
           <input
@@ -276,7 +277,7 @@
       <div class="character-sheet">
         <div class="character-sheet__item">
           <h3 class="character-sheet__title">Basic Information</h3>
-          <p>Name: {{ characterCreationForm.value | json }}</p>
+          <!-- <p>Name: {{ characterCreationForm.value | json }}</p> -->
         </div>
       </div>
     </div>

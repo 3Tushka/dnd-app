@@ -1,7 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { ClassesService } from "../classes.service";
-import { ClassLevelInterface } from "../classes.interface";
 
 @Component({
   selector: "app-classes-lvl",

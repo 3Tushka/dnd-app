@@ -24,8 +24,12 @@
     </div>
     <div class="navbar__auth">
       <div class="navbar__auth__wrapper">
-        <a href="https://www.login.com" class="login">Login</a>
-        <a href="https://www.register.com" class="register">Register</a>
+        <div *ngIf="isAuthenticated$ | async; else loggedOut">
+          <button (click)="logout()" class="login">Logout</button>
+        </div>
+        <ng-template #loggedOut>
+          <button (click)="login()" class="register">Login</button>
+        </ng-template>
       </div>
     </div>
   </div>

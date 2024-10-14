@@ -89,7 +89,7 @@ import { environment } from "./environments/environments";
         redirect_uri: environment.auth.redirectUri,
       },
       httpInterceptor: {
-        allowedList: ["http://localhost:3000/*"],
+        allowedList: ["http://localhost:3000/"],
       },
     }),
   ],
